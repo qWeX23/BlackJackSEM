@@ -7,16 +7,13 @@ public class Card {
 	String suit,rank;
 	int power,altPower;
 	Image cardFront,cardBack;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public Card(String Rank, String Suit) {
+		setRank(Rank);setSuit(Suit);
+		System.out.println(Suit+Rank);
+	}
+
+
 	//########### getters and setters ###########
 	/**
 	 * @return the suit
