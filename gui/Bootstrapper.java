@@ -21,7 +21,7 @@ public class Bootstrapper {
 		Deck d = new Deck();
 
 
-		while(true)d.drawCard();
+		//System.out.println(d.drawCard());
 
 	}
 

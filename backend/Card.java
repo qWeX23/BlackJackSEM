@@ -1,16 +1,29 @@
 package backend;
 
+import javax.swing.*;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Card {
+public class Card implements Serializable{
 
 	String suit,rank;
 	int power,altPower;
-	Image cardFront,cardBack;
+	ImageIcon cardFront,cardBack;
 
-	public Card(String Rank, String Suit) {
-		setRank(Rank);setSuit(Suit);
-		System.out.println(Suit+Rank);
+
+	public Card(String suit, String rank, int power,  ImageIcon cardFront, ImageIcon cardBack) {
+		this.suit = suit;
+		this.rank = rank;
+		this.power = power;
+		if(power==1)altPower=11;
+				else altPower= 999;
+		this.cardFront = cardFront;
+		this.cardBack = cardBack;
+	}
+
+	public Card() {
+
 	}
 
 
@@ -60,34 +73,11 @@ public class Card {
 	/**
 	 * @param altPower the altPower to set
 	 */
-	public void setAltPower(int altPower) {
-		this.altPower = altPower;
+	@Override
+	public String toString() {
+		return "Card{" +
+				"suit='" + suit + '\'' +
+				", rank='" + rank + '\'' +
+				'}';
 	}
-	/**
-	 * @return the cardFront
-	 */
-	public Image getCardFront() {
-		return cardFront;
-	}
-	/**
-	 * @param cardFront the cardFront to set
-	 */
-	public void setCardFront(Image cardFront) {
-		this.cardFront = cardFront;
-	}
-	/**
-	 * @return the cardBack
-	 */
-	public Image getCardBack() {
-		return cardBack;
-	}
-	/**
-	 * @param cardBack the cardBack to set
-	 */
-	public void setCardBack(Image cardBack) {
-		this.cardBack = cardBack;
-	}
-	
-	
-	
 }
