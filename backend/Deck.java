@@ -13,6 +13,7 @@ public class Deck {
     public final String[] RANKS = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
     Card[] cardList;
     public Deck() {
+        //this code should probably go somewhere else
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("cards.bj"));
             cardList = (Card[]) in.readObject();
