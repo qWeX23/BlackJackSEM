@@ -32,4 +32,18 @@ public class Dealer {
                 "hand=" + hand +
                 '}';
     }
+
+    public boolean isBust() {
+
+        return false;
+    }
+
+    public int handpower() {
+        try {
+            return hand.calculateHandPower();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

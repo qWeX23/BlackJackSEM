@@ -17,11 +17,24 @@ public class Player {
         hand.addCard(c);
 
     }
+    public boolean isBust(){
+        return hand.isBust();
+    }
 
     @Override
     public String toString() {
         return "Player{" +
                 "hand=" + hand.toString() +
                 '}';
+    }
+
+    public int handPower() {
+        try {
+            return hand.calculateHandPower();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+
     }
 }

@@ -11,35 +11,58 @@ public class Table {
     Dealer dealer;
     Deck deck;
 
-    public Table(int numPlayers,Deck deck)  {
-
+    public Table(int numPlayers, Deck deck) {
 
 
         this.deck = deck;
-        players=new ArrayList<>();
+        players = new ArrayList<>();
 
-        for(int i = 0;i<=numPlayers-1;i++){
-            players.add(new Player(deck.drawCard(),deck.drawCard()));
+        for (int i = 0; i <= numPlayers - 1; i++) {
+            players.add(new Player(deck.drawCard(), deck.drawCard()));
         }
-        dealer=new Dealer(deck.drawCard(),deck.drawCard());
+        dealer = new Dealer(deck.drawCard(), deck.drawCard());
 
 
-        while(true){
-            System.out.println("\n"+this.toString());
+    }
 
-            if(new Scanner(System.in).next().equals("h")){
-                players.listIterator(0).next().takeCard(deck.drawCard());
-            }
+
+    public void playBlackJack() {
+
+        while (true) {
             try {
-                if(dealer.doesDealerHit()){
+                System.out.println("\n" + this.toString());
+
+                if (new Scanner(System.in).next().equals("h")) {
+                    players.listIterator(0).next().takeCard(deck.drawCard());
+                }else{
+                    if(players.listIterator(0).next().handPower()>dealer.handpower()){
+
+                    }
+                }
+
+               while (dealer.doesDealerHit()) {
                     dealer.takeCard(deck.drawCard());
                 }
+                if(dealer.isBust()){
+                    System.out.println("Dealer Bust, Player wins");
+                    this.reset();
+                }else
+                    if (players.listIterator(0).next().isBust()){
+                    System.out.println("Player Bust, Dealer Wins");
+                    this.reset();
+
+                }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
 
         }
+    }
+
+    private void reset() {
     }
 
     @Override

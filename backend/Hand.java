@@ -25,6 +25,14 @@ public class Hand {
     public Hand(){
         cards = new ArrayList<>();
     }
+    public boolean isBust(){
+        try {
+            return (calculateHandPower()>MAX_HAND);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public void addCard(Card c){
         cards.add(c);
