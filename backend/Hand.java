@@ -10,7 +10,25 @@ public class Hand {
     private static final int MAX_HAND = 21;
     ArrayList<Card> cards;
 
+    @Override
+    public String toString() {
+        try {
+            return "Hand{" +
+                    "cards=" + cards.toString() + " for a total of " +calculateHandPower()+
+                    '}';
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "failed";
+    }
 
+    public Hand(){
+        cards = new ArrayList<>();
+    }
+
+    public void addCard(Card c){
+        cards.add(c);
+    }
     public ArrayList<Card> getCards() {
         return cards;
     }

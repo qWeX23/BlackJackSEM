@@ -73,11 +73,13 @@ public class Card implements Serializable{
 	/**
 	 * @param altPower the altPower to set
 	 */
+
+
 	@Override
 	public String toString() {
 		return "Card{" +
-				"suit='" + suit + '\'' +
-				", rank='" + rank + '\'' +
+				"rank='" + rank + '\'' +
+				", suit='" + suit + '\'' +
 				'}';
 	}
 }

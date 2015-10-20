@@ -23,16 +23,17 @@ public class JSONCardGenerator {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Cards.bj"));
            ImageIcon front;
-            int power,index=-1;
+            int power,index=0;
             ImageIcon  back = new ImageIcon(read(new File("C:/Users/bjc90_000/Downloads/JackBlack.jpg")));
 
             for(String s : SUITS){
                 power = 1;
                 for(String r:RANKS) {
                     front = new ImageIcon(read(new File("C:/Users/bjc90_000/Desktop/BlackJackSEM/Resources/PNG-cards-1.3/" + r.toLowerCase() + "_of_" + s.toLowerCase()+".png")));
-                    if(power<10)power++;
-                    index++;
+
+
                     c[index]= new Card(r,s,power,front,back);
+                    if(power<10)power++; index++;
 
 
                 }
