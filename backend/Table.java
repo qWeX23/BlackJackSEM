@@ -30,24 +30,29 @@ public class Table {
 
         while (true) {
             try {
-                System.out.println("\n" + this.toString());
+
+                System.out.println("\nDealer's Turn\n" + this.toString());
+
+                while (dealer.doesDealerHit())
+                    dealer.takeCard(deck.drawCard());
+                if (dealer.isBust()) {
+                    System.out.println("Dealer Bust, Player wins");
+                    this.reset();
+                }
+
+                System.out.println("\nYour turn h or not?" + this.toString());
 
                 if (new Scanner(System.in).next().equals("h")) {
                     players.listIterator(0).next().takeCard(deck.drawCard());
-                }else{
-                    if(players.listIterator(0).next().handPower()>dealer.handpower()){
+                } else {
+                    if (players.listIterator(0).next().handPower() > dealer.handpower()) {
+                        System.out.println("Player Wins");
 
-                    }
+                    } else System.out.println("Dealer Wins");
                 }
 
-               while (dealer.doesDealerHit()) {
-                    dealer.takeCard(deck.drawCard());
-                }
-                if(dealer.isBust()){
-                    System.out.println("Dealer Bust, Player wins");
-                    this.reset();
-                }else
-                    if (players.listIterator(0).next().isBust()){
+
+                if (players.listIterator(0).next().isBust()) {
                     System.out.println("Player Bust, Dealer Wins");
                     this.reset();
 
@@ -60,9 +65,14 @@ public class Table {
 
 
         }
+
     }
 
     private void reset() {
+        dealer= new Dealer(deck.drawCard(), deck.drawCard());
+        players.remove(0);
+        players.add(new Player(deck.drawCard(), deck.drawCard()));
+
     }
 
     @Override

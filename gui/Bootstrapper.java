@@ -29,6 +29,8 @@ public class Bootstrapper {
 
 		System.out.println(t.toString());
 
+		t.playBlackJack();
+
 
 
 
