@@ -33,8 +33,9 @@ public class Table {
 
                 System.out.println("\nDealer's Turn\n" + this.toString());
 
-                while (dealer.doesDealerHit())
+                while (dealer.doesDealerHit()) {
                     dealer.takeCard(deck.drawCard());
+                }
                 if (dealer.isBust()) {
                     System.out.println("Dealer Bust, Player wins");
                     this.reset();
@@ -47,8 +48,11 @@ public class Table {
                 } else {
                     if (players.listIterator(0).next().handPower() > dealer.handpower()) {
                         System.out.println("Player Wins");
+                        this.reset();
 
-                    } else System.out.println("Dealer Wins");
+                    } else {
+                        System.out.println("Dealer Wins");this.reset();
+                    }
                 }
 
 

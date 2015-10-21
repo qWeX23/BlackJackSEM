@@ -16,7 +16,7 @@ public class Dealer {
 
     public boolean doesDealerHit() throws Exception {
         
-       return (hand.calculateHandPower()<=DEALER_MAX_HAND);
+       return (hand.calculateHandPower()<DEALER_MAX_HAND);
 
 
     }
