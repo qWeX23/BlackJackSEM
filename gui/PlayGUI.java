@@ -13,30 +13,34 @@ import javax.swing.border.Border;
  */
 public class PlayGUI extends JFrame{
 
-    private static DecimalFormat df = new DecimalFormat("#.00");
-    private static double userBank = 1000;
-    private static Color boxGreen = new Color(37, 168, 42);
+    private DecimalFormat df = new DecimalFormat("#.00");
+    private double userBank = 1000;
+    private Color boxGreen = new Color(37, 168, 42);
+    private JFrame f;
+    private Container content;
+
+    private JPanel  centerStage,
+                    centerInner;
 
     public static void main(String[] args) {
+        PlayGUI pg = new PlayGUI();
+    }
 
+    public PlayGUI(){
         // create frame and content pane with borderLayout
-        JFrame f = new JFrame();
+        f = new JFrame();
         f.setBounds(0, 0, 900, 900);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container content = f.getContentPane();
+        content = f.getContentPane();
         content.setLayout(new BorderLayout());
 
         // add center stage to center of content border layout
-        JPanel centerStage = new JPanel(new BorderLayout());
-        JPanel centerInner = new JPanel(new BorderLayout());
+        centerStage = new JPanel(new BorderLayout());
+        centerInner = new JPanel(new BorderLayout());
         centerStage.add(centerInner, BorderLayout.CENTER);
 
         // add tool bar to center stage
-        JPanel toolBarPanel = new JPanel(new FlowLayout());
-        JLabel toolBarText = new JLabel("Toolbar Goes Here");
-        toolBarPanel.setBackground(boxGreen);
-        toolBarPanel.add(toolBarText);
-        centerInner.add(toolBarPanel, BorderLayout.NORTH);
+        centerInner.add(getToolBarPanel(), BorderLayout.NORTH);
 
         // add right bar to east of content border layout
         JPanel rightStage = new JPanel(new BorderLayout());
@@ -45,11 +49,7 @@ public class PlayGUI extends JFrame{
         // create JPanels to make up rightStage
         JPanel money = getMoneyPanel();
         JPanel actions = getActionPanel();
-        JPanel stats = new JPanel();
-            stats.setPreferredSize(new Dimension(200, 300));
-            stats.setBackground(boxGreen);
-            stats.setBorder(BorderFactory.createRaisedBevelBorder());
-
+        JPanel stats = getStatsPanel();
 
         // add panels to right stage
         rightStage.add(money, BorderLayout.NORTH);
@@ -61,7 +61,23 @@ public class PlayGUI extends JFrame{
         f.setVisible(true);
     }
 
-    public static JPanel getActionPanel() {
+    public JPanel getToolBarPanel() {
+        JPanel toolBarPanel = new JPanel(new FlowLayout());
+        JLabel toolBarText = new JLabel("Toolbar Goes Here");
+        toolBarPanel.setBackground(boxGreen);
+        toolBarPanel.add(toolBarText);
+        return toolBarPanel;
+    }
+
+    public JPanel getStatsPanel() {
+        JPanel stats = new JPanel();
+        stats.setPreferredSize(new Dimension(200, 300));
+        stats.setBackground(boxGreen);
+        stats.setBorder(BorderFactory.createRaisedBevelBorder());
+        return stats;
+    }
+
+    public JPanel getActionPanel() {
         JPanel actions = new JPanel(new GridLayout(3,1));
         Dimension actionDimension = new Dimension(100, 50);
         Insets actionInsets = new Insets(0, 0, 0, 0);
@@ -70,9 +86,9 @@ public class PlayGUI extends JFrame{
         actions.setBackground(boxGreen);
         actions.setBorder(BorderFactory.createRaisedBevelBorder());
         // add buttons
-        JPanel hitPanel = new JPanel(new FlowLayout(1, 10, 10));
+        JPanel hitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         hitPanel.setBackground(boxGreen);
-        JPanel standPanel = new JPanel(new FlowLayout(1, 10, 10));
+        JPanel standPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         standPanel.setBackground(boxGreen);
         JButton hit = new JButton("HIT");
         JButton stand = new JButton("STAND");
@@ -92,7 +108,7 @@ public class PlayGUI extends JFrame{
         return actions;
     }
 
-    public static JPanel getMoneyPanel() {
+    public JPanel getMoneyPanel() {
         // create JPanels to make up rightStage
         JPanel money = new JPanel(new GridLayout(3,1));
         money.setPreferredSize(new Dimension(200, 200));
