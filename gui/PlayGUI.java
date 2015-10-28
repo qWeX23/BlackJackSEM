@@ -1,17 +1,19 @@
 package gui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
+import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 /**
  * Created by Frank on 10/27/2015.
  */
-public class PlayGUI extends JFrame{
+public class PlayGUI extends JFrame implements ActionListener{
 
     private DecimalFormat df = new DecimalFormat("#.00");
     private double userBank = 1000;
@@ -22,8 +24,33 @@ public class PlayGUI extends JFrame{
     private JPanel  centerStage,
                     centerInner;
 
+    private JButton hit, stand,
+                    twentyFive, ten, five;
+
     public static void main(String[] args) {
         PlayGUI pg = new PlayGUI();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == hit) {
+            System.out.println("HIT");
+        }
+
+        if (e.getSource() == stand) {
+            System.out.println("STAND");
+        }
+
+        if (e.getSource() == twentyFive) {
+            System.out.println("$25");
+        }
+
+        if (e.getSource() == ten) {
+            System.out.println("$10");
+        }
+
+        if (e.getSource() == five) {
+            System.out.println("%5");
+        }
     }
 
     public PlayGUI(){
@@ -61,7 +88,7 @@ public class PlayGUI extends JFrame{
         f.setVisible(true);
     }
 
-    public JPanel getToolBarPanel() {
+    private JPanel getToolBarPanel() {
         JPanel toolBarPanel = new JPanel(new FlowLayout());
         JLabel toolBarText = new JLabel("Toolbar Goes Here");
         toolBarPanel.setBackground(boxGreen);
@@ -69,7 +96,7 @@ public class PlayGUI extends JFrame{
         return toolBarPanel;
     }
 
-    public JPanel getStatsPanel() {
+    private JPanel getStatsPanel() {
         JPanel stats = new JPanel();
         stats.setPreferredSize(new Dimension(200, 300));
         stats.setBackground(boxGreen);
@@ -77,7 +104,7 @@ public class PlayGUI extends JFrame{
         return stats;
     }
 
-    public JPanel getActionPanel() {
+    private JPanel getActionPanel() {
         JPanel actions = new JPanel(new GridLayout(3,1));
         Dimension actionDimension = new Dimension(100, 50);
         Insets actionInsets = new Insets(0, 0, 0, 0);
@@ -90,16 +117,19 @@ public class PlayGUI extends JFrame{
         hitPanel.setBackground(boxGreen);
         JPanel standPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         standPanel.setBackground(boxGreen);
-        JButton hit = new JButton("HIT");
-        JButton stand = new JButton("STAND");
+        hit = new JButton("HIT");
         hit.setBackground(Color.YELLOW);
         hit.setFont(actionFont);
         hit.setMargin(actionInsets);
         hit.setPreferredSize(actionDimension);
+        hit.addActionListener(this);
+
+        stand = new JButton("STAND");
         stand.setBackground(Color.YELLOW);
         stand.setFont(actionFont);
         stand.setMargin(actionInsets);
         stand.setPreferredSize(actionDimension);
+        stand.addActionListener(this);
 
         hitPanel.add(hit);
         standPanel.add(stand);
@@ -108,7 +138,7 @@ public class PlayGUI extends JFrame{
         return actions;
     }
 
-    public JPanel getMoneyPanel() {
+    private JPanel getMoneyPanel() {
         // create JPanels to make up rightStage
         JPanel money = new JPanel(new GridLayout(3,1));
         money.setPreferredSize(new Dimension(200, 200));
@@ -131,21 +161,28 @@ public class PlayGUI extends JFrame{
         // add buttons
         Dimension d = new Dimension(50, 50);
         Insets i = new Insets(0, 0, 0, 0);
-        JButton five = new JButton("$5");
+
+        five = new JButton("$5");
+        five.addActionListener(this);
         five.setBackground(Color.YELLOW);
         five.setFont(new Font("Arial", Font.BOLD, 17));
         five.setMargin(i);
         five.setPreferredSize(d);
-        JButton ten = new JButton("$10");
+
+        ten = new JButton("$10");
+        ten.addActionListener(this);
         ten.setBackground(Color.YELLOW);
         ten.setFont(new Font("Arial", Font.BOLD, 17));
         ten.setMargin(i);
         ten.setPreferredSize(d);
-        JButton twentyFive = new JButton("$25");
+
+        twentyFive = new JButton("$25");
+        twentyFive.addActionListener(this);
         twentyFive.setBackground(Color.YELLOW);
         twentyFive.setFont(new Font("Arial", Font.BOLD, 17));
         twentyFive.setMargin(i);
         twentyFive.setPreferredSize(d);
+
         JPanel buttonPanel = new JPanel(new FlowLayout(1, 10, 10));
         buttonPanel.setBackground(boxGreen);
         buttonPanel.add(five);
