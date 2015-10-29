@@ -5,7 +5,7 @@ import backend.Table;
 /**
  * Created by bjc90_000 on 10/29/2015.
  */
-public class GameCoordinator {
+public class GameCoordinator implements Runnable {
 
 
     Table table;
@@ -15,6 +15,11 @@ public class GameCoordinator {
         this.table=table;
     }
 
+
+    @Override
+    public void run() {
+        this.playBlackJack();
+    }
 
     public synchronized void requestHit(){
 
@@ -69,8 +74,6 @@ public class GameCoordinator {
             while(!GUIUpdated);
 
 
-
-
         }
 
     }
@@ -81,6 +84,8 @@ public class GameCoordinator {
 
 
     }
+
+
 
 
 }

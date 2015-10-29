@@ -46,4 +46,8 @@ public class Dealer {
         }
         return 0;
     }
+
+    public Hand getHand() {
+        return hand;
+    }
 }

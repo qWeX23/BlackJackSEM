@@ -27,6 +27,7 @@ public class Card implements Serializable{
 	}
 
 
+
 	//########### getters and setters ###########
 	/**
 	 * @return the suit

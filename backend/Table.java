@@ -16,15 +16,26 @@ public class Table {
 
         this.deck = deck;
         players = new ArrayList<>();
-
         for (int i = 0; i <= numPlayers - 1; i++) {
             players.add(new Player(deck.drawCard(), deck.drawCard()));
         }
         dealer = new Dealer(deck.drawCard(), deck.drawCard());
 
-
+        test();
     }
 
+    public void test() {
+        // Ben, this is how I can get the Rank and Suit of the cards of the dealer
+        String s = dealer.getHand().getCards().get(0).getRank();
+        s += "\n" + dealer.getHand().getCards().get(0).getSuit();
+        s += "\n" + dealer.getHand().getCards().get(1).getRank();
+        s += "\n" + dealer.getHand().getCards().get(1).getSuit();
+        System.out.println(s);
+
+        s = players.get(0).getHand().getCards().get(0).getRank();
+        s += "\n" + players.get(0).getHand().getCards().get(0).getSuit();
+        System.out.println(s);
+    }
 
     public void dealersTurn(){
         try {

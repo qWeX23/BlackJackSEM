@@ -25,7 +25,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private double userBank = 1000;
 	private JFrame f;
 	private Container content;
-	
+
 	// TODO: the panels that hold player names (e.g. "Player 4")
 	// and betting amounts could be their own class for better
 	// maintainability.
@@ -37,9 +37,9 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
 
 
-    public void update() {
+	public void update() {
 
-    }
+	}
 
 
 
@@ -57,7 +57,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 
 		if (e.getSource() == stand) {
 			System.out.println("STAND");
-        }
+		}
 
 		if (e.getSource() == twentyFive) {
 			System.out.println("$25");
@@ -84,38 +84,38 @@ public class PlayGUI extends JFrame implements ActionListener{
 		f.setVisible(true);
 	}
 
-    private void changeContent() {
-        content.setLayout(new BorderLayout());
+	private void changeContent() {
+		content.setLayout(new BorderLayout());
 
-        // add center stage to center of content border layout
-        centerStage = new JPanel(new BorderLayout());
-        centerInner = new JPanel(new BorderLayout());
-        centerStage.add(centerInner, BorderLayout.CENTER);
+		// add center stage to center of content border layout
+		centerStage = new JPanel(new BorderLayout());
+		centerInner = new JPanel(new BorderLayout());
+		centerStage.add(centerInner, BorderLayout.CENTER);
 
-        // add tool bar to center stage
-        centerInner.add(getMenuBar_(), BorderLayout.NORTH);
+		// add tool bar to center stage
+		centerInner.add(getMenuBar_(), BorderLayout.NORTH);
 
-        // add right bar to east of content border layout
-        JPanel rightStage = new JPanel(new BorderLayout());
-        rightStage.setBorder(YELLOW_BORDER);
+		// add right bar to east of content border layout
+		JPanel rightStage = new JPanel(new BorderLayout());
+		rightStage.setBorder(YELLOW_BORDER);
 
-        // create JPanels to make up rightStage
-        JPanel money = getMoneyPanel();
-        JPanel actions = getActionPanel();
-        JPanel stats = getStatsPanel();
+		// create JPanels to make up rightStage
+		JPanel money = getMoneyPanel();
+		JPanel actions = getActionPanel();
+		JPanel stats = getStatsPanel();
 
-        // add panels to right stage
-        rightStage.add(money, BorderLayout.NORTH);
-        rightStage.add(actions, BorderLayout.CENTER);
-        rightStage.add(stats, BorderLayout.SOUTH);
+		// add panels to right stage
+		rightStage.add(money, BorderLayout.NORTH);
+		rightStage.add(actions, BorderLayout.CENTER);
+		rightStage.add(stats, BorderLayout.SOUTH);
 
-        // add panel that holds panels that hold player names and bets
-        JPanel playerPanel = getPlayerPanel();
-        centerStage.add(playerPanel, BorderLayout.SOUTH);
+		// add panel that holds panels that hold player names and bets
+		JPanel playerPanel = getPlayerPanel();
+		centerStage.add(playerPanel, BorderLayout.SOUTH);
 
-        content.add(rightStage, BorderLayout.EAST);
-        content.add(centerStage, BorderLayout.CENTER);
-    }
+		content.add(rightStage, BorderLayout.EAST);
+		content.add(centerStage, BorderLayout.CENTER);
+	}
 
 	private JPanel getPlayerPanel(){
 		JPanel playerPanel = new JPanel(new GridLayout(1, 0));
@@ -139,7 +139,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 	public void addPlayerCards(){
 
 	}
-	
+
 	private JMenuBar getMenuBar_() {
 		JMenuBar menuBar;
 		JMenu menu;

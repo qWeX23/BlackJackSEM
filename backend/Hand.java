@@ -37,6 +37,7 @@ public class Hand {
     public void addCard(Card c){
         cards.add(c);
     }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -111,4 +112,6 @@ public class Hand {
         }
         return power;
     }
+
+
 }
