@@ -25,6 +25,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private double userBank = 1000;
 	private JFrame f;
 	private Container content;
+	GameCoordinator GC;
 
 	// TODO: the panels that hold player names (e.g. "Player 4")
 	// and betting amounts could be their own class for better
@@ -35,6 +36,8 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private JPanel  centerStage, centerInner;
 	private JButton hit, stand, twentyFive, ten, five;
 	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
+
+
 
 
 	public void update() {
@@ -53,10 +56,15 @@ public class PlayGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == hit) {
 			System.out.println("HIT");
+			GC.requestHit();
+			System.out.println(GC.table.toString());
+
 		}
 
 		if (e.getSource() == stand) {
 			System.out.println("STAND");
+			GC.requestStand();
+			System.out.println(GC.table.toString());
 		}
 
 		if (e.getSource() == twentyFive) {
@@ -81,7 +89,19 @@ public class PlayGUI extends JFrame implements ActionListener{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		content = f.getContentPane();
 		changeContent();
+
+		GC= new GameCoordinator(table);
 		f.setVisible(true);
+
+		GC.endGame=false;
+		try {
+			GC.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+		//gameThread.run();
 	}
 
 	private void changeContent() {

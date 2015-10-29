@@ -47,12 +47,10 @@ public class MainMenu extends javax.swing.JFrame {
 
         initComponents();
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+
                 setExtendedState(MainMenu.MAXIMIZED_BOTH);
                 setVisible(true);
-            }
-        });
+
         tableT = table;
     }
 
@@ -250,11 +248,11 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void gameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameButtonActionPerformed
         //Temp action performed test
-            JFrame testWindow = new JFrame();
-            testWindow.setSize(200, 100);
-            testWindow.setLocationRelativeTo(null);
-            testWindow.add(new JLabel("Game will start!!!"));
-            testWindow.setVisible(false);
+//            JFrame testWindow = new JFrame();
+//            testWindow.setSize(200, 100);
+//            testWindow.setLocationRelativeTo(null);
+//            testWindow.add(new JLabel("Game will start!!!"));
+//            testWindow.setVisible(false);
             this.setVisible(false);
             PlayGUI pg = new PlayGUI(tableT);
     }//GEN-LAST:event_gameButtonActionPerformed

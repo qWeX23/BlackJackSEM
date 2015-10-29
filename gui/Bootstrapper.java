@@ -29,9 +29,9 @@ public class Bootstrapper {
 
 		MainMenu main = new MainMenu(t);
 
-		System.out.println(t.toString());
+		//System.out.println(t.toString());
 
-		t.playBlackJack();
+		//t.playBlackJack();
 
 
 
