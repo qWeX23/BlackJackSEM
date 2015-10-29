@@ -26,6 +26,17 @@ public class Table {
     }
 
 
+    public void dealersTurn(){
+        try {
+            while (dealer.doesDealerHit()) {
+                dealer.takeCard(deck.drawCard());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void playBlackJack() {
 
         while (true) {
@@ -72,7 +83,7 @@ public class Table {
 
     }
 
-    private void reset() {
+    public void reset() {
         dealer= new Dealer(deck.drawCard(), deck.drawCard());
         players.remove(0);
         players.add(new Player(deck.drawCard(), deck.drawCard()));
@@ -85,5 +96,31 @@ public class Table {
                 "dealer=" + dealer.toString() +
                 ", players=" + players.toString() +
                 '}';
+    }
+
+    public void playerHIt() {
+
+        players.listIterator(0).next().takeCard(deck.drawCard());
+
+    }
+
+    public boolean playerisBust() {
+
+       return players.listIterator(0).next().isBust();
+
+
+    }
+
+    public boolean dealerisBust() {
+        return dealer.isBust();
+    }
+
+    public int playerHandPower() {
+
+        return players.listIterator(0).next().handPower();
+    }
+
+    public int deartHandPower() {
+        return dealer.handpower();
     }
 }
