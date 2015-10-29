@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.JButton;
@@ -15,16 +16,24 @@ import javax.swing.border.Border;
 /**
  * Created by Frank on 10/27/2015.
  */
-public class PlayGUI extends JFrame implements ActionListener{
+public class PlayGUI extends JComponent implements ActionListener{
 
-	public static final Color BOX_GREEN = new Color(37, 168, 42);
-	public static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
-	public static final int NUMBER_OF_PLAYERS = 4;
+	private static final Color BOX_GREEN = new Color(37, 168, 42);
+	private static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
+	private static final int NUMBER_OF_PLAYERS = 4;
 
+	private static final double DEALER_RATIO_WIDTH = .5;
+	private static final double DEALER_RATIO_HEIGHT = .2;
+	// hard code position in panels to paint starting card but will change if we use a round table.
+	private static final double PLAYER_RATIO_WIDTH = .2;
+	private static final double PLAYER_RATIO_HEIGHT = .5;
+
+	private Graphics g;
 	private DecimalFormat df = new DecimalFormat("#.00");
 	private double userBank = 1000;
 	private JFrame f;
 	private Container content;
+
 
 	// TODO: the panels that hold player names (e.g. "Player 4")
 	// and betting amounts could be their own class for better
@@ -32,16 +41,46 @@ public class PlayGUI extends JFrame implements ActionListener{
 	// private class player /* Needs better name! */ extends JPanel{
 	// }
 
-	private JPanel  centerStage, centerInner;
+	private JPanel  centerStage, centerInner, tableBottom, tableBottomBottom, tableBottomTop,
+					playerPanel1, playerPanel2, playerPanel3, playerPanel4;
 	private JButton hit, stand, twentyFive, ten, five;
 	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
 
-
-	public void update() {
-
+	private ArrayList<PaintImages> paintImages;
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		int len = paintImages.size();
+		for (int i = 0; i < len; i++) {
+			paintImages.get(i).getImage().paintIcon(this, g, (int)paintImages.get(i).getX(), (int)paintImages.get(i).getY());
+		}
 	}
 
+	public void updateInit(int numOfPlayers, ArrayList<ImageIcon> cardImage) {
+		double x = 0, y = 0, z = 0;
 
+		for (int i = 0; i < numOfPlayers; i++) {
+			x = playerPanel1.getWidth() / PLAYER_RATIO_WIDTH;
+			y = playerPanel1.getWidth() / PLAYER_RATIO_HEIGHT;
+			z = tableBottomBottom.getWidth() / 4 * i;
+			x = z + x;
+			y = tableBottomBottom.getHeight() / 2 - y;
+			paintImages.add(new PaintImages(x, y, new ImageIcon(cardImage.listIterator().next().getImage())));
+		}
+
+		x = tableBottomTop.getWidth()/2;
+		y = tableBottomTop.getHeight()/2;
+		paintImages.add(new PaintImages(x, y, new ImageIcon(cardImage.listIterator().next().getImage())));
+
+		for (int i = 0; i < numOfPlayers; i++) {
+			x = playerPanel1.getWidth() / PLAYER_RATIO_WIDTH;
+			y = playerPanel1.getWidth() / PLAYER_RATIO_HEIGHT;
+			z = tableBottomBottom.getWidth() / 4 * i;
+			x = z + x + 25;
+			y = tableBottomBottom.getHeight() / 2 - y -25;
+			paintImages.add(new PaintImages(x, y, new ImageIcon(cardImage.listIterator().next().getImage())));
+		}
+
+	}
 
 
 	public void applyUIStyle(JPanel panel){
@@ -75,6 +114,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 
 	public PlayGUI(Table table){
 		// create frame and content pane with borderLayout
+		paintImages = new ArrayList<>();
 		f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
 		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -82,6 +122,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 		content = f.getContentPane();
 		changeContent();
 		f.setVisible(true);
+		GameCoordinator gc = new GameCoordinator(table);
 	}
 
 	private void changeContent() {
@@ -94,6 +135,27 @@ public class PlayGUI extends JFrame implements ActionListener{
 
 		// add tool bar to center stage
 		centerInner.add(getMenuBar_(), BorderLayout.NORTH);
+
+		// add another panel to centerInner
+		tableBottom = new JPanel(new GridLayout(2, 1));
+		tableBottomBottom = new JPanel(new GridLayout(1, 4));
+		playerPanel1 = new JPanel();
+		playerPanel1.setBackground(Color.GREEN);
+		tableBottomBottom.add(playerPanel1);
+		playerPanel2 = new JPanel();
+		playerPanel2.setBackground(Color.RED);
+		tableBottomBottom.add(playerPanel2);
+		playerPanel3 = new JPanel();
+		playerPanel3.setBackground(Color.MAGENTA);
+		tableBottomBottom.add(playerPanel3);
+		playerPanel4 = new JPanel();
+		playerPanel4.setBackground(Color.orange);
+		tableBottomBottom.add(playerPanel4);
+		tableBottomTop = new JPanel( new FlowLayout(FlowLayout.CENTER));
+		tableBottomTop.setBackground(Color.BLUE);
+		tableBottom.add(tableBottomTop);
+		tableBottom.add(tableBottomBottom);
+		centerInner.add(tableBottom, BorderLayout.CENTER);
 
 		// add right bar to east of content border layout
 		JPanel rightStage = new JPanel(new BorderLayout());
