@@ -1,5 +1,7 @@
 package gui;
 
+import backend.Table;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +17,6 @@ import javax.swing.border.Border;
  */
 public class PlayGUI extends JFrame implements ActionListener{
 
-	public static final int WIDTH = 900;
-	public static final int HEIGHT = 900;
 	public static final Color BOX_GREEN = new Color(37, 168, 42);
 	public static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
 	public static final int NUMBER_OF_PLAYERS = 4;
@@ -36,9 +36,13 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private JButton hit, stand, twentyFive, ten, five;
 	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
 
-	public static void main(String[] args) {
-		PlayGUI pg = new PlayGUI();
-	}
+
+    public void update() {
+
+    }
+
+
+
 
 	public void applyUIStyle(JPanel panel){
 		panel.setOpaque(true);
@@ -53,10 +57,11 @@ public class PlayGUI extends JFrame implements ActionListener{
 
 		if (e.getSource() == stand) {
 			System.out.println("STAND");
-		}
+        }
 
 		if (e.getSource() == twentyFive) {
 			System.out.println("$25");
+
 		}
 
 		if (e.getSource() == ten) {
@@ -68,47 +73,51 @@ public class PlayGUI extends JFrame implements ActionListener{
 		}
 	}
 
-	public PlayGUI(){
+	public PlayGUI(Table table){
 		// create frame and content pane with borderLayout
 		f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
-		f.setBounds(0, 0, 900, 900);
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		content = f.getContentPane();
-		content.setLayout(new BorderLayout());
-
-		// add center stage to center of content border layout
-		centerStage = new JPanel(new BorderLayout());
-		centerInner = new JPanel(new BorderLayout());
-		centerStage.add(centerInner, BorderLayout.CENTER);
-
-		// add tool bar to center stage
-		centerInner.add(getMenuBar_(), BorderLayout.NORTH);
-
-		// add right bar to east of content border layout
-		JPanel rightStage = new JPanel(new BorderLayout());
-		rightStage.setBorder(YELLOW_BORDER);
-
-		// create JPanels to make up rightStage
-		JPanel money = getMoneyPanel();
-		JPanel actions = getActionPanel();
-		JPanel stats = getStatsPanel();
-
-		// add panels to right stage
-		rightStage.add(money, BorderLayout.NORTH);
-		rightStage.add(actions, BorderLayout.CENTER);
-		rightStage.add(stats, BorderLayout.SOUTH);
-
-		content.add(rightStage, BorderLayout.EAST);
-		content.add(centerStage, BorderLayout.CENTER);
-
-		// add panel that holds panels that hold player names and bets
-		JPanel playerPanel = getPlayerPanel();
-		centerStage.add(playerPanel, BorderLayout.SOUTH);
+		changeContent();
 		f.setVisible(true);
 	}
 
-	public JPanel getPlayerPanel(){
+    private void changeContent() {
+        content.setLayout(new BorderLayout());
+
+        // add center stage to center of content border layout
+        centerStage = new JPanel(new BorderLayout());
+        centerInner = new JPanel(new BorderLayout());
+        centerStage.add(centerInner, BorderLayout.CENTER);
+
+        // add tool bar to center stage
+        centerInner.add(getMenuBar_(), BorderLayout.NORTH);
+
+        // add right bar to east of content border layout
+        JPanel rightStage = new JPanel(new BorderLayout());
+        rightStage.setBorder(YELLOW_BORDER);
+
+        // create JPanels to make up rightStage
+        JPanel money = getMoneyPanel();
+        JPanel actions = getActionPanel();
+        JPanel stats = getStatsPanel();
+
+        // add panels to right stage
+        rightStage.add(money, BorderLayout.NORTH);
+        rightStage.add(actions, BorderLayout.CENTER);
+        rightStage.add(stats, BorderLayout.SOUTH);
+
+        // add panel that holds panels that hold player names and bets
+        JPanel playerPanel = getPlayerPanel();
+        centerStage.add(playerPanel, BorderLayout.SOUTH);
+
+        content.add(rightStage, BorderLayout.EAST);
+        content.add(centerStage, BorderLayout.CENTER);
+    }
+
+	private JPanel getPlayerPanel(){
 		JPanel playerPanel = new JPanel(new GridLayout(1, 0));
 		playerPanel.add(createNewPlayer("Player 4"));
 		playerPanel.add(createNewPlayer("Player 3"));
@@ -117,7 +126,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 		return playerPanel;
 	}
 
-	public JPanel createNewPlayer(String nombre){
+	private JPanel createNewPlayer(String nombre){
 		JPanel p = new JPanel(new BorderLayout());
 		JLabel name = new JLabel(nombre, SwingConstants.CENTER);
 		JLabel bet = new JLabel("0", SwingConstants.CENTER);
@@ -131,7 +140,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 
 	}
 	
-	public JMenuBar getMenuBar_() {
+	private JMenuBar getMenuBar_() {
 		JMenuBar menuBar;
 		JMenu menu;
 		JMenuItem menuItem;
@@ -148,7 +157,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 
 	private JPanel getStatsPanel() {
 		JPanel stats = new JPanel();
-		stats.setPreferredSize(new Dimension(200, 300));
+		stats.setPreferredSize(new Dimension(250, 300));
 		stats.setBackground(BOX_GREEN);
 		stats.setBorder(BorderFactory.createRaisedBevelBorder());
 		return stats;
@@ -159,7 +168,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 		Dimension actionDimension = new Dimension(100, 50);
 		Insets actionInsets = new Insets(0, 0, 0, 0);
 		Font actionFont = new Font("Arial", Font.BOLD, 20);
-		actions.setPreferredSize(new Dimension(200, 300));
+		actions.setPreferredSize(new Dimension(250, 300));
 		actions.setBackground(BOX_GREEN);
 		actions.setBorder(BorderFactory.createRaisedBevelBorder());
 		// add buttons
@@ -191,7 +200,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private JPanel getMoneyPanel() {
 		// create JPanels to make up rightStage
 		JPanel money = new JPanel(new GridLayout(3,1));
-		money.setPreferredSize(new Dimension(200, 200));
+		money.setPreferredSize(new Dimension(250, 200));
 		money.setBackground(BOX_GREEN);
 		money.setBorder(BorderFactory.createRaisedBevelBorder());
 
@@ -209,7 +218,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 		money.add(bankAmt);
 
 		// add buttons
-		Dimension d = new Dimension(50, 50);
+		Dimension d = new Dimension(57, 57);
 		Insets i = new Insets(0, 0, 0, 0);
 
 		five = new JButton("$5");

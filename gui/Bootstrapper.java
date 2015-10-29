@@ -22,11 +22,12 @@ public class Bootstrapper {
 		// TODO Auto-generated method stub
 
 		System.out.println("BJ TIME!\n Loading...");
-		MainMenu main = new MainMenu();
 
 		Deck d = new Deck();
 
 		Table t = new Table(1,d);
+
+		MainMenu main = new MainMenu(t);
 
 		System.out.println(t.toString());
 

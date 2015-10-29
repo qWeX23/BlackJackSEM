@@ -5,6 +5,8 @@
  */
 package gui;
 
+import backend.Table;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -14,10 +16,11 @@ import javax.swing.JLabel;
  */
 public class MainMenu extends javax.swing.JFrame {
 
+    private Table tableT;
     /**
      * Creates new form MainMenu
      */
-    public MainMenu() {
+    public MainMenu(Table table) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -50,6 +53,7 @@ public class MainMenu extends javax.swing.JFrame {
                 setVisible(true);
             }
         });
+        tableT = table;
     }
 
     /**
@@ -250,8 +254,9 @@ public class MainMenu extends javax.swing.JFrame {
             testWindow.setSize(200, 100);
             testWindow.setLocationRelativeTo(null);
             testWindow.add(new JLabel("Game will start!!!"));
-            testWindow.setVisible(true);
-
+            testWindow.setVisible(false);
+            this.setVisible(false);
+            PlayGUI pg = new PlayGUI(tableT);
     }//GEN-LAST:event_gameButtonActionPerformed
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed
