@@ -25,6 +25,12 @@ public class PlayGUI extends JFrame implements ActionListener{
 	private double userBank = 1000;
 	private JFrame f;
 	private Container content;
+	
+	// TODO: the panels that hold player names (e.g. "Player 4")
+	// and betting amounts could be their own class for better
+	// maintainability.
+	// private class player /* Needs better name! */ extends JPanel{
+	// }
 
 	private JPanel  centerStage, centerInner;
 	private JButton hit, stand, twentyFive, ten, five;
@@ -96,6 +102,7 @@ public class PlayGUI extends JFrame implements ActionListener{
 		content.add(rightStage, BorderLayout.EAST);
 		content.add(centerStage, BorderLayout.CENTER);
 
+		// add panel that holds panels that hold player names and bets
 		JPanel playerPanel = getPlayerPanel();
 		centerStage.add(playerPanel, BorderLayout.SOUTH);
 		f.setVisible(true);
