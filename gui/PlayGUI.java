@@ -45,6 +45,7 @@ public class PlayGUI extends JComponent implements ActionListener{
 			playerPanel1, playerPanel2, playerPanel3, playerPanel4;
 	private JButton hit, stand, twentyFive, ten, five;
 	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
+	GameCoordinator gc;
 
 	private ArrayList<PaintImages> paintImages;
 	public void paintComponent(Graphics g) {
@@ -121,8 +122,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		content = f.getContentPane();
 		changeContent();
+		gc = new GameCoordinator(table);
+		gc.execute();
 		f.setVisible(true);
-		GameCoordinator gc = new GameCoordinator(table);
+
 	}
 
 	private void changeContent() {
