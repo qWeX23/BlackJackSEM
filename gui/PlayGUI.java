@@ -93,12 +93,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == hit) {
 			System.out.println("HIT");
-			gc.requestHit();
 		}
 
 		if (e.getSource() == stand) {
 			System.out.println("STAND");
-			gc.requestStand();
 		}
 
 		if (e.getSource() == twentyFive) {
