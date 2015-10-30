@@ -1,8 +1,6 @@
 package backend;
 
 import javax.swing.*;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class Card implements Serializable{
@@ -21,12 +19,6 @@ public class Card implements Serializable{
 		this.cardFront = cardFront;
 		this.cardBack = cardBack;
 	}
-
-	public Card() {
-
-	}
-
-
 
 	//########### getters and setters ###########
 	/**
@@ -71,10 +63,6 @@ public class Card implements Serializable{
 	public int getAltPower() {
 		return altPower;
 	}
-	/**
-	 * @param altPower the altPower to set
-	 */
-
 
 	@Override
 	public String toString() {
