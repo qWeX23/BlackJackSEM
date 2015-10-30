@@ -138,6 +138,10 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     }
 
+    public GCUpdate update(){
+        return new GCUpdate(table.getPlayer(),table.getDealer());
+    }
+
 
 
 
