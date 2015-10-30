@@ -25,7 +25,7 @@ public class Bootstrapper {
 
 		Deck d = new Deck();
 
-		Table t = new Table(1,d);
+		Table t = new Table(4,d);
 
 		MainMenu main = new MainMenu(t);
 

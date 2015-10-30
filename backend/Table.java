@@ -142,4 +142,8 @@ public class Table {
     public Player getPlayer() {
         return  players.listIterator(0).next();
     }
+
+    public ArrayList<Player> getPlayerList() {
+        return players;
+    }
 }

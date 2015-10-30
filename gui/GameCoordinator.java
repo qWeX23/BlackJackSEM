@@ -3,6 +3,7 @@ package gui;
 import backend.Table;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * Created by bjc90_000 on 10/29/2015.
@@ -12,9 +13,11 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     Table table;
     Boolean wantsHit, wantsStand,dealerWins=false,playerWins=false,winnerDetermined=false,endGame=false,GUIUpdated=false,startGame;
+    PlayGUI mainGUI;
 
-    public GameCoordinator(Table table){
+    public GameCoordinator(Table table, PlayGUI mainGUI){
         this.table=table;
+        this.mainGUI = mainGUI;
         this.reset();
         System.out.println("GAME COORDINATOR ONLINE");
     }
@@ -141,8 +144,6 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
     public GCUpdate update(){
         return new GCUpdate(table.getPlayer(),table.getDealer());
     }
-
-
 
 
 }

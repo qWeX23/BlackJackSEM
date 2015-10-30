@@ -22,13 +22,6 @@ public class PlayGUI extends JComponent implements ActionListener{
 	private static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
 	private static final int NUMBER_OF_PLAYERS = 4;
 
-	private static final double DEALER_RATIO_WIDTH = .5;
-	private static final double DEALER_RATIO_HEIGHT = .2;
-	// hard code position in panels to paint starting card but will change if we use a round table.
-	private static final double PLAYER_RATIO_WIDTH = .2;
-	private static final double PLAYER_RATIO_HEIGHT = .5;
-
-	private Graphics g;
 	private DecimalFormat df = new DecimalFormat("#.00");
 	private double userBank = 1000;
 	private JFrame f;
@@ -41,46 +34,68 @@ public class PlayGUI extends JComponent implements ActionListener{
 	// private class player /* Needs better name! */ extends JPanel{
 	// }
 
-	private JPanel  centerStage, centerInner, tableBottom, tableBottomBottom, tableBottomTop,
-			playerPanel1, playerPanel2, playerPanel3, playerPanel4;
+	private JPanel  centerStage, centerInner, tableBottom;
 	private JButton hit, stand, twentyFive, ten, five;
 	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
 	GameCoordinator gc;
+	int x, y;
 
+	// Holds an ArrayList of PaintImage objects
+	// This takes in coordinates and an image icon ane makes
+	// a object with a Image object and coordinates
 	private ArrayList<PaintImages> paintImages;
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		int len = paintImages.size();
-		for (int i = 0; i < len; i++) {
-			paintImages.get(i).getImage().paintIcon(this, g, (int)paintImages.get(i).getX(), (int)paintImages.get(i).getY());
-		}
+
+
+	public PlayGUI(Table t){
+		// create frame and content pane with borderLayout
+		paintImages = new ArrayList<>();
+		f = new JFrame();
+		f.setSize(WIDTH, HEIGHT);
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		x = 0;
+		y = 0;
+		content = f.getContentPane();
+		changeContent();
+		gc = new GameCoordinator(t, this);
+		gc.execute();
+		f.setVisible(true);
+		repaint();
 	}
 
-	public void updateInit(int numOfPlayers, ArrayList<ImageIcon> cardImage) {
-		double x = 0, y = 0, z = 0;
-
-		for (int i = 0; i < numOfPlayers; i++) {
-			x = playerPanel1.getWidth() / PLAYER_RATIO_WIDTH;
-			y = playerPanel1.getWidth() / PLAYER_RATIO_HEIGHT;
-			z = tableBottomBottom.getWidth() / 4 * i;
-			x = z + x;
-			y = tableBottomBottom.getHeight() / 2 - y;
-			paintImages.add(new PaintImages(x, y, new ImageIcon(cardImage.listIterator().next().getImage())));
+	private static int DEALER_X = 400;
+	private static int DEALER_Y = 100;
+	// hard coded width for coordinates until i can figure out how to do it.
+	private static int PLAYER_SEPARATION = 1060;
+	// call to update position for intitial draw
+	public void updateInit(int numOfPlayers, ArrayList<ImageIcon> cardImageIcons) {
+		int c = 0;
+		int k = 0;
+		// this will take the array list of card image icons
+		for (ImageIcon temp:cardImageIcons) {
+			y = 500;
+			// first card for the 4 players
+			if (c < 4) {
+				x = (PLAYER_SEPARATION / 4) * c + 30;
+				paintImages.add(new PaintImages(x, y, temp));
+				c++;
+			// dealers first card
+			} else if (c == 4) {
+				paintImages.add(new PaintImages(DEALER_X, DEALER_Y, temp));
+				c++;
+			// second card for the 4 players
+			} else if (k == 4) {
+				paintImages.add(new PaintImages(DEALER_X + 70, DEALER_Y, temp));
+			}
+			// dealers second card
+			else {
+				x = (PLAYER_SEPARATION / 4) * k + 70;
+				paintImages.add(new PaintImages(x, y, temp));
+				k++;
+			}
 		}
-
-		x = tableBottomTop.getWidth()/2;
-		y = tableBottomTop.getHeight()/2;
-		paintImages.add(new PaintImages(x, y, new ImageIcon(cardImage.listIterator().next().getImage())));
-
-		for (int i = 0; i < numOfPlayers; i++) {
-			x = playerPanel1.getWidth() / PLAYER_RATIO_WIDTH;
-			y = playerPanel1.getWidth() / PLAYER_RATIO_HEIGHT;
-			z = tableBottomBottom.getWidth() / 4 * i;
-			x = z + x + 25;
-			y = tableBottomBottom.getHeight() / 2 - y -25;
-			paintImages.add(new PaintImages(x, y, new ImageIcon(cardImage.listIterator().next().getImage())));
-		}
-
+		// calls paint located in createContent method
+		tableBottom.repaint();
 	}
 
 
@@ -93,12 +108,12 @@ public class PlayGUI extends JComponent implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == hit) {
 			System.out.println("HIT");
-			gc.requestHit();
+			//gc.requestHit();
 		}
 
 		if (e.getSource() == stand) {
 			System.out.println("STAND");
-			gc.requestStand();
+			//gc.requestStand();
 		}
 
 		if (e.getSource() == twentyFive) {
@@ -115,20 +130,7 @@ public class PlayGUI extends JComponent implements ActionListener{
 		}
 	}
 
-	public PlayGUI(Table table){
-		// create frame and content pane with borderLayout
-		paintImages = new ArrayList<>();
-		f = new JFrame();
-		f.setSize(WIDTH, HEIGHT);
-		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		content = f.getContentPane();
-		changeContent();
-		gc = new GameCoordinator(table);
-		gc.execute();
-		f.setVisible(true);
 
-	}
 
 	private void changeContent() {
 		content.setLayout(new BorderLayout());
@@ -142,24 +144,16 @@ public class PlayGUI extends JComponent implements ActionListener{
 		centerInner.add(getMenuBar_(), BorderLayout.NORTH);
 
 		// add another panel to centerInner
-		tableBottom = new JPanel(new GridLayout(2, 1));
-		tableBottomBottom = new JPanel(new GridLayout(1, 4));
-		playerPanel1 = new JPanel();
-		playerPanel1.setBackground(Color.GREEN);
-		tableBottomBottom.add(playerPanel1);
-		playerPanel2 = new JPanel();
-		playerPanel2.setBackground(Color.RED);
-		tableBottomBottom.add(playerPanel2);
-		playerPanel3 = new JPanel();
-		playerPanel3.setBackground(Color.MAGENTA);
-		tableBottomBottom.add(playerPanel3);
-		playerPanel4 = new JPanel();
-		playerPanel4.setBackground(Color.orange);
-		tableBottomBottom.add(playerPanel4);
-		tableBottomTop = new JPanel( new FlowLayout(FlowLayout.CENTER));
-		tableBottomTop.setBackground(Color.BLUE);
-		tableBottom.add(tableBottomTop);
-		tableBottom.add(tableBottomBottom);
+		tableBottom = new JPanel() {
+			@Override
+			public void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				for (PaintImages temp : paintImages) {
+					g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
+				}
+			}
+		};
+		tableBottom.setLayout(null);
 		centerInner.add(tableBottom, BorderLayout.CENTER);
 
 		// add right bar to east of content border layout

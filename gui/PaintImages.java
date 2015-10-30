@@ -1,20 +1,22 @@
 package gui;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Frank on 10/29/2015.
  */
 public class PaintImages {
-    double x, y;
+    int x, y;
     JPanel panel;
-    ImageIcon image;
+    ImageIcon ic;
+    Image image;
 
-    public double getY() {
+    public int getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
@@ -26,27 +28,28 @@ public class PaintImages {
         this.panel = panel;
     }
 
-    public ImageIcon getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(ImageIcon image) {
-        this.image = image;
+    public void setImage(ImageIcon ic) {
+        this.ic = ic;
     }
 
-    public double getX() {
+    public int getX() {
 
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public PaintImages(double x, double y, ImageIcon image) {
+    public PaintImages(int x, int y, ImageIcon ic) {
         this.x = x;
         this.y = y;
-        this.image = image;
+        image = ic.getImage();
+        image = image.getScaledInstance(70, 100, Image.SCALE_SMOOTH);
     }
 
 

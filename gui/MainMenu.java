@@ -20,7 +20,8 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * Creates new form MainMenu
      */
-    public MainMenu(Table table) {
+    public MainMenu(Table t) {
+        tableT = t;
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -51,7 +52,7 @@ public class MainMenu extends javax.swing.JFrame {
                 setExtendedState(MainMenu.MAXIMIZED_BOTH);
                 setVisible(true);
 
-        tableT = table;
+        //tableT = table;
     }
 
     /**
