@@ -134,4 +134,12 @@ public class Table {
     public int deartHandPower() {
         return dealer.handpower();
     }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public Player getPlayer() {
+        return  players.listIterator(0).next();
+    }
 }
