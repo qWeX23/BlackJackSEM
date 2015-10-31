@@ -5,7 +5,6 @@
  */
 package JUnit;
 
-import Backend.*;
 import backend.Card;
 import backend.Hand;
 import java.util.ArrayList;

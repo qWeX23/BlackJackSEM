@@ -5,7 +5,6 @@
  */
 package JUnit;
 
-import Backend.*;
 import backend.Card;
 import backend.Dealer;
 import backend.Hand;

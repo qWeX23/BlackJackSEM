@@ -5,7 +5,6 @@
  */
 package JUnit;
 
-import Backend.*;
 import backend.Card;
 import backend.Deck;
 import static org.junit.Assert.assertNotNull;

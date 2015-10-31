@@ -5,7 +5,6 @@
  */
 package JUnit;
 
-import Backend.*;
 import backend.Dealer;
 import backend.Deck;
 import backend.Player;
