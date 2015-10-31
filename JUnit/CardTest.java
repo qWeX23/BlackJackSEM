@@ -8,6 +8,7 @@ package JUnit;
 import backend.Card;
 import javax.swing.ImageIcon;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 /**
@@ -16,7 +17,15 @@ import org.junit.Test;
  */
 public class CardTest {
     
-    Card instance = new Card("Spades", "2", 1, new ImageIcon(), new ImageIcon());
+    Card instance = new Card("Spades", "ACE", 1, new ImageIcon(), new ImageIcon());
+    
+     /**
+     * Test of constructor method, of class Card.
+     */
+    @Test
+    public void testCard() {
+         assertNotNull(instance);   
+    }  
 
     /**
      * Test of getSuit method, of class Card.
@@ -47,7 +56,7 @@ public class CardTest {
     @Test
     public void testGetRank() {
         System.out.println("getRank");
-        String expResult = "2";
+        String expResult = "ACE";
         String result = instance.getRank();
         assertEquals(expResult, result);
        
@@ -118,7 +127,7 @@ public class CardTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        String expResult = "Card{rank='2', suit='Spades'}";
+        String expResult = "Card{rank='ACE', suit='Spades'}";
         String result = instance.toString();
         assertEquals(expResult, result);
         
