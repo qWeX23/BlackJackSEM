@@ -33,40 +33,49 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
             //Deal Cards to Dealer and Player
             table.reset();
             this.reset();
+            System.out.println("INITiAL DEAL \n"+table.toString());
 
 
             //signalGUI update
             //Players Turn
+            System.out.println("YOUR TURN \n"+table.toString());
             while (!wantsStand && !table.playerisBust()) {
                 //System.out.println("Stuck Waiting for stand");
+
                 if (wantsHit) {
                     table.playerHIt();
                     wantsHit = false;
+                    System.out.println("YOUR TURN \n"+table.toString());
                 }
             }
             //Dealer's Turn
             if (!table.playerisBust()) {
                 table.dealersTurn();
-            } else {
+                System.out.println("DEALER TURN \n"+table.toString());
 
+            } else {
+                System.out.println("DEALER WINS by player bustl");
                 dealerWins = true;
                 winnerDetermined = true;
             }
             //Determine Winner
             if (table.dealerisBust()) {
+                System.out.println("PLAYER WINS by dealer bust");
 
                 playerWins = true;
 
             } else if (!table.playerisBust() && !table.dealerisBust()) {
                 if (table.playerHandPower() > table.deartHandPower()) {
                     playerWins = true;
+                    System.out.println("PLAYER WINS by larger hand");
                 } else {
+                    System.out.println("DEALER WINS by larger hand");
                     dealerWins = true;
                 }
             }
             //wait for GUI to UpDate
-            System.out.println("stuck Waiting");;
-            while (!GUIUpdated);
+//            System.out.println("stuck Waiting---- press HIT to start over");;
+//            while (!wantsHit);
         }
 
 
