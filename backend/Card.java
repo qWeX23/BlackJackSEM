@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Card implements Serializable{
 
 	String suit,rank;
-	int power,altPower;
+	int power;
 	ImageIcon cardFront,cardBack;
 
 
@@ -14,8 +14,6 @@ public class Card implements Serializable{
 		this.suit = suit;
 		this.rank = rank;
 		this.power = power;
-		if(power==1)altPower=11;
-				else altPower= 999;
 		this.cardFront = cardFront;
 		this.cardBack = cardBack;
 	}
@@ -57,12 +55,7 @@ public class Card implements Serializable{
 	public void setPower(int power) {
 		this.power = power;
 	}
-	/**
-	 * @return the altPower
-	 */
-	public int getAltPower() {
-		return altPower;
-	}
+
 
 	@Override
 	public String toString() {
