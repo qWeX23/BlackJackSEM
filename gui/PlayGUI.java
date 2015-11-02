@@ -47,8 +47,14 @@ public class PlayGUI extends JComponent implements ActionListener{
 
 
 	public PlayGUI(Table t){
+		one = 0;
+		two = 0;
+		three = 0;
+		four = 0;
+		dealer = 0;
 		// create frame and content pane with borderLayout
 		paintImages = new ArrayList<>();
+		extraCards = new ArrayList<>();
 		f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
 		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -59,9 +65,25 @@ public class PlayGUI extends JComponent implements ActionListener{
 		changeContent();
 		gc = new GameCoordinator(t, this);
 		gc.execute();
+
 		f.setVisible(true);
-		repaint();
+		tableBottom.repaint();
 	}
+
+	ArrayList<PaintImages> extraCards;
+	int one, two, three, four, dealer;
+	public void updatePlayer (int player, ImageIcon i) {
+		y = 500;
+		if (player == 1) {
+			one++;
+			x = (PLAYER_SEPARATION / 4) * 0 + 70 + (40 * one);
+			extraCards.add(new PaintImages(x, y, i));
+		}
+
+
+		tableBottom.repaint();
+	}
+
 
 	private static int DEALER_X = 400;
 	private static int DEALER_Y = 100;
@@ -150,6 +172,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 				super.paintComponent(g);
 				for (PaintImages temp : paintImages) {
 					g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
+				}
+
+				for (PaintImages temp1 : extraCards) {
+					g.drawImage(temp1.getImage(), temp1.getX(), temp1.getY(), this);
 				}
 			}
 		};

@@ -14,8 +14,12 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
     Table table;
     Boolean wantsHit, wantsStand,dealerWins=false,playerWins=false,winnerDetermined=false,endGame=false,GUIUpdated=false,startGame;
     PlayGUI mainGUI;
+    TestInit ti;    //TEST CODE
+    TestExtraCards tec; //TEST CODE
 
     public GameCoordinator(Table table, PlayGUI mainGUI){
+        ti = new TestInit();    //TEST CODE
+        tec = new TestExtraCards(); //TEST CODE
         this.table=table;
         this.mainGUI = mainGUI;
         this.reset();
@@ -25,7 +29,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     @Override
     protected Boolean doInBackground() throws Exception {
-
+        mainGUI.updateInit(4, ti.getList());
       //  while(!startGame);
        // this.wait();
         while(!endGame) {
@@ -46,6 +50,9 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
                     table.playerHIt();
                     wantsHit = false;
                     System.out.println("YOUR TURN \n"+table.toString());
+
+                    //TEST CODE, BEST PLACE TO PUT IT? I DONT KNOW. TALK ABOUT IT LATER.
+                    mainGUI.updatePlayer(1, tec.getCard1());
                 }
             }
             //Dealer's Turn
@@ -88,7 +95,6 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
     protected void requestHit(){
 
         wantsHit = true;
-
     }
     public synchronized void requestStand(){
 
