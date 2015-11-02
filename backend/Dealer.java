@@ -7,6 +7,7 @@ public class Dealer {
 
     Hand hand;
     public static final int DEALER_MAX_HAND=17;
+    public static final int MAX_HAND =21;
 
     public Dealer(Card c, Card c1){
         hand = new Hand();
@@ -35,6 +36,11 @@ public class Dealer {
 
     public boolean isBust() {
 
+        try {
+            return (this.getHand().calculateHandPower()>MAX_HAND);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
