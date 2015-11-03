@@ -17,6 +17,8 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
     TestInit ti;    //TEST CODE
     TestExtraCards tec; //TEST CODE
 
+
+// I dont like passing the GUI into the GC --BJC
     public GameCoordinator(Table table, PlayGUI mainGUI){
         ti = new TestInit();    //TEST CODE
         tec = new TestExtraCards(); //TEST CODE
@@ -61,7 +63,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
                 System.out.println("DEALER TURN \n"+table.toString());
 
             } else {
-                System.out.println("DEALER WINS by player bustl");
+                System.out.println("DEALER WINS by player bust");
                 dealerWins = true;
                 winnerDetermined = true;
             }
