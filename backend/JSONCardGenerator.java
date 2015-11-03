@@ -12,7 +12,7 @@ import static javax.imageio.ImageIO.read;
 /**
  * Created by bjc90_000 on 10/19/2015.
  */
-public class CardGenerator {
+public class JSONCardGenerator {
 
     public static final String[] SUITS = {"Spades","Diamonds","Clubs","Hearts"};
     public static final String[] RANKS = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
@@ -54,6 +54,6 @@ public class CardGenerator {
 
 
 
-    public CardGenerator() {
+    public JSONCardGenerator() {
     }
 }

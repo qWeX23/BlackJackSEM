@@ -5,20 +5,12 @@ package backend;
  */
 public class Player {
 
-    private static final int DEFAULT_BANK = 1000;
     Hand hand;
-    Bank bank;
 
     public Player(Card card, Card card1) {
         hand=new Hand();
         takeCard(card);
         takeCard(card1);
-        //make a new bank or use old one
-        if(bank!=null){
-            bank = new Bank(bank.balance);
-        }else{
-            bank= new Bank(DEFAULT_BANK);
-        }
     }
 
     public void takeCard(Card c){
