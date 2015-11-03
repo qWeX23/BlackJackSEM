@@ -80,6 +80,28 @@ public class PlayGUI extends JComponent implements ActionListener{
 			extraCards.add(new PaintImages(x, y, i));
 		}
 
+		if (player == 2) {
+			two++;
+			x = (PLAYER_SEPARATION / 4) * 1 + 70 + (40 * two);
+			extraCards.add(new PaintImages(x, y, i));
+		}
+
+		if (player == 3) {
+			three++;
+			x = (PLAYER_SEPARATION / 4) * 2 + 70 + (40 * three);
+			extraCards.add(new PaintImages(x, y, i));
+		}
+
+		if (player == 4) {
+			four++;
+			x = (PLAYER_SEPARATION / 4) * 3 + 70 + (40 * four);
+			extraCards.add(new PaintImages(x, y, i));
+		}
+
+		if (player == 5) {
+			dealer++;
+			paintImages.add(new PaintImages((DEALER_X + 70) + (40 * dealer), DEALER_Y, i));
+		}
 
 		tableBottom.repaint();
 	}
