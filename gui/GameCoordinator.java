@@ -53,6 +53,10 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
                     //TEST CODE, BEST PLACE TO PUT IT? I DONT KNOW. TALK ABOUT IT LATER.
                     mainGUI.updatePlayer(1, tec.getCard1());
+                    mainGUI.updatePlayer(2, tec.getCard1());
+                    mainGUI.updatePlayer(3, tec.getCard1());
+                    mainGUI.updatePlayer(4, tec.getCard1());
+                    mainGUI.updatePlayer(5, tec.getCard1());
                 }
             }
             //Dealer's Turn
