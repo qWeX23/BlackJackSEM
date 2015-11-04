@@ -46,6 +46,10 @@ public class Player {
 
     }
 
+    public Bank getBank(){
+        return bank;
+    }
+
     public Hand getHand() {
         return hand;
     }

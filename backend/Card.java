@@ -64,4 +64,8 @@ public class Card implements Serializable{
 				", suit='" + suit + '\'' +
 				'}';
 	}
+
+	public ImageIcon getFront() {
+		return cardFront;
+	}
 }

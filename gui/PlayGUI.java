@@ -68,6 +68,8 @@ public class PlayGUI extends JComponent implements ActionListener{
 
 		f.setVisible(true);
 		tableBottom.repaint();
+		updateInit(1,gc.update().getPlayerCards());
+
 	}
 
 	ArrayList<PaintImages> extraCards;
