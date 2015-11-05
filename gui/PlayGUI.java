@@ -18,62 +18,90 @@ import javax.swing.border.Border;
  */
 public class PlayGUI extends JComponent implements ActionListener{
 
+	// Global Green Color
 	private static final Color BOX_GREEN = new Color(37, 168, 42);
+	// Global Yellow Border
 	private static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
-	private static final int NUMBER_OF_PLAYERS = 4;
 
+	// Dealer Coordinates
+	private static int DEALER_X = 400;
+	private static int DEALER_Y = 100;
+
+	// Hardcoded screen width until I can come up with a better
+	// way to do it     - Frank P
+	private static int PLAYER_SEPARATION = 1060;
+
+	// Format money
 	private DecimalFormat df = new DecimalFormat("#.00");
+
+	// user's bank amount (temporarily hard coded)
 	private double userBank = 1000;
+
+	// Pieces for GUI
 	private JFrame f;
 	private Container content;
-
-
-	// TODO: the panels that hold player names (e.g. "Player 4")
-	// and betting amounts could be their own class for better
-	// maintainability.
-	// private class player /* Needs better name! */ extends JPanel{
-	// }
-
 	private JPanel  centerStage, centerInner, tableBottom;
 	private JButton hit, stand, twentyFive, ten, five;
-	private JLabel p1Bet, p2Bet, p3Bet, p4Bet;
+
 	GameCoordinator gc;
+
+	// players card positions set dynamically
 	int x, y;
 
-	// Holds an ArrayList of PaintImage objects
-	// This takes in coordinates and an image icon ane makes
-	// a object with a Image object and coordinates
-	private ArrayList<PaintImages> paintImages;
+	// increments used for finding coordinates using multiplication
+	int c, k;
+	int one, two, three, four, dealer;
 
+	// PaintImages array list for drawn cards.
+	ArrayList<PaintImages> extraCards;
+	// PaintImages array list for initial drawn cards
+	ArrayList<PaintImages> paintImages;
 
+	/*
+	Constructor sets up GUI and initial coordinate variables
+	 */
 	public PlayGUI(Table t){
-		one = 0;
-		two = 0;
-		three = 0;
-		four = 0;
-		dealer = 0;
-		// create frame and content pane with borderLayout
+		// handles increments/multiplication for coordinate algorithm for extra cards
+		one = 0; two = 0; three = 0; four = 0; dealer = 0;
+		// coordinate variables for cards
+		x = 0; y = 0;
+		// handles increments/multiplication for coordinate algorithm for initial draw
+		c = 0; k = 0;
+		// array list for initial draw
 		paintImages = new ArrayList<>();
+		// array list for new draws.
 		extraCards = new ArrayList<>();
+		// create GUI
 		f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
-		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		f.setExtendedState(JFrame.NORMAL);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		x = 0;
-		y = 0;
 		content = f.getContentPane();
 		changeContent();
+		// create new Game Coordinator and pass this instance
+		// of the GUI and the table (t)
 		gc = new GameCoordinator(t, this);
 		gc.execute();
-
 		f.setVisible(true);
-		tableBottom.repaint();
-		updateInit(1,gc.update().getPlayerCards());
-
 	}
 
-	ArrayList<PaintImages> extraCards;
-	int one, two, three, four, dealer;
+	/*
+	reset()
+		resets all incrementors and lists.
+	 */
+	public void reset() {
+		one = 0; two = 0; three = 0; four = 0; dealer = 0;
+		x = 0; c = 0; k = 0;
+		paintImages.clear();
+		extraCards.clear();
+	}
+
+	/*
+	updatePlayer()
+		recieves the player number (1-4, 5 for dealer) and an ImageIcon
+		creates new PaintImage of the newly drawn card from the hit and adds
+		it to the extraCards array list
+	 */
 	public void updatePlayer (int player, ImageIcon i) {
 		y = 500;
 		if (player == 1) {
@@ -108,42 +136,40 @@ public class PlayGUI extends JComponent implements ActionListener{
 		tableBottom.repaint();
 	}
 
-
-	private static int DEALER_X = 400;
-	private static int DEALER_Y = 100;
-	// hard coded width for coordinates until i can figure out how to do it.
-	private static int PLAYER_SEPARATION = 1060;
-	// call to update position for intitial draw
+	/*
+	updateInit()
+		takes in the number of players playing and an array list of sorted Image Icons
+		they are sorted by the FirstDrawCollector class within the GameCoordinator
+		creates PaintImages for each card in the initial draw and adds them to the
+		paintImages array List.
+	 */
 	public void updateInit(int numOfPlayers, ArrayList<ImageIcon> cardImageIcons) {
-		int c = 0;
-		int k = 0;
 		// this will take the array list of card image icons
 		for (ImageIcon temp:cardImageIcons) {
 			y = 500;
 			// first card for the 4 players
-			if (c < 4) {
+			if (c < numOfPlayers) {
 				x = (PLAYER_SEPARATION / 4) * c + 30;
 				paintImages.add(new PaintImages(x, y, temp));
 				c++;
 			// dealers first card
-			} else if (c == 4) {
+			} else if (c == numOfPlayers) {
 				paintImages.add(new PaintImages(DEALER_X, DEALER_Y, temp));
 				c++;
 			// second card for the 4 players
-			} else if (k == 4) {
-				paintImages.add(new PaintImages(DEALER_X + 70, DEALER_Y, temp));
-			}
-			// dealers second card
-			else {
+			} else if (k < numOfPlayers) {
 				x = (PLAYER_SEPARATION / 4) * k + 70;
 				paintImages.add(new PaintImages(x, y, temp));
 				k++;
+			}
+			// dealers second card
+			else if (k == numOfPlayers) {
+				paintImages.add(new PaintImages(DEALER_X + 70, DEALER_Y, temp));
 			}
 		}
 		// calls paint located in createContent method
 		tableBottom.repaint();
 	}
-
 
 	public void applyUIStyle(JPanel panel){
 		panel.setOpaque(true);
@@ -151,6 +177,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 		panel.setBorder(BorderFactory.createRaisedBevelBorder());
 	}
 
+	/*
+	actionPerformed()
+		Handles button presses
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == hit) {
 			System.out.println("HIT");
@@ -194,9 +224,11 @@ public class PlayGUI extends JComponent implements ActionListener{
 		}
 	}
 
-
-
-	private void changeContent() {
+	/*
+	changeContent()
+		Performs all the panels that make up the GUI
+	 */
+	private void changeContent(){
 		content.setLayout(new BorderLayout());
 
 		// add center stage to center of content border layout
@@ -208,16 +240,23 @@ public class PlayGUI extends JComponent implements ActionListener{
 		centerInner.add(getMenuBar_(), BorderLayout.NORTH);
 
 		// add another panel to centerInner
+		// contains the paintComponent method
 		tableBottom = new JPanel() {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				for (PaintImages temp : paintImages) {
-					g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
-				}
 
-				for (PaintImages temp1 : extraCards) {
-					g.drawImage(temp1.getImage(), temp1.getX(), temp1.getY(), this);
+				//System.out.println("paint Images list is " + !paintImages.isEmpty());
+				if (!paintImages.isEmpty()) {
+					for (PaintImages temp : paintImages) {
+						g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
+					}
+				}
+				//System.out.println("extra Cards list is " + !extraCards.isEmpty());
+				if (!extraCards.isEmpty()) {
+					for (PaintImages temp1 : extraCards) {
+						g.drawImage(temp1.getImage(), temp1.getX(), temp1.getY(), this);
+					}
 				}
 			}
 		};
@@ -246,15 +285,23 @@ public class PlayGUI extends JComponent implements ActionListener{
 		content.add(centerStage, BorderLayout.CENTER);
 	}
 
+	/*
+	getPlayerPanel()
+		Adds player panel to bottom of GUI
+	 */
 	private JPanel getPlayerPanel(){
 		JPanel playerPanel = new JPanel(new GridLayout(1, 0));
-		playerPanel.add(createNewPlayer("Player 4"));
-		playerPanel.add(createNewPlayer("Player 3"));
-		playerPanel.add(createNewPlayer("Player 2"));
 		playerPanel.add(createNewPlayer("Player 1"));
+		playerPanel.add(createNewPlayer("Player 2"));
+		playerPanel.add(createNewPlayer("Player 3"));
+		playerPanel.add(createNewPlayer("Player 4"));
 		return playerPanel;
 	}
 
+	/*
+	createNewPlayer()
+		Does... something? Idk.
+	 */
 	private JPanel createNewPlayer(String nombre){
 		JPanel p = new JPanel(new BorderLayout());
 		JLabel name = new JLabel(nombre, SwingConstants.CENTER);
@@ -265,10 +312,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 		return p;
 	}
 
-	public void addPlayerCards(){
-
-	}
-
+	/*
+	getMenuBar_()
+		creates the menu bar for GUI
+	 */
 	private JMenuBar getMenuBar_() {
 		JMenuBar menuBar;
 		JMenu menu;
@@ -284,6 +331,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 		return menuBar;
 	}
 
+	/*
+	getStatsPanel()
+		creates the state panel at right of GUI
+	 */
 	private JPanel getStatsPanel() {
 		JPanel stats = new JPanel();
 		stats.setPreferredSize(new Dimension(250, 300));
@@ -292,6 +343,11 @@ public class PlayGUI extends JComponent implements ActionListener{
 		return stats;
 	}
 
+	/*
+	getActionPanel()
+		creates the action panel at right of GUI
+		holds the action buttons
+	 */
 	private JPanel getActionPanel() {
 		JPanel actions = new JPanel(new GridLayout(3,1));
 		Dimension actionDimension = new Dimension(100, 50);
@@ -326,6 +382,11 @@ public class PlayGUI extends JComponent implements ActionListener{
 		return actions;
 	}
 
+	/*
+	getMoneyPanel()
+		creates the money panel at right of GUI
+		holds the betting buttons and the bank amount
+	 */
 	private JPanel getMoneyPanel() {
 		// create JPanels to make up rightStage
 		JPanel money = new JPanel(new GridLayout(3,1));
@@ -379,4 +440,11 @@ public class PlayGUI extends JComponent implements ActionListener{
 		money.add(buttonPanel);
 		return money;
 	}
+
+	// TODO: the panels that hold player names (e.g. "Player 4")
+	// and betting amounts could be their own class for better
+	// maintainability.
+	// private class player /* Needs better name! */ extends JPanel{
+	// }
+
 }
