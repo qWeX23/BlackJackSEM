@@ -18,9 +18,9 @@ public class Table {
         numberOfPlayers = numPlayers;
         this.deck = deck;
         players = new ArrayList<>();
-        for (int i = 0; i <= numPlayers - 1; i++) {
+        //for (int i = 0; i < numPlayers; i++) {
             players.add(new Player(deck.drawCard(), deck.drawCard()));
-        }
+      //  }
         dealer = new Dealer(deck.drawCard(), deck.drawCard());
 
         //test();

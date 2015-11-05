@@ -9,7 +9,7 @@ public class Card implements Serializable{
 	int power;
 	ImageIcon cardFront,cardBack;
 	// specific to the Cards.bj file
-	private static final long serialVersionUID = 2308211211478213018L;
+	private static final long serialVersionUID = 6831108462399103049L;
 
 
 	public Card(String suit, String rank, int power,  ImageIcon cardFront, ImageIcon cardBack) {

@@ -49,7 +49,7 @@ public class PaintImages {
         this.x = x;
         this.y = y;
         image = ic.getImage();
-        System.out.println(ic + ")))))))))))))))))))222222222");
+        //System.out.println(ic + ")))))))))))))))))))222222222");
         image = image.getScaledInstance(70, 100, Image.SCALE_SMOOTH);
     }
 

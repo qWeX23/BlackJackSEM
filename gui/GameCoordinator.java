@@ -13,12 +13,10 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     FirstDrawCollector mainCollector;
     Table table;
-<<<<<<< HEAD
+
     Boolean wantsHit, wantsStand, dealerWins = false, playerWins = false, winnerDetermined = false, endGame = false, GUIUpdated = false, startGame;
     boolean canBet =true;
-=======
-    Boolean wantsHit, wantsStand,dealerWins=false,playerWins=false,winnerDetermined=false,endGame=false,GUIUpdated=false,startGame;
->>>>>>> 277f6f82b19beee0b34c4b428d3eefcc6297b760
+
     PlayGUI mainGUI;
 
     public GameCoordinator(Table table, PlayGUI mainGUI){
@@ -39,7 +37,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
             System.out.println("Place Bet...");
 
-            while(canBet)//System.out.println("doing nothing waiting for the bet");
+            while(canBet)Thread.sleep(10);//System.out.println("doing nothing waiting for the bet");
 
             //Deal Cards to Dealer and Player
             table.reset();
@@ -56,7 +54,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
                 //System.out.println("Stuck Waiting for stand");
 
                 if (wantsHit) {
-                    table.playerHIt();
+                    table.playerHit();
                     wantsHit = false;
                     System.out.println("YOUR TURN \n"+table.toString());
 
@@ -112,69 +110,12 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     }
 
-<<<<<<< HEAD
+
     protected void setCanBet(boolean canBet) {
         this.canBet = canBet;
     }
 
-    private void reset() {
 
-        dealerWins = false;
-        playerWins = false;
-        winnerDetermined = false;
-        GUIUpdated = false;
-        wantsHit = false;
-        wantsStand = false;
-        canBet=true;
-
-=======
-   protected void playBlackJack(){
-        System.out.println("black jack is happening now");
-
-
-        while(!endGame) {
-            //Deal Cards to Dealer and Player
-            table.reset();
-            this.reset();
-
-
-
-            //signalGUI update
-            //Players Turn
-            while (!wantsStand && !table.playerisBust()) {
-                if (wantsHit) {
-                    table.playerHIt();
-                    wantsHit = false;
-                }
-            }
-            //Dealer's Turn
-            if (!table.playerisBust()) {
-                table.dealersTurn();
-            } else {
-
-                dealerWins = true;
-                winnerDetermined = true;
-            }
-            //Determine Winner
-            if (table.dealerisBust()) {
-
-                playerWins = true;
-
-            } else if (!table.playerisBust() && !table.dealerisBust()) {
-                if (table.playerHandPower() > table.deartHandPower()) {
-                    playerWins = true;
-                } else {
-                    dealerWins = true;
-                }
-            }
-            //wait for GUI to UpDate
-            while(!GUIUpdated);
-
-
-        }
->>>>>>> 277f6f82b19beee0b34c4b428d3eefcc6297b760
-
-    }
 
     private void reset() {
 
