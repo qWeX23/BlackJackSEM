@@ -4,6 +4,7 @@
 package gui;
 
 import backend.Deck;
+import backend.FirstDrawCollector;
 import backend.Table;
 
 import java.util.Scanner;
@@ -23,9 +24,11 @@ public class Bootstrapper {
 
 		System.out.println("BJ TIME!\n Loading...");
 
-		Deck d = new Deck();
+		FirstDrawCollector mainCollector = new FirstDrawCollector(1);
 
-		Table t = new Table(4,d);
+		Deck d = new Deck(mainCollector);
+
+		Table t = new Table(1,d, mainCollector);
 
 		MainMenu main = new MainMenu(t);
 

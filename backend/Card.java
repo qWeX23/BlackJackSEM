@@ -8,6 +8,8 @@ public class Card implements Serializable{
 	String suit,rank;
 	int power;
 	ImageIcon cardFront,cardBack;
+	// specific to the Cards.bj file
+	private static final long serialVersionUID = 2308211211478213018L;
 
 
 	public Card(String suit, String rank, int power,  ImageIcon cardFront, ImageIcon cardBack) {
@@ -56,6 +58,21 @@ public class Card implements Serializable{
 		this.power = power;
 	}
 
+	public ImageIcon getCardFront() {
+		return cardFront;
+	}
+
+	public void setCardFront(ImageIcon cardFront) {
+		this.cardFront = cardFront;
+	}
+
+	public ImageIcon getCardBack() {
+		return cardBack;
+	}
+
+	public void setCardBack(ImageIcon cardBack) {
+		this.cardBack = cardBack;
+	}
 
 	@Override
 	public String toString() {

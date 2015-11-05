@@ -10,10 +10,12 @@ public class Table {
     ArrayList<Player> players;
     Dealer dealer;
     Deck deck;
+    int numberOfPlayers;
+    FirstDrawCollector mainCollector;
 
-    public Table(int numPlayers, Deck deck) {
-
-
+    public Table(int numPlayers, Deck deck, FirstDrawCollector mainCollector) {
+        this.mainCollector = mainCollector;
+        numberOfPlayers = numPlayers;
         this.deck = deck;
         players = new ArrayList<>();
         for (int i = 0; i <= numPlayers - 1; i++) {
@@ -48,12 +50,15 @@ public class Table {
     }
 
     public void reset() {
-        dealer= new Dealer(deck.drawCard(), deck.drawCard());
+        mainCollector.reset();
         players.remove(0);
         players.add(new Player(deck.drawCard(), deck.drawCard()));
-
+        dealer= new Dealer(deck.drawCard(), deck.drawCard());
     }
 
+    public FirstDrawCollector getMainCollector() {
+        return mainCollector;
+    }
     @Override
     public String toString() {
         return "Table{" +
@@ -98,5 +103,9 @@ public class Table {
 
     public ArrayList<Player> getPlayerList() {
         return players;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 }
