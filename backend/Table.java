@@ -93,7 +93,7 @@ public class Table {
     }
 
     public Player getPlayer() {
-        return  players.listIterator(0).next();
+        return  players.get(0);
     }
 
     public ArrayList<Player> getPlayerList() {

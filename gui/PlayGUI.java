@@ -164,15 +164,33 @@ public class PlayGUI extends JComponent implements ActionListener{
 
 		if (e.getSource() == twentyFive) {
 			System.out.println("$25");
+			if(gc.getCanBet()){
+				if(!gc.placeBet(25)){
+					System.out.println("Bet Not Placed insufficient Funds");
+				}
+			}
+			gc.setCanBet(false);
 
 		}
 
 		if (e.getSource() == ten) {
 			System.out.println("$10");
+			if(gc.getCanBet()){
+				if(!gc.placeBet(10)){
+					System.out.println("Bet Not Placed insufficient Funds");
+				}
+			}
+			gc.setCanBet(false);
 		}
 
 		if (e.getSource() == five) {
 			System.out.println("$5");
+			if(gc.getCanBet()){
+				if(!gc.placeBet(5)){
+					System.out.println("Bet Not Placed insufficient Funds");
+				}
+			}
+			gc.setCanBet(false);
 		}
 	}
 

@@ -13,6 +13,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     Table table;
     Boolean wantsHit, wantsStand, dealerWins = false, playerWins = false, winnerDetermined = false, endGame = false, GUIUpdated = false, startGame;
+    boolean canBet =true;
     PlayGUI mainGUI;
     TestInit ti;    //TEST CODE
     TestExtraCards tec; //TEST CODE
@@ -37,6 +38,11 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
         // this.wait();
         while (!endGame) {
             System.out.println("playing game");
+
+            System.out.println("Place Bet...");
+
+            while(canBet)//System.out.println("doing nothing waiting for the bet");
+
             //Deal Cards to Dealer and Player
             table.reset();
             this.reset();
@@ -98,6 +104,10 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     }
 
+    protected void setCanBet(boolean canBet) {
+        this.canBet = canBet;
+    }
+
     private void reset() {
 
         dealerWins = false;
@@ -106,6 +116,8 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
         GUIUpdated = false;
         wantsHit = false;
         wantsStand = false;
+        canBet=true;
+
 
 
     }
@@ -115,4 +127,11 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
     }
 
 
+    public boolean getCanBet() {
+        return canBet;
+    }
+
+    public boolean placeBet(int bet) {
+       return table.getPlayer().getBank().placeBet(bet);
+    }
 }
