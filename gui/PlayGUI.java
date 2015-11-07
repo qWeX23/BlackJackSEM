@@ -441,6 +441,14 @@ public class PlayGUI extends JComponent implements ActionListener{
 		return money;
 	}
 
+	public void setGC(Games.GameCoordinator GC) {
+		// need to eliminate the GameCoordinator in the gui folder
+
+		// then this code can be implemented
+
+		//gc = GC;
+	}
+
 	// TODO: the panels that hold player names (e.g. "Player 4")
 	// and betting amounts could be their own class for better
 	// maintainability.
