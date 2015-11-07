@@ -30,8 +30,8 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
     @Override
     protected Boolean doInBackground() throws Exception {
-      //  while(!startGame);
-       // this.wait();
+        //  while(!startGame);
+        // this.wait();
         while(!endGame) {
             System.out.println("playing game");
 
@@ -94,7 +94,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
         }
 
 
-            return true;
+        return true;
 
     }
 
@@ -139,6 +139,6 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
     }
 
     public boolean placeBet(int bet) {
-       return table.getPlayer().getBank().placeBet(bet);
+        return table.getPlayer().getBank().placeBet(bet);
     }
 }

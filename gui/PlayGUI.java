@@ -224,11 +224,19 @@ public class PlayGUI extends JComponent implements ActionListener{
 		}
 	}
 
+	// TESTING HOW MANY TIMES PAINT IS CALLED
+	int inc;
 	/*
 	changeContent()
-		Performs all the panels that make up the GUI
+		Performs all the panels that make up the GUI\
+		This function also contains the paintComponent as
+		an inner class of the JPanel tableBottom
 	 */
 	private void changeContent(){
+		// TESTING HOW MANY TIMES PAINT IS CALLED
+		inc = 0;
+
+		// set layout of cotent container
 		content.setLayout(new BorderLayout());
 
 		// add center stage to center of content border layout
@@ -245,14 +253,17 @@ public class PlayGUI extends JComponent implements ActionListener{
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
+				// TESTING HOW MANY TIMES PAINT IS CALLED
+				inc++;
+				System.out.println("-------" + inc + "-------");
 
-				//System.out.println("paint Images list is " + !paintImages.isEmpty());
+				// Print the initial draw cards
 				if (!paintImages.isEmpty()) {
 					for (PaintImages temp : paintImages) {
 						g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
 					}
 				}
-				//System.out.println("extra Cards list is " + !extraCards.isEmpty());
+				// Print the hit draw cards
 				if (!extraCards.isEmpty()) {
 					for (PaintImages temp1 : extraCards) {
 						g.drawImage(temp1.getImage(), temp1.getX(), temp1.getY(), this);
