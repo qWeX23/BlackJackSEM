@@ -4,11 +4,7 @@
 package gui;
 
 import backend.Deck;
-import backend.FirstDrawCollector;
 import backend.Table;
-
-import java.util.Scanner;
-import java.util.Timer;
 
 /**
  * @author bjc90_000
@@ -22,13 +18,12 @@ public class Bootstrapper {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println("BJ TIME!\n Loading...");
+		System.out.println("BJ TIMEE!\n Loading...");
 
-		FirstDrawCollector mainCollector = new FirstDrawCollector(1);
 
-		Deck d = new Deck(mainCollector);
+		Deck d = new Deck();
 
-		Table t = new Table(1,d, mainCollector);
+		Table t = new Table(1,d);
 
 		MainMenu main = new MainMenu(t);
 

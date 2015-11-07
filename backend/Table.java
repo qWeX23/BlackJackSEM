@@ -11,10 +11,8 @@ public class Table {
     Dealer dealer;
     Deck deck;
     int numberOfPlayers;
-    FirstDrawCollector mainCollector;
 
-    public Table(int numPlayers, Deck deck, FirstDrawCollector mainCollector) {
-        this.mainCollector = mainCollector;
+    public Table(int numPlayers, Deck deck) {
         numberOfPlayers = numPlayers;
         this.deck = deck;
         players = new ArrayList<>();
@@ -50,15 +48,11 @@ public class Table {
     }
 
     public void reset() {
-        mainCollector.reset();
         players.remove(0);
         players.add(new Player(deck.drawCard(), deck.drawCard()));
         dealer= new Dealer(deck.drawCard(), deck.drawCard());
     }
 
-    public FirstDrawCollector getMainCollector() {
-        return mainCollector;
-    }
     @Override
     public String toString() {
         return "Table{" +

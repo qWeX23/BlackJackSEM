@@ -23,14 +23,6 @@ public class PlayGUI extends JComponent implements ActionListener{
 	// Global Yellow Border
 	private static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
 
-	// Dealer Coordinates
-	private static int DEALER_X = 400;
-	private static int DEALER_Y = 100;
-
-	// Hardcoded screen width until I can come up with a better
-	// way to do it     - Frank P
-	private static int PLAYER_SEPARATION = 1060;
-
 	// Format money
 	private DecimalFormat df = new DecimalFormat("#.00");
 
@@ -45,15 +37,6 @@ public class PlayGUI extends JComponent implements ActionListener{
 
 	GameCoordinator gc;
 
-	// players card positions set dynamically
-	int x, y;
-
-	// increments used for finding coordinates using multiplication
-	int c, k;
-	int one, two, three, four, dealer;
-
-	// PaintImages array list for drawn cards.
-	ArrayList<PaintImages> extraCards;
 	// PaintImages array list for initial drawn cards
 	ArrayList<PaintImages> paintImages;
 
@@ -61,20 +44,12 @@ public class PlayGUI extends JComponent implements ActionListener{
 	Constructor sets up GUI and initial coordinate variables
 	 */
 	public PlayGUI(Table t){
-		// handles increments/multiplication for coordinate algorithm for extra cards
-		one = 0; two = 0; three = 0; four = 0; dealer = 0;
-		// coordinate variables for cards
-		x = 0; y = 0;
-		// handles increments/multiplication for coordinate algorithm for initial draw
-		c = 0; k = 0;
 		// array list for initial draw
 		paintImages = new ArrayList<>();
-		// array list for new draws.
-		extraCards = new ArrayList<>();
 		// create GUI
 		f = new JFrame();
 		f.setSize(WIDTH, HEIGHT);
-		f.setExtendedState(JFrame.NORMAL);
+		f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		content = f.getContentPane();
 		changeContent();
@@ -90,84 +65,15 @@ public class PlayGUI extends JComponent implements ActionListener{
 		resets all incrementors and lists.
 	 */
 	public void reset() {
-		one = 0; two = 0; three = 0; four = 0; dealer = 0;
-		x = 0; c = 0; k = 0;
 		paintImages.clear();
-		extraCards.clear();
 	}
 
 	/*
-	updatePlayer()
-		recieves the player number (1-4, 5 for dealer) and an ImageIcon
-		creates new PaintImage of the newly drawn card from the hit and adds
-		it to the extraCards array list
+	update()
+		receives paintImgaes from GameCoordinator to print all cards.
 	 */
-	public void updatePlayer (int player, ImageIcon i) {
-		y = 500;
-		if (player == 1) {
-			one++;
-			x = (PLAYER_SEPARATION / 4) * 0 + 70 + (40 * one);
-			extraCards.add(new PaintImages(x, y, i));
-		}
-
-		if (player == 2) {
-			two++;
-			x = (PLAYER_SEPARATION / 4) * 1 + 70 + (40 * two);
-			extraCards.add(new PaintImages(x, y, i));
-		}
-
-		if (player == 3) {
-			three++;
-			x = (PLAYER_SEPARATION / 4) * 2 + 70 + (40 * three);
-			extraCards.add(new PaintImages(x, y, i));
-		}
-
-		if (player == 4) {
-			four++;
-			x = (PLAYER_SEPARATION / 4) * 3 + 70 + (40 * four);
-			extraCards.add(new PaintImages(x, y, i));
-		}
-
-		if (player == 5) {
-			dealer++;
-			paintImages.add(new PaintImages((DEALER_X + 70) + (40 * dealer), DEALER_Y, i));
-		}
-
-		tableBottom.repaint();
-	}
-
-	/*
-	updateInit()
-		takes in the number of players playing and an array list of sorted Image Icons
-		they are sorted by the FirstDrawCollector class within the GameCoordinator
-		creates PaintImages for each card in the initial draw and adds them to the
-		paintImages array List.
-	 */
-	public void updateInit(int numOfPlayers, ArrayList<ImageIcon> cardImageIcons) {
-		// this will take the array list of card image icons
-		for (ImageIcon temp:cardImageIcons) {
-			y = 500;
-			// first card for the 4 players
-			if (c < numOfPlayers) {
-				x = (PLAYER_SEPARATION / 4) * c + 30;
-				paintImages.add(new PaintImages(x, y, temp));
-				c++;
-			// dealers first card
-			} else if (c == numOfPlayers) {
-				paintImages.add(new PaintImages(DEALER_X, DEALER_Y, temp));
-				c++;
-			// second card for the 4 players
-			} else if (k < numOfPlayers) {
-				x = (PLAYER_SEPARATION / 4) * k + 70;
-				paintImages.add(new PaintImages(x, y, temp));
-				k++;
-			}
-			// dealers second card
-			else if (k == numOfPlayers) {
-				paintImages.add(new PaintImages(DEALER_X + 70, DEALER_Y, temp));
-			}
-		}
-		// calls paint located in createContent method
+	public void update(ArrayList<PaintImages> images) {
+		paintImages = images;
 		tableBottom.repaint();
 	}
 
@@ -233,9 +139,6 @@ public class PlayGUI extends JComponent implements ActionListener{
 		an inner class of the JPanel tableBottom
 	 */
 	private void changeContent(){
-		// TESTING HOW MANY TIMES PAINT IS CALLED
-		inc = 0;
-
 		// set layout of cotent container
 		content.setLayout(new BorderLayout());
 
@@ -253,20 +156,10 @@ public class PlayGUI extends JComponent implements ActionListener{
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				// TESTING HOW MANY TIMES PAINT IS CALLED
-				inc++;
-				System.out.println("-------" + inc + "-------");
-
 				// Print the initial draw cards
 				if (!paintImages.isEmpty()) {
 					for (PaintImages temp : paintImages) {
 						g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
-					}
-				}
-				// Print the hit draw cards
-				if (!extraCards.isEmpty()) {
-					for (PaintImages temp1 : extraCards) {
-						g.drawImage(temp1.getImage(), temp1.getX(), temp1.getY(), this);
 					}
 				}
 			}
@@ -452,13 +345,7 @@ public class PlayGUI extends JComponent implements ActionListener{
 		return money;
 	}
 
-	public void setGC(Games.GameCoordinator GC) {
-		// need to eliminate the GameCoordinator in the gui folder
 
-		// then this code can be implemented
-
-		//gc = GC;
-	}
 
 	// TODO: the panels that hold player names (e.g. "Player 4")
 	// and betting amounts could be their own class for better

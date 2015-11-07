@@ -13,9 +13,7 @@ public class Deck {
     public final String[] SUITS = {"Spade","Diamond","Club","Heart"};
     public final String[] RANKS = {"Ace","2","3","4","5","6","7","8","9","10","Jack","Queen","King"};
     Card[] cardList;
-    FirstDrawCollector mainCollector;
-    public Deck(FirstDrawCollector mainCollector) {
-        this.mainCollector = mainCollector;
+    public Deck() {
         //this code should probably go somewhere else
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("cards.bj"));
@@ -35,9 +33,6 @@ public class Deck {
        Random rg = new Random();
 
       // return new Card(RANKS[rg.nextInt(12)],SUITS[rg.nextInt(3)], power, front, back);
-        newCard = cardList[rg.nextInt(52)];
-        // add image to FirstDrawCollector class
-        mainCollector.addToList(newCard.getCardFront());
-        return newCard;
+        return cardList[rg.nextInt(52)];
     }
 }

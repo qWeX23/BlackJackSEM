@@ -1,27 +1,23 @@
 package gui;
 
-import backend.FirstDrawCollector;
 import backend.Table;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * Created by bjc90_000 on 10/29/2015.
  */
 public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
-    FirstDrawCollector mainCollector;
     Table table;
 
     Boolean wantsHit, wantsStand, dealerWins = false, playerWins = false, winnerDetermined = false, endGame = false, GUIUpdated = false, startGame;
     boolean canBet =true;
 
     PlayGUI mainGUI;
+    GCUpdate gcu;
 
     public GameCoordinator(Table table, PlayGUI mainGUI){
-        // create FirstDrawColletor class to collect draws
-        mainCollector = table.getMainCollector();
         this.table=table;
         this.mainGUI = mainGUI;
         System.out.println("GAME COORDINATOR ONLINE");
@@ -37,7 +33,7 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
             System.out.println("Place Bet...");
 
-            while(canBet)Thread.sleep(10);//System.out.println("doing nothing waiting for the bet");
+            //while(canBet)Thread.sleep(10);//System.out.println("doing nothing waiting for the bet");
 
             //Deal Cards to Dealer and Player
             table.reset();
@@ -57,10 +53,8 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
                     table.playerHit();
                     wantsHit = false;
                     System.out.println("YOUR TURN \n"+table.toString());
-
-                    // adds the newly drawn card invoked by hit to the GUI
-                    // the number 1 is the player number hard coded for the time being.
-                    mainGUI.updatePlayer(1, mainCollector.getTopCard());
+                    gcu = update();
+                    mainGUI.update(gcu.getPlayerCards());
                 }
             }
             //Dealer's Turn
@@ -118,21 +112,19 @@ public class GameCoordinator extends SwingWorker<Boolean, Boolean> {
 
 
     private void reset() {
-
         dealerWins=false;playerWins=false;winnerDetermined=false;GUIUpdated=false;
         wantsHit=false; wantsStand=false;
+        gcu = update();
+        gcu.reset();
         // reset GUI
         mainGUI.reset();
-        // sort the collection of images collected by FirstDrawCollector class
-        mainCollector.sortList();
         // update initial draw
-        mainGUI.updateInit(1, mainCollector.getList());
+        mainGUI.update(gcu.getPlayerCards());
     }
 
     public GCUpdate update(){
-        return new GCUpdate(table.getPlayer(),table.getDealer());
+        return new GCUpdate(table.getPlayer(),table.getDealer(), table.getNumberOfPlayers());
     }
-
 
     public boolean getCanBet() {
         return canBet;
