@@ -13,10 +13,12 @@ public class GCUpdate{
     int numOfPlayers;
     int player_x, dealer_x;
     ArrayList<PaintImages> pi;
+    String gameState;
 
     private static final int PLAYER_Y = 500, DEALER_Y = 100;
 
-    public GCUpdate(Player p,Dealer d, int num){
+    public GCUpdate(String gameState, Player p, Dealer d, int num){
+        this.gameState=gameState;
         this.player = p;
         this.dealer = d;
         pi = new ArrayList<>();
@@ -31,6 +33,7 @@ public class GCUpdate{
         returns it to game coordinator.
      */
     public ArrayList<PaintImages> getPlayerCards(){
+       if(!player.getHand().getCards().isEmpty() && !dealer.getHand().getCards().isEmpty())
         makeLists();
         return this.pi;
     }
@@ -67,4 +70,9 @@ public class GCUpdate{
         player_x = 0;
         dealer_x = 400;
     }
+    public String getGameState(){
+        return gameState;
+    }
+
+
 }

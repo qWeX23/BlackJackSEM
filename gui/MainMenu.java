@@ -6,6 +6,7 @@
 package gui;
 
 import backend.Table;
+import sun.awt.WindowIDProvider;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -254,8 +255,10 @@ public class MainMenu extends javax.swing.JFrame {
 //            testWindow.setLocationRelativeTo(null);
 //            testWindow.add(new JLabel("Game will start!!!"));
 //            testWindow.setVisible(false);
-            this.setVisible(false);
-            PlayGUI pg = new PlayGUI(tableT);
+            ///this.setVisible(false);
+        WindowController.showPlayGUI=true;
+//
+//        PlayGUI pg = new PlayGUI(tableT);
     }//GEN-LAST:event_gameButtonActionPerformed
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed

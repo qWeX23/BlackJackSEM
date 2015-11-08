@@ -3,6 +3,7 @@
  */
 package gui;
 
+import Games.BJGame;
 import backend.Deck;
 import backend.Table;
 
@@ -24,8 +25,9 @@ public class Bootstrapper {
 		Deck d = new Deck();
 
 		Table t = new Table(1,d);
+		new WindowController(t,new BJGame(t));
 
-		MainMenu main = new MainMenu(t);
+		//MainMenu main = new MainMenu(t);
 
 		//System.out.println(t.toString());
 

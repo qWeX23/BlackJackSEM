@@ -21,6 +21,15 @@ public class Player {
         }
     }
 
+    public Player() {
+        hand=new Hand();
+        if(bank!=null){
+            bank = new Bank(bank.balance);
+        }else{
+            bank= new Bank(DEFAULT_BANK);
+        }
+    }
+
     public void takeCard(Card c){
         hand.addCard(c);
 

@@ -15,6 +15,10 @@ public class Dealer {
         takeCard(c);takeCard(c1);
     }
 
+    public Dealer() {
+        hand = new Hand();
+    }
+
     public boolean doesDealerHit() throws Exception {
         
        return (hand.calculateHandPower()<DEALER_MAX_HAND);

@@ -11,12 +11,13 @@ import javax.swing.*;
 public abstract class GameCoordinator extends SwingWorker{
 
     Table table = null;
+    String gameState;
 
     Boolean wantsHit = null, wantsStand = null, dealerWins = false, playerWins = false, winnerDetermined = false, endGame = false, GUIUpdated = false, startGame = null;
     boolean canBet = true;
 
 
-    protected void requestHit() {
+    public void requestHit() {
 
         wantsHit = true;
     }
@@ -28,7 +29,7 @@ public abstract class GameCoordinator extends SwingWorker{
     }
 
 
-    protected void setCanBet(boolean canBet) {
+    public void setCanBet(boolean canBet) {
         this.canBet = canBet;
     }
 
@@ -45,7 +46,7 @@ public abstract class GameCoordinator extends SwingWorker{
     }
 
     public GCUpdate update() {
-        return new GCUpdate(table.getPlayer(), table.getDealer(), table.getNumberOfPlayers());
+        return new GCUpdate(gameState,table.getPlayer(), table.getDealer(), table.getNumberOfPlayers());
     }
 
 
