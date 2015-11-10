@@ -7,8 +7,8 @@ import java.awt.*;
  * Created by Frank on 10/29/2015.
  */
 public class PaintImages {
-    int x, y;
-    Image image;
+    private int x, y;
+    private Image image;
 
     public int getY() {
         return y;
@@ -19,7 +19,6 @@ public class PaintImages {
     }
 
     public int getX() {
-
         return x;
     }
 
@@ -29,7 +28,4 @@ public class PaintImages {
         image = ic.getImage();
         image = image.getScaledInstance(70, 100, Image.SCALE_SMOOTH);
     }
-
-
-
 }
