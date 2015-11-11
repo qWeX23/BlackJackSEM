@@ -84,8 +84,11 @@ public class PlayGUI extends JComponent implements ActionListener {
 
                 while (f.isVisible()) {
                     Thread.sleep(50);
-                    update(gc.update().getPlayerCards());
-                    temporaryGameStateLabel.setText(gc.update().getGameState());
+                    GCUpdate update = gc.update();
+                    if (update!=null) {
+                        update(update.getPlayerCards());
+                        temporaryGameStateLabel.setText(update.getGameState());
+                    }
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

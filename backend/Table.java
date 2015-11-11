@@ -24,18 +24,7 @@ public class Table {
         //test();
     }
 
-    public void test() {
-        // Ben, this is how I can get the Rank and Suit of the cards of the dealer
-        String s = dealer.getHand().getCards().get(0).getRank();
-        s += "\n" + dealer.getHand().getCards().get(0).getSuit();
-        s += "\n" + dealer.getHand().getCards().get(1).getRank();
-        s += "\n" + dealer.getHand().getCards().get(1).getSuit();
-        System.out.println(s);
 
-        s = players.get(0).getHand().getCards().get(0).getRank();
-        s += "\n" + players.get(0).getHand().getCards().get(0).getSuit();
-        System.out.println(s);
-    }
 
     public void dealersTurn(){
         try {
@@ -47,7 +36,7 @@ public class Table {
         }
     }
 
-    public void reset() {
+    public synchronized void reset() {
         players.remove(0);
         players.add(new Player(deck.drawCard(), deck.drawCard()));
         dealer= new Dealer(deck.drawCard(), deck.drawCard());
@@ -83,7 +72,7 @@ public class Table {
         return players.listIterator(0).next().handPower();
     }
 
-    public int deartHandPower() {
+    public int dealerHandPower() {
         return dealer.handpower();
     }
 
