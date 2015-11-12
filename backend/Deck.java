@@ -24,6 +24,11 @@ public class Deck {
         }
     }
 
+
+    public Card getSpecificCard(int cardNum){
+        return cardList[cardNum];
+    }
+
     Card newCard;
     public Card drawCard(){
 

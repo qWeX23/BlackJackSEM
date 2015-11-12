@@ -47,7 +47,7 @@ public class Table {
         }
     }
 
-    public void reset() {
+    public synchronized void reset() {
         players.remove(0);
         players.add(new Player(deck.drawCard(), deck.drawCard()));
         dealer= new Dealer(deck.drawCard(), deck.drawCard());
@@ -83,7 +83,7 @@ public class Table {
         return players.listIterator(0).next().handPower();
     }
 
-    public int deartHandPower() {
+    public int dealerHandPower() {
         return dealer.handpower();
     }
 
@@ -101,5 +101,13 @@ public class Table {
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
+    }
+
+    public boolean playerBJ() {
+        return (players.get(0).hasBJ());
+    }
+
+    public boolean dealerBJ() {
+        return (dealer.hasBJ());
     }
 }
