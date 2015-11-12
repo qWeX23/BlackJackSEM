@@ -60,4 +60,8 @@ public class Dealer {
     public Hand getHand() {
         return hand;
     }
+
+    public boolean hasBJ() {
+        return hand.hasBJ();
+    }
 }

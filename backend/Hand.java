@@ -114,4 +114,19 @@ public class Hand {
     }
 
 
+    public boolean hasBJ() {
+        int numFaceCards=0,numAce=0;
+
+        for(Card c :cards){
+
+            if(c.getRank()=="Jack"||c.getRank()=="Queen"||c.getRank()=="King"){
+                numFaceCards++;
+            }
+            if(c.getRank()=="Ace") {
+                numAce++;
+            }
+        }
+        return (numFaceCards==1&&numAce==1);
+
+    }
 }

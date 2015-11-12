@@ -62,4 +62,8 @@ public class Player {
     public Hand getHand() {
         return hand;
     }
+
+    public boolean hasBJ() {
+       return hand.hasBJ();
+    }
 }
