@@ -1,6 +1,5 @@
 package backend;
 
-import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,9 +19,7 @@ public class Deck {
             cardList = (Card[]) in.readObject();
             //this will print the cards out
             //for(Card c : cardList)System.out.println(c);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
