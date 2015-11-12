@@ -8,12 +8,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GCUpdate{
-    Player player;
-    Dealer dealer;
-    int numOfPlayers;
-    int player_x, dealer_x;
-    ArrayList<PaintImages> pi;
-    String gameState;
+    private Player player;
+    private Dealer dealer;
+    private int numOfPlayers;
+    private int player_x, dealer_x;
+    private ArrayList<PaintImages> pi;
+    private String gameState;
 
     private static final int PLAYER_Y = 500, DEALER_Y = 100;
 
@@ -21,9 +21,9 @@ public class GCUpdate{
         this.gameState=gameState;
         this.player = p;
         this.dealer = d;
-        pi = new ArrayList<>();
-        player_x = 0;
-        dealer_x = 400;
+        this.pi = new ArrayList<>();
+        this.player_x = 0;
+        this.dealer_x = 400;
         this.numOfPlayers = num;
     }
 
@@ -73,6 +73,4 @@ public class GCUpdate{
     public String getGameState(){
         return gameState;
     }
-
-
 }
