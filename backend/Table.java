@@ -47,7 +47,7 @@ public class Table {
         }
     }
 
-    public void reset() {
+    public synchronized void reset() {
         players.remove(0);
         players.add(new Player(deck.drawCard(), deck.drawCard()));
         dealer= new Dealer(deck.drawCard(), deck.drawCard());

@@ -76,6 +76,20 @@ public class BJGame extends GameCoordinator {
 
             } else if (!table.playerisBust() && !table.dealerisBust()) {
 
+                if (table.playerBJ() || table.dealerBJ()) {
+
+                    if (table.playerBJ() && !table.dealerBJ()) {
+
+                        gameState ="BJ!!";
+                        flagUpdate();
+
+                    } else if (table.dealerBJ() && !table.dealerBJ()) {
+                        flagUpdate();
+
+                    }
+
+                }else
+
                 //TODO check for and give priority to blackjack
                 if (table.playerHandPower() == table.dealerHandPower()) {
                     gameState = "PUSH";
