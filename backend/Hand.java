@@ -119,10 +119,11 @@ public class Hand {
 
         for(Card c :cards){
 
-            if(c.getRank()=="Jack"||c.getRank()=="Queen"||c.getRank()=="King"){
+            if("Jack".equals(c.getRank()) || "Queen".equals(c.getRank()) ||
+               "King".equals(c.getRank()) || "10".equals(c.getRank())){
                 numFaceCards++;
             }
-            if(c.getRank()=="Ace") {
+            if("Ace".equals(c.getRank())) {
                 numAce++;
             }
         }
