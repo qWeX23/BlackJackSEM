@@ -120,7 +120,7 @@ public class Hand {
         for(Card c :cards){
             System.out.println(c.getSuit());
 
-            if(c.getSuit().endsWith("Jack")||c.getSuit().endsWith("Queen")||c.getSuit().endsWith("King")){
+            if(c.getRank().equals("Jack")||c.getRank().equals("Queen")||c.getRank().equals("King")){
                 numFaceCards++;
             }
             if(c.getSuit().endsWith("Ace")) {
