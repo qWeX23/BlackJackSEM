@@ -66,12 +66,27 @@ public class Player {
     public boolean hasBJ() {
        return hand.hasBJ();
     }
-    public double probBust(){
-        try {
-            return hand.probBust();
-        } catch (Exception e) {
-            e.printStackTrace();
+    
+    public int probPlayerBust() throws Exception {
+        int handValue = hand.calculateHandPower();
+         
+        if (handValue > 11)  {  
+            switch(handValue)  {
+                case 21: return 100;
+                case 20: return 92;
+                case 19: return 85;
+                case 18: return 77;
+                case 17: return 69;
+                case 16: return 62;
+                case 15: return 58;
+                case 14: return 56;
+                case 13: return 39;
+                case 12: return 31;
+                default: return 0;
+            }
         }
-        return 99;
+        else
+            return 0;
     }
+    
 }

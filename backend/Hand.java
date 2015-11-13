@@ -131,15 +131,6 @@ public class Hand {
         return (numFaceCards==1&&numAce==1);
 
     }
-
-    public double probBust() throws Exception {
-        if(this.isBust())return 1;
-
-        int wiggleRoom = calculateHandPower()-MAX_HAND;
-        if(wiggleRoom>=10)return 0;
-
-        return ((wiggleRoom*4)/52)-1;
-
-    }
+    
 
 }

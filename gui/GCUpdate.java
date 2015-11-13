@@ -4,7 +4,6 @@ import backend.Card;
 import backend.Dealer;
 import backend.Player;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class GCUpdate{
@@ -74,7 +73,7 @@ public class GCUpdate{
         return gameState;
     }
 
-    public double getProbPlayerBust(){
-        return player.probBust();
+    public double getProbPlayerBust() throws Exception{
+        return player.probPlayerBust();
     }
 }
