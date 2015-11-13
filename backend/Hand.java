@@ -118,15 +118,28 @@ public class Hand {
         int numFaceCards=0,numAce=0;
 
         for(Card c :cards){
+            System.out.println(c.getSuit());
 
-            if(c.getRank()=="Jack"||c.getRank()=="Queen"||c.getRank()=="King"){
+            if(c.getSuit().endsWith("Jack")||c.getSuit().endsWith("Queen")||c.getSuit().endsWith("King")){
                 numFaceCards++;
             }
-            if(c.getRank()=="Ace") {
+            if(c.getSuit().endsWith("Ace")) {
                 numAce++;
             }
         }
+        System.out.println(numFaceCards+" " +numAce);
         return (numFaceCards==1&&numAce==1);
 
     }
+
+    public double probBust() throws Exception {
+        if(this.isBust())return 1;
+
+        int wiggleRoom = calculateHandPower()-MAX_HAND;
+        if(wiggleRoom>=10)return 0;
+
+        return ((wiggleRoom*4)/52)-1;
+
+    }
+
 }

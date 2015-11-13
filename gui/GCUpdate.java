@@ -73,4 +73,8 @@ public class GCUpdate{
     public String getGameState(){
         return gameState;
     }
+
+    public double getProbPlayerBust(){
+        return player.probBust();
+    }
 }
