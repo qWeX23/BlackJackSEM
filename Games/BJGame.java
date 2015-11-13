@@ -83,7 +83,8 @@ public class BJGame extends GameCoordinator {
                         gameState ="BJ!!";
                         flagUpdate();
 
-                    } else if (table.dealerBJ() && !table.dealerBJ()) {
+                    } else if (table.dealerBJ() && !table.playerBJ()) {
+                        gameState="Dealer BJ!";
                         flagUpdate();
 
                     }

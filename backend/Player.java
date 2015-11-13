@@ -66,4 +66,12 @@ public class Player {
     public boolean hasBJ() {
        return hand.hasBJ();
     }
+    public double probBust(){
+        try {
+            return hand.probBust();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 99;
+    }
 }

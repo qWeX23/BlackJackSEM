@@ -24,20 +24,8 @@ public class Table {
         //test();
     }
 
-    public void test() {
-        // Ben, this is how I can get the Rank and Suit of the cards of the dealer
-        String s = dealer.getHand().getCards().get(0).getRank();
-        s += "\n" + dealer.getHand().getCards().get(0).getSuit();
-        s += "\n" + dealer.getHand().getCards().get(1).getRank();
-        s += "\n" + dealer.getHand().getCards().get(1).getSuit();
-        System.out.println(s);
-
-        s = players.get(0).getHand().getCards().get(0).getRank();
-        s += "\n" + players.get(0).getHand().getCards().get(0).getSuit();
-        System.out.println(s);
-    }
-
     public void dealersTurn(){
+        //TODO make this take into account the players hand
         try {
             while (dealer.doesDealerHit()) {
                 dealer.takeCard(deck.drawCard());
@@ -110,4 +98,5 @@ public class Table {
     public boolean dealerBJ() {
         return (dealer.hasBJ());
     }
+
 }
