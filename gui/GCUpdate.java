@@ -73,7 +73,15 @@ public class GCUpdate{
         return gameState;
     }
 
-    public double getProbPlayerBust() throws Exception{
-        return player.probPlayerBust();
+    public double getProbPlayerBust(){
+        try {
+            return player.probPlayerBust();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public double getPriPlayer21(){
+        return player.getProb21();
     }
 }

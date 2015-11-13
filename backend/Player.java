@@ -10,31 +10,32 @@ public class Player {
     Bank bank;
 
     public Player(Card card, Card card1) {
-        hand=new Hand();
+        hand = new Hand();
         takeCard(card);
         takeCard(card1);
         //make a new bank or use old one
-        if(bank!=null){
+        if (bank != null) {
             bank = new Bank(bank.balance);
-        }else{
-            bank= new Bank(DEFAULT_BANK);
+        } else {
+            bank = new Bank(DEFAULT_BANK);
         }
     }
 
     public Player() {
-        hand=new Hand();
-        if(bank!=null){
+        hand = new Hand();
+        if (bank != null) {
             bank = new Bank(bank.balance);
-        }else{
-            bank= new Bank(DEFAULT_BANK);
+        } else {
+            bank = new Bank(DEFAULT_BANK);
         }
     }
 
-    public void takeCard(Card c){
+    public void takeCard(Card c) {
         hand.addCard(c);
 
     }
-    public boolean isBust(){
+
+    public boolean isBust() {
         return hand.isBust();
     }
 
@@ -55,7 +56,7 @@ public class Player {
 
     }
 
-    public Bank getBank(){
+    public Bank getBank() {
         return bank;
     }
 
@@ -64,29 +65,54 @@ public class Player {
     }
 
     public boolean hasBJ() {
-       return hand.hasBJ();
+        return hand.hasBJ();
     }
-    
+
     public int probPlayerBust() throws Exception {
         int handValue = hand.calculateHandPower();
-         
-        if (handValue > 11)  {  
-            switch(handValue)  {
-                case 21: return 100;
-                case 20: return 92;
-                case 19: return 85;
-                case 18: return 77;
-                case 17: return 69;
-                case 16: return 62;
-                case 15: return 58;
-                case 14: return 56;
-                case 13: return 39;
-                case 12: return 31;
-                default: return 0;
+
+        if (handValue > 11) {
+            switch (handValue) {
+                case 21:
+                    return 100;
+                case 20:
+                    return 92;
+                case 19:
+                    return 85;
+                case 18:
+                    return 77;
+                case 17:
+                    return 69;
+                case 16:
+                    return 62;
+                case 15:
+                    return 58;
+                case 14:
+                    return 56;
+                case 13:
+                    return 39;
+                case 12:
+                    return 31;
+                default:
+                    return 0;
             }
-        }
-        else
+        } else
             return 0;
     }
-    
+
+    public double getProb21() {
+        // here is my though process i have no clue wtf im doing
+        // a probability of a certain card is 4/52
+        // if you need a specific card ( any once card A-K ) to get 21 then 4/52 is the
+        // if a single card (A-K) wont get you a 21 then the chance of 21 on the next hit is 0
+        // it seems stupid to me but i think its right
+        int numTill21 = 21 - handPower();
+
+        if (numTill21 <= 11) {
+            return 4 / 52;
+        } else
+            return 0;
+
+
+    }
 }
