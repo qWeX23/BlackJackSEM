@@ -25,10 +25,16 @@ public class Table {
     }
 
     public void dealersTurn(){
-        //TODO make this take into account the players hand
         try {
             while (dealer.doesDealerHit()) {
+                //This maeks the dealer get to 17
                 dealer.takeCard(deck.drawCard());
+            }
+            while(!dealer.isBust()){
+                //dealer continues to hit if the player has more
+                if(dealer.handpower()<playerHandPower()){
+                    dealer.takeCard(deck.drawCard());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
