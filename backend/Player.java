@@ -107,9 +107,10 @@ public class Player {
         // if a single card (A-K) wont get you a 21 then the chance of 21 on the next hit is 0
         // it seems stupid to me but i think its right
         int numTill21 = 21 - handPower();
-
+        System.out.println("the numTIll21 is "+numTill21);
         if (numTill21 <= 11) {
-            return 4 / 52;
+            System.out.println("Returning "+(double)(4/57));
+            return (7.692307692);
         } else
             return 0;
 

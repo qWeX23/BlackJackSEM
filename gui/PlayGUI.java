@@ -2,19 +2,17 @@ package gui;
 
 import Games.*;
 
-import backend.Table;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.JButton;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 /**
@@ -87,7 +85,7 @@ public class PlayGUI extends JComponent implements ActionListener {
                     GCUpdate update = gc.update();
                     if (update!=null) {
                         update(update.getPlayerCards());
-                        temporaryGameStateLabel.setText(update.getGameState());
+                        temporaryGameStateLabel.setText(update.getGameState()+"||||Probability Bust:"+update.getProbPlayerBust()+"%||||Probability 21:"+ BigDecimal.valueOf(update.getProbPlayer21())+"%");
                     }
                 }
             } catch (InterruptedException e) {

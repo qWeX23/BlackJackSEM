@@ -81,7 +81,7 @@ public class GCUpdate{
         }
         return 0;
     }
-    public double getPriPlayer21(){
+    public double getProbPlayer21(){
         return player.getProb21();
     }
 }
