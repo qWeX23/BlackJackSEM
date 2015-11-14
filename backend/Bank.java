@@ -5,13 +5,12 @@ package backend;
  */
 public class Bank {
 
-
     private static final boolean  CAN_BET=true;
     private static final boolean  CAN_NOT_BET=false;
     private static final int EMPTY_BANK = 0;
     private static final int NO_BET = 0;
-    int balance;
-    int currentBet;
+    private int balance;
+    private int currentBet;
 
     public Bank(int balance) {
         this.balance = balance;
@@ -44,6 +43,14 @@ public class Bank {
     
     public void setBalance(int newBalance) {
         balance = newBalance;
+    }
+    
+    public int getCurrentBet() {
+        return currentBet;
+    }
+    
+    public void setCurrentBet(int newCurrentBet) {
+        currentBet = newCurrentBet;
     }
     
 }

@@ -6,8 +6,8 @@ package backend;
 public class Player {
 
     private static final int DEFAULT_BANK = 1000;
-    Hand hand;
-    Bank bank;
+    private Hand hand;
+    private Bank bank;
 
     public Player(Card card, Card card1) {
         hand = new Hand();
@@ -15,7 +15,7 @@ public class Player {
         takeCard(card1);
         //make a new bank or use old one
         if (bank != null) {
-            bank = new Bank(bank.balance);
+            bank = new Bank(bank.getBalance());
         } else {
             bank = new Bank(DEFAULT_BANK);
         }
@@ -24,7 +24,7 @@ public class Player {
     public Player() {
         hand = new Hand();
         if (bank != null) {
-            bank = new Bank(bank.balance);
+            bank = new Bank(bank.getBalance());
         } else {
             bank = new Bank(DEFAULT_BANK);
         }
@@ -32,7 +32,6 @@ public class Player {
 
     public void takeCard(Card c) {
         hand.addCard(c);
-
     }
 
     public boolean isBust() {
@@ -53,7 +52,6 @@ public class Player {
             e.printStackTrace();
         }
         return 0;
-
     }
 
     public Bank getBank() {
@@ -113,7 +111,6 @@ public class Player {
             return (7.692307692);
         } else
             return 0;
-
-
     }
+    
 }

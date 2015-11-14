@@ -5,7 +5,7 @@ package backend;
  */
 public class Dealer {
 
-    Hand hand;
+    private Hand hand;
     public static final int DEALER_MAX_HAND=17;
     public static final int MAX_HAND =21;
 
@@ -63,5 +63,26 @@ public class Dealer {
 
     public boolean hasBJ() {
         return hand.hasBJ();
+    }
+    
+    public double probDealerBust() {
+        String faceUpCard = hand.getCards().get(0).getRank();
+
+        switch (faceUpCard) {
+            case   "Ace": return 11.5;
+            case     "2": return 35.4;
+            case     "3": return 37.4;
+            case     "4": return 39.4;  
+            case     "5": return 41.6;
+            case     "6": return 42.3;
+            case     "7": return 26.2;
+            case     "8": return 24.5;
+            case     "9": return 22.8;
+            case    "10": return 21.2;
+            case  "Jack": return 21.2;
+            case "Queen": return 21.2;
+            case  "King": return 21.2;
+            default: return 0.0;
+        }
     }
 }
