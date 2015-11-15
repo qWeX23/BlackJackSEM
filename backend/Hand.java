@@ -123,7 +123,7 @@ public class Hand {
             if(c.getRank().equals("Jack")||c.getRank().equals("Queen")||c.getRank().equals("King")){
                 numFaceCards++;
             }
-            if(c.getSuit().endsWith("Ace")) {
+            if(c.getRank().equals("Ace")) {
                 numAce++;
             }
         }
