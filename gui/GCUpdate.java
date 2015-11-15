@@ -81,6 +81,16 @@ public class GCUpdate{
         }
         return 0;
     }
+    
+    public double getProbDealerBust(){
+        try {
+            return dealer.probDealerBust();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
     public double getProbPlayer21(){
         return player.getProb21();
     }
