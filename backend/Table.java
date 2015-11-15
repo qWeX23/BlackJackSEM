@@ -25,11 +25,8 @@ public class Table {
 
     public void dealersTurn(){
         try {
-            while (dealer.doesDealerHit() && !dealer.isBust()) {
-                
-                if(dealer.handpower()<playerHandPower())
+            while (dealer.doesDealerHit() && !dealer.isBust())  
                     dealer.takeCard(deck.drawCard());   
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
