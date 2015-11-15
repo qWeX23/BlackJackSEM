@@ -1,7 +1,6 @@
 package backend;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by bjc90_000 on 10/14/2015.
@@ -26,15 +25,10 @@ public class Table {
 
     public void dealersTurn(){
         try {
-            while (dealer.doesDealerHit()) {
-                //This maeks the dealer get to 17
-                dealer.takeCard(deck.drawCard());
-            }
-            while(!dealer.isBust()){
-                //dealer continues to hit if the player has more
-                if(dealer.handpower()<playerHandPower()){
-                    dealer.takeCard(deck.drawCard());
-                }
+            while (dealer.doesDealerHit() && !dealer.isBust()) {
+                
+                if(dealer.handpower()<playerHandPower())
+                    dealer.takeCard(deck.drawCard());   
             }
         } catch (Exception e) {
             e.printStackTrace();
