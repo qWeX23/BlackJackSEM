@@ -22,6 +22,9 @@ public class Table {
 
         //test();
     }
+    public Deck getDeck(){
+        return deck;
+    }
 
     public void dealersTurn(){
         try {

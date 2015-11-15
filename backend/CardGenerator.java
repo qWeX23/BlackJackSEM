@@ -21,7 +21,7 @@ public class CardGenerator {
 
         Card[] c = new Card[52];
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Cards.bj"));
+          ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("Cards.bj"));
             ImageIcon front;
             int power, index = 0;
             ImageIcon back = new ImageIcon(read(new File("C:/Users/bjc90_000/Downloads/JackBlack.jpg")));
@@ -34,13 +34,14 @@ public class CardGenerator {
                     else
                         front = new ImageIcon(read(new File("C:/Users/bjc90_000/Documents/GitHub/BlackJackSEM/Resources/PNG-cards-1.3/" + r.toLowerCase() + "_of_" + s.toLowerCase() + ".png")));
                     c[index] = new Card(s, r, power, front, back);
+                    //System.out.println(c[index].toString()+"is at index->" +index);
                     System.out.println("Created"+c[index].toString());
                     if (power < 10) power++;
                     index++;
                 }
             }
-            out.writeObject(c);
-            out.close();
+          out.writeObject(c);
+          out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

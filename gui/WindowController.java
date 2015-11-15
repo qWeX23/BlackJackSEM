@@ -22,6 +22,7 @@ public class WindowController {
 
 
     BJGame playBJGame;
+    Basics basics;
     // other GCs go here
     //
     //
