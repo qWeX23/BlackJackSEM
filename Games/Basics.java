@@ -21,6 +21,7 @@ public class Basics extends GameCoordinator {
     @Override
     protected Object doInBackground() throws Exception {
 
+        table.hardReset();
         gameState="THIS WILL BE THE STRING THAT EXPLAINS EVERYTHINGGGGG";
         // ""place bet"" to continue
         canBet = true;

@@ -28,12 +28,13 @@ public class WindowController {
     //
     //
     //
-    public static boolean showMenu = false, showPlayGUI = false;
+    public static boolean showMenu = false, showPlayGUI = false ,playTutoial = false, playGame = false;
 
-    public WindowController(Table table, BJGame playBJGame) {
+    public WindowController(Table table, BJGame playBJGame, Basics basics) {
 
         this.table = table;
         this.playBJGame = playBJGame;
+        this.basics=basics;
         mainMenu = new MainMenu(table);
         playGui = new PlayGUI(playBJGame);
         hidePlayGUI();
@@ -75,13 +76,25 @@ public class WindowController {
                     showMainMenu();
                     hidePlayGUI();
                     showMenu=false;
-
                 }
                 if (WindowController.showPlayGUI) {
                     showPlayGUI();
                     hideMainMenu();
                     showPlayGUI=false;
-
+                }
+                if (WindowController.playGame){
+                    switchGC(playBJGame);
+                    showPlayGUI();
+                    hideMainMenu();
+                    showPlayGUI=false;
+                    playGame=false;
+                }
+                if(WindowController.playTutoial){
+                    switchGC(basics);
+                    showPlayGUI();
+                    hideMainMenu();
+                    showPlayGUI=false;
+                    playTutoial= false;
                 }
             }
         }

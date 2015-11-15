@@ -35,6 +35,12 @@ public class Table {
         }
     }
 
+    public synchronized void hardReset(){
+        players.remove(0);
+        players.add(new Player());
+        dealer= new Dealer();
+    }
+
     public synchronized void reset() {
         players.remove(0);
         players.add(0, new Player(deck.drawCard(), deck.drawCard()));

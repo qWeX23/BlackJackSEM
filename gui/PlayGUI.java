@@ -386,8 +386,14 @@ int inc;
         // need to eliminate the GameCoordinator in the gui folder
 
         // then this code can be implemented
+        //gc.cancel(true);
+        gc = GC;
+        System.out.println("this GC has set now "+gc);
+        if(!gc.getState().equals(SwingWorker.StateValue.STARTED)){
+            gc.execute();
+            System.out.println("this GC has started now " + gc);
+        }
 
-        //gc = GC;
     }
 
     public void hideFrame() {

@@ -256,6 +256,7 @@ public class MainMenu extends javax.swing.JFrame {
 //            testWindow.add(new JLabel("Game will start!!!"));
 //            testWindow.setVisible(false);
             ///this.setVisible(false);
+        WindowController.playGame=true;
         WindowController.showPlayGUI=true;
 //
 //        PlayGUI pg = new PlayGUI(tableT);
@@ -263,11 +264,14 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed
         //Temp action performed test
-            JFrame testWindow = new JFrame();
-            testWindow.setSize(200, 100);
-            testWindow.setLocationRelativeTo(null);
-            testWindow.add(new JLabel("Tutorial will start!!!"));
-            testWindow.setVisible(true);
+//            JFrame testWindow = new JFrame();
+//            testWindow.setSize(200, 100);
+//            testWindow.setLocationRelativeTo(null);
+//            testWindow.add(new JLabel("Tutorial will start!!!"));
+//            testWindow.setVisible(true);
+
+        WindowController.playTutoial=true;
+
     }//GEN-LAST:event_learnButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
