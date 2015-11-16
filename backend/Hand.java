@@ -124,7 +124,7 @@ public class Hand {
         for(Card c :cards){
             System.out.println(c.getSuit());
 
-            if(c.getRank().equals("Jack")||c.getRank().equals("Queen")||c.getRank().equals("King")){
+            if(c.getRank().equals("Jack")||c.getRank().equals("Queen")||c.getRank().equals("King")||c.getRank().equals("10")){
                 numFaceCards++;
             }
             if(c.getRank().equals("Ace")) {
@@ -132,8 +132,12 @@ public class Hand {
             }
         }
         System.out.println(numFaceCards+" " +numAce);
-        return (numFaceCards==1&&numAce==1);
-
+        
+        if (cards.size() == 2)
+            return (numFaceCards==1&&numAce==1);
+        else 
+            return false;
+        
     }
     
 
