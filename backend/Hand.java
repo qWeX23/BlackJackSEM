@@ -73,11 +73,12 @@ public class Hand {
                     
                     if (totalPower < 10 )
                         totalPower += (currentUsedAces * ALT_ACE_VALUE);
-                    else totalPower += (currentUsedAces * 1);
+                    else 
+                        totalPower += (currentUsedAces * 1);
                     
                     if (numAce > 1) totalPower += (numAce - currentUsedAces);
 
-                    if (totalPower <= MAX_HAND || currentUsedAces == 0) { System.out.println("Aces: " + numAce());
+                    if (totalPower <= MAX_HAND || currentUsedAces == 0) { 
                         return totalPower; 
                     } else {
                         currentUsedAces--;
