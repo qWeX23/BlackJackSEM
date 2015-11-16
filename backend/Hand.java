@@ -62,20 +62,23 @@ public class Hand {
             if (numAce > 0) {
                 int currentUsedAces = numAce - 1;
 
-                while (isBust) {
-                    //add up ignoring aces
-                    for (Card c : cards) {
-                        if (c.getPower() != 1) {
-                            totalPower += c.getPower();
-                        }
+                //add up ignoring aces
+                for (Card c : cards) {
+                    if (c.getPower() != 1) {
+                        totalPower += c.getPower();
                     }
+                }
 
+                while (isBust) {
+                    
+                    if (totalPower < 10 )
+                        totalPower += (currentUsedAces * ALT_ACE_VALUE);
+                    else totalPower += (currentUsedAces * 1);
+                    
+                    if (numAce > 1) totalPower += (numAce - currentUsedAces);
 
-                    totalPower += (currentUsedAces * ALT_ACE_VALUE);
-                    totalPower += ((numAce - currentUsedAces));
-
-                    if (totalPower <= MAX_HAND || currentUsedAces == 0) {
-                        return totalPower;
+                    if (totalPower <= MAX_HAND || currentUsedAces == 0) { System.out.println("Aces: " + numAce());
+                        return totalPower; 
                     } else {
                         currentUsedAces--;
                     }
