@@ -26,6 +26,6 @@ public class PaintImages {
         this.x = x;
         this.y = y;
         image = ic.getImage();
-        image = image.getScaledInstance(70, 100, Image.SCALE_SMOOTH);
+        image = image.getScaledInstance(100, 140, Image.SCALE_SMOOTH);
     }
 }

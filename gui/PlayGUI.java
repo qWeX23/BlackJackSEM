@@ -37,22 +37,32 @@ public class PlayGUI extends JComponent implements ActionListener {
     private JPanel centerStage, centerInner, tableBottom;
     private JButton hit, stand, twentyFive, ten, five;
     private JLabel temporaryGameStateLabel;
+    private String bankText;
+    private JPanel bankPanel;
+    private JLabel bankLabel;
+    private JLabel statsLabel;
+
 
     Games.GameCoordinator gc;
-
+    // for the current size of the window
+    Dimension d;
     // PaintImages array list for initial drawn cards
     ArrayList<PaintImages> paintImages;
 
     /*
     Constructor sets up GUI and initial coordinate variables
      */
-    public PlayGUI(GameCoordinator gc) {
+    public PlayGUI(GameCoordinator gc, int width, int height) {
         // array list for initial draw
         paintImages = new ArrayList<>();
+        bankText = "";
+        // stats jlabel
+        statsLabel = new JLabel("", SwingConstants.CENTER);
+        statsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         // create GUI
         f = new JFrame();
-        f.setSize(WIDTH, HEIGHT);
-        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        f.setSize(width, height);
+        f.setExtendedState(JFrame.NORMAL);
         f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         f.addWindowListener(new WindowAdapter() {
             @Override
@@ -67,10 +77,11 @@ public class PlayGUI extends JComponent implements ActionListener {
         this.gc = gc;
         gc.execute();
         new UpdateListener().start();
-        temporaryGameStateLabel= new JLabel("");centerStage.add(temporaryGameStateLabel, BorderLayout.EAST);
+        // temporary game state label
+        temporaryGameStateLabel= new JLabel("", SwingConstants.CENTER);
+        temporaryGameStateLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        centerInner.add(temporaryGameStateLabel, BorderLayout.NORTH);
         f.setVisible(true);
-
-
     }
 
     private class UpdateListener extends Thread {
@@ -84,8 +95,15 @@ public class PlayGUI extends JComponent implements ActionListener {
                     Thread.sleep(50);
                     GCUpdate update = gc.update();
                     if (update!=null) {
+                        // gets the current size of the window
+                        d = f.getBounds().getSize();
+                        update.setWidth((int)d.getWidth());
+                        update.setHeight((int)d.getHeight());
                         update(update.getPlayerCards());
-                        temporaryGameStateLabel.setText(update.getGameState()+"||||Probability Bust:"+update.getProbPlayerBust()+"%||||Probability 21:"+ BigDecimal.valueOf(update.getProbPlayer21())+"%");
+                        temporaryGameStateLabel.setText(update.getGameState());
+                        statsLabel.setText("Probability Bust:  " + Double.toString(update.getProbPlayerBust()));
+                        bankText = update.getBank();
+                        bankLabel.setText(bankText);
                     }
                 }
             } catch (InterruptedException e) {
@@ -166,9 +184,6 @@ public class PlayGUI extends JComponent implements ActionListener {
         }
     }
 
-// TESTING HOW MANY TIMES PAINT IS CALLED
-int inc;
-
     /*
     changeContent()
         Performs all the panels that make up the GUI\
@@ -231,26 +246,22 @@ int inc;
         Adds player panel to bottom of GUI
      */
     private JPanel getPlayerPanel() {
+        // bottom player panel
         JPanel playerPanel = new JPanel(new GridLayout(1, 0));
-        playerPanel.add(createNewPlayer("Player 1"));
-        playerPanel.add(createNewPlayer("Player 2"));
-        playerPanel.add(createNewPlayer("Player 3"));
-        playerPanel.add(createNewPlayer("Player 4"));
+        JPanel playerNamePanel = new JPanel(new BorderLayout());
+        JLabel playerNameLabel = new JLabel("Player", SwingConstants.CENTER);
+        playerNameLabel.setFont(new Font("Serif", Font.BOLD, 25));
+        playerNamePanel.add(playerNameLabel, BorderLayout.NORTH);
+        applyUIStyle(playerNamePanel);
+        playerPanel.add(playerNamePanel);
+        // bottom bank panelk
+        bankPanel = new JPanel(new BorderLayout());
+        bankLabel = new JLabel(bankText, SwingConstants.CENTER);
+        bankLabel.setFont(new Font("Serif", Font.BOLD, 25));
+        bankPanel.add(bankLabel, BorderLayout.NORTH);
+        applyUIStyle(bankPanel);
+        playerPanel.add(bankPanel);
         return playerPanel;
-    }
-
-    /*
-    createNewPlayer()
-        Does... something? Idk.
-     */
-    private JPanel createNewPlayer(String nombre) {
-        JPanel p = new JPanel(new BorderLayout());
-        JLabel name = new JLabel(nombre, SwingConstants.CENTER);
-        JLabel bet = new JLabel("0", SwingConstants.CENTER);
-        p.add(name, BorderLayout.NORTH);
-        p.add(bet, BorderLayout.SOUTH);
-        applyUIStyle(p);
-        return p;
     }
 
     /*
@@ -261,7 +272,6 @@ int inc;
         JMenuBar menuBar;
         JMenu menu;
         JMenuItem menuItem;
-
         menuBar = new JMenuBar();
         menu = new JMenu("Menu Bar");
         menuBar.add(menu);
@@ -281,6 +291,7 @@ int inc;
         stats.setPreferredSize(new Dimension(250, 300));
         stats.setBackground(BOX_GREEN);
         stats.setBorder(BorderFactory.createRaisedBevelBorder());
+        stats.add(statsLabel);
         return stats;
     }
 
@@ -411,3 +422,4 @@ int inc;
     // }
 
 }
+

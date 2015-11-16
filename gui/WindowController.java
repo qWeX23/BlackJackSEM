@@ -5,6 +5,7 @@ import Games.GameCoordinator;
 import backend.Table;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by bjc90_000 on 11/6/2015.
@@ -30,15 +31,27 @@ public class WindowController {
     //
     public static boolean showMenu = false, showPlayGUI = false ,playTutoial = false, playGame = false;
 
+    // height and width of playGUI
+    private int height, width;
+
     public WindowController(Table table, BJGame playBJGame, Basics basics) {
 
         this.table = table;
+        getScreenSize();
         this.playBJGame = playBJGame;
         this.basics=basics;
         mainMenu = new MainMenu(table);
-        playGui = new PlayGUI(playBJGame);
+        playGui = new PlayGUI(playBJGame, width, height);
         hidePlayGUI();
         new MenuListener().run();
+    }
+
+    private void getScreenSize() {
+        // Get Dimension of Screen Size
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        // Width is 2/3 of the screen size, height is full height of screen size
+        width = (screenSize.width/3)*2;
+        height = screenSize.height;
     }
 
     public void showMainMenu() {

@@ -32,11 +32,9 @@ public abstract class GameCoordinator extends SwingWorker{
 
     }
 
-
     public void setCanBet(boolean canBet) {
         this.canBet = canBet;
     }
-
 
     public synchronized void reset() {
 

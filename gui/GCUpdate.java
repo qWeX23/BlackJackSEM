@@ -13,17 +13,20 @@ public class GCUpdate{
     private int player_x, dealer_x;
     private ArrayList<PaintImages> pi;
     private String gameState;
-
-    private static final int PLAYER_Y = 500, DEALER_Y = 100;
+    private String bankText;
+    private int width, height;
+    private int pos, dealerCard;
 
     public GCUpdate(String gameState, Player p, Dealer d, int num){
+        width = 0; height = 0;
         this.gameState=gameState;
         this.player = p;
         this.dealer = d;
         this.pi = new ArrayList<>();
         this.player_x = 0;
-        this.dealer_x = 400;
+        this.dealer_x = 0;
         this.numOfPlayers = num;
+        this.bankText = Integer.toString(p.getBank().getBalance());
     }
 
     /*
@@ -47,17 +50,27 @@ public class GCUpdate{
         // Won't work for dealing animation (i.e., cards going across table in order).
         // Chalk it up to future enhancement for now until full functioning game and tutorial
         // is available.
-
+        pos = ((width/3) - 100);
+        this.player_x = pos;
+        this.dealer_x = pos;
         // create player images
         for(Card c : player.getHand().getCards()) {
-            player_x += 40;
-            pi.add(new PaintImages(player_x, PLAYER_Y, c.getCardFront()));
+            pi.add(new PaintImages(player_x, (height/8)*5, c.getCardFront()));
+            player_x += 50;
+
         }
         //create dealer images
+        dealerCard = 0;
         for(Card c : dealer.getHand().getCards()) {
-            dealer_x += 40;
-            pi.add(new PaintImages(dealer_x, DEALER_Y, c.getCardFront()));
+            if (dealerCard == 0) {
+                pi.add(new PaintImages(dealer_x, (height / 8) * 1, c.getCardBack()));
+                dealerCard++;
+            } else {
+                pi.add(new PaintImages(dealer_x, (height / 8) * 1, c.getCardFront()));
+            }
+            dealer_x += 50;
         }
+        dealerCard = 0;
     }
 
     /*
@@ -93,5 +106,23 @@ public class GCUpdate{
     
     public double getProbPlayer21(){
         return player.getProb21();
+    }
+
+    public String getBank() {return bankText;}
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
