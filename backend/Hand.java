@@ -76,7 +76,7 @@ public class Hand {
                     else 
                         totalPower += (currentUsedAces * 1);
                     
-                    if (numAce > 1) totalPower += (numAce - currentUsedAces);
+                    if (numAce >= 1) totalPower += (numAce - currentUsedAces);
 
                     if (totalPower <= MAX_HAND || currentUsedAces == 0) { 
                         return totalPower; 
