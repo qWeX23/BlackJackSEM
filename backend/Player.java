@@ -47,7 +47,8 @@ public class Player {
 
     public int handPower() {
         try {
-            return hand.calculateHandPower();
+            //return hand.calculateHandPower();
+            return hand.calculateHandValue();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,8 +68,8 @@ public class Player {
     }
 
     public int probPlayerBust() throws Exception {
-        int handValue = hand.calculateHandPower();
-
+//      int handValue = hand.calculateHandPower();
+        int handValue = hand.calculateHandValue();
         if (handValue > 11) {
             switch (handValue) {
                 case 21:

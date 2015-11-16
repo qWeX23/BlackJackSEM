@@ -21,8 +21,8 @@ public class Dealer {
 
     public boolean doesDealerHit() throws Exception {
         
-       return (hand.calculateHandPower()<DEALER_MAX_HAND);
-
+       //return (hand.calculateHandPower()<DEALER_MAX_HAND);
+        return (hand.calculateHandValue()<DEALER_MAX_HAND);
 
     }
 
@@ -41,7 +41,8 @@ public class Dealer {
     public boolean isBust() {
 
         try {
-            return (this.getHand().calculateHandPower()>MAX_HAND);
+            //return (this.getHand().calculateHandPower()>MAX_HAND);
+            return (this.getHand().calculateHandValue()>MAX_HAND);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,7 +51,8 @@ public class Dealer {
 
     public int handpower() {
         try {
-            return hand.calculateHandPower();
+            //return hand.calculateHandPower();
+            return hand.calculateHandValue();
         } catch (Exception e) {
             e.printStackTrace();
         }
