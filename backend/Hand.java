@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by bjc90_000 on 10/14/2015.
  */
 public class Hand {
-    private static final int ALT_ACE_VALUE = 11;
+    //private static final int ALT_ACE_VALUE = 11;
     private static final int MAX_HAND = 21;
     ArrayList<Card> cards;
 
@@ -95,11 +95,11 @@ public class Hand {
     
     //Replaces calculateHandPower above for now, use it no bugs are found. (Lee Mills)
     public int calculateHandValue() {
-        int handValue =0;
+        int handValue = 0, nonAceValue = 0, aceValue = 0;
         
         for (Card c: cards) 
             if(c.getPower() != 1)
-                handValue += c.getPower();
+                handValue = nonAceValue += c.getPower();
         
         for (Card c: cards)
             if(c.getPower() == 1)
@@ -108,19 +108,25 @@ public class Hand {
                 else
                     handValue += 1;
         
+        if (handValue > MAX_HAND && numAce() > 1) {
+            for (Card c: cards)
+                if(c.getPower() == 1)
+                    aceValue += 1;
+            
+            handValue = nonAceValue + aceValue;
+        }
         return handValue;
     }
 
-//    private int numAce() {
-//        int num = 0;
-//        for (Card c : cards) {
-//            if (c.getPower() == 1) num++;
-//
-//
-//        }
-//        return num;
-//    }
-//
+    private int numAce() {
+        int num = 0;
+        
+        for (Card c : cards) 
+            if (c.getPower() == 1) num++;
+        
+        return num;
+    }
+
 //
 //    private int calculateMaxPower(ArrayList<Card> cards) {
 //        int power = 0;
