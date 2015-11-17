@@ -4,6 +4,7 @@ import backend.Card;
 import backend.Dealer;
 import backend.Player;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class GCUpdate{
@@ -16,6 +17,10 @@ public class GCUpdate{
     private String bankText;
     private int width, height;
     private int pos, dealerCard;
+    private PaintImages dealersFirst;
+    private ImageIcon otherSide;
+    private boolean dealerReveal;
+
 
     public GCUpdate(String gameState, Player p, Dealer d, int num){
         width = 0; height = 0;
@@ -27,6 +32,7 @@ public class GCUpdate{
         this.dealer_x = 0;
         this.numOfPlayers = num;
         this.bankText = Integer.toString(p.getBank().getBalance());
+        dealerReveal = false;
     }
 
     /*
@@ -63,7 +69,12 @@ public class GCUpdate{
         dealerCard = 0;
         for(Card c : dealer.getHand().getCards()) {
             if (dealerCard == 0) {
-                pi.add(new PaintImages(dealer_x, (height / 8) * 1, c.getCardBack()));
+                dealersFirst = new PaintImages(dealer_x, (height / 8) * 1, c.getCardBack());
+                otherSide = c.getCardFront();
+                if (dealerReveal) {
+                    dealersFirst.setImage(otherSide);
+                }
+                pi.add(dealersFirst);
                 dealerCard++;
             } else {
                 pi.add(new PaintImages(dealer_x, (height / 8) * 1, c.getCardFront()));
@@ -124,5 +135,9 @@ public class GCUpdate{
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public void setDealerReveal(boolean b) {
+        dealerReveal = b;
     }
 }

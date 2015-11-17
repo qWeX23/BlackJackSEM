@@ -28,4 +28,9 @@ public class PaintImages {
         image = ic.getImage();
         image = image.getScaledInstance(100, 140, Image.SCALE_SMOOTH);
     }
+
+    public void setImage(ImageIcon ic) {
+        image = ic.getImage();
+        image = image.getScaledInstance(100, 140, Image.SCALE_SMOOTH);
+    }
 }

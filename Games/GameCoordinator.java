@@ -52,6 +52,7 @@ public abstract class GameCoordinator extends SwingWorker{
             updateGUI=false;
             return new GCUpdate(gameState,table.getPlayer(), table.getDealer(), table.getNumberOfPlayers());
         }
+
         return null;
     }
 
