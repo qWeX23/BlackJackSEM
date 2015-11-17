@@ -41,6 +41,8 @@ public class PlayGUI extends JComponent implements ActionListener {
     private JPanel bankPanel;
     private JLabel bankLabel;
     private JLabel statsLabel;
+    private JLabel dealerStatsLabel;
+    private Font font;
 
 
     Games.GameCoordinator gc;
@@ -59,6 +61,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         // stats jlabel
         statsLabel = new JLabel("", SwingConstants.CENTER);
         statsLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        dealerStatsLabel = new JLabel("", SwingConstants.CENTER);
+        dealerStatsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         // create GUI
         f = new JFrame();
         f.setSize(width, height);
@@ -101,7 +105,8 @@ public class PlayGUI extends JComponent implements ActionListener {
                         update.setHeight((int)d.getHeight());
                         update(update.getPlayerCards());
                         temporaryGameStateLabel.setText(update.getGameState());
-                        statsLabel.setText("Probability Bust:  " + Double.toString(update.getProbPlayerBust()));
+                        statsLabel.setText("Probability Player Bust:  " + Double.toString(update.getProbPlayerBust()));
+                        dealerStatsLabel.setText("Probability Dealer Bust:  " + Double.toString(update.getProbDealerBust()));
                         bankText = update.getBank();
                         bankLabel.setText(bankText);
                     }
@@ -292,6 +297,7 @@ public class PlayGUI extends JComponent implements ActionListener {
         stats.setBackground(BOX_GREEN);
         stats.setBorder(BorderFactory.createRaisedBevelBorder());
         stats.add(statsLabel);
+        stats.add(dealerStatsLabel);
         return stats;
     }
 
