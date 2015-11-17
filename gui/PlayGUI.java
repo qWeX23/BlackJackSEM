@@ -1,16 +1,21 @@
 package gui;
 
 import Games.*;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.border.Border;
@@ -28,8 +33,8 @@ public class PlayGUI extends JComponent implements ActionListener {
     // Format money
     private DecimalFormat df = new DecimalFormat("#.00");
 
-    // user's bank amount (temporarily hard coded)
-    private double userBank = 1000;
+    // bet currently on the table
+    private int userBet;
 
     // Pieces for GUI
     private JFrame f;
@@ -42,7 +47,8 @@ public class PlayGUI extends JComponent implements ActionListener {
     private JLabel bankLabel;
     private JLabel statsLabel;
     private JLabel dealerStatsLabel;
-    private Font font;
+    private JLabel betAmt;
+    Image fiveIcon, tenIcon, twentyFiveIcon;
 
 
     Games.GameCoordinator gc;
@@ -59,9 +65,9 @@ public class PlayGUI extends JComponent implements ActionListener {
         paintImages = new ArrayList<>();
         bankText = "";
         // stats jlabel
-        statsLabel = new JLabel("", SwingConstants.CENTER);
+        statsLabel = new JLabel("", SwingConstants.LEFT);
         statsLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        dealerStatsLabel = new JLabel("", SwingConstants.CENTER);
+        dealerStatsLabel = new JLabel("", SwingConstants.LEFT);
         dealerStatsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         // create GUI
         f = new JFrame();
@@ -109,6 +115,13 @@ public class PlayGUI extends JComponent implements ActionListener {
                         dealerStatsLabel.setText("Probability Dealer Bust:  " + Double.toString(update.getProbDealerBust()));
                         bankText = update.getBank();
                         bankLabel.setText(bankText);
+
+                        /*
+                        TODO:
+                            betAmt label needs to updated like:
+                                betAmt.setText(Integer.toString(update.getTableBet());
+                            or something along those lines to update it to show the current bet on the table.
+                         */
                     }
                 }
             } catch (InterruptedException e) {
@@ -116,8 +129,6 @@ public class PlayGUI extends JComponent implements ActionListener {
             }
         }
     }
-
-
 
     /*
     reset()
@@ -353,42 +364,56 @@ public class PlayGUI extends JComponent implements ActionListener {
         money.setBorder(BorderFactory.createRaisedBevelBorder());
 
         // add bank title
-        JLabel totalBankTitle = new JLabel("Total Bank:");
+        JLabel totalBankTitle = new JLabel("Current Bet:");
         totalBankTitle.setFont(new Font("Serif", Font.PLAIN, 30));
         totalBankTitle.setHorizontalAlignment(JLabel.CENTER);
         money.add(totalBankTitle);
 
         // add money
-        JLabel bankAmt = new JLabel();
-        bankAmt.setText(String.valueOf(df.format(userBank)));
-        bankAmt.setFont(new Font("Serif", Font.BOLD, 25));
-        bankAmt.setHorizontalAlignment(JLabel.CENTER);
-        money.add(bankAmt);
+        betAmt = new JLabel("", SwingConstants.CENTER);
+        betAmt.setFont(new Font("Serif", Font.BOLD, 25));
+        money.add(betAmt);
 
         // add buttons
         Dimension d = new Dimension(57, 57);
         Insets i = new Insets(0, 0, 0, 0);
+        try {
+            fiveIcon = ImageIO.read(new File("chipRed_5.png"));
+            fiveIcon = fiveIcon.getScaledInstance(57, 57, Image.SCALE_SMOOTH);
+            tenIcon = ImageIO.read(new File("chipBlue_10.png"));
+            tenIcon = tenIcon.getScaledInstance(57, 57, Image.SCALE_SMOOTH);
+            twentyFiveIcon = ImageIO.read(new File("chipGreen_25.png"));
+            twentyFiveIcon = twentyFiveIcon.getScaledInstance(57, 57, Image.SCALE_SMOOTH);
 
-        five = new JButton("$5");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        five = new JButton(new ImageIcon(fiveIcon));
+        five.setBorder(BorderFactory.createEmptyBorder());
+        five.setContentAreaFilled(false);
         five.addActionListener(this);
-        five.setBackground(Color.YELLOW);
-        five.setFont(new Font("Arial", Font.BOLD, 17));
-        five.setMargin(i);
-        five.setPreferredSize(d);
+//        five.setBackground(Color.YELLOW);
+//        five.setFont(new Font("Arial", Font.BOLD, 17));
+//        five.setMargin(i);
+//        five.setPreferredSize(d);
 
-        ten = new JButton("$10");
+        ten = new JButton(new ImageIcon(tenIcon));
+        ten.setBorder(BorderFactory.createEmptyBorder());
+        ten.setContentAreaFilled(false);
         ten.addActionListener(this);
-        ten.setBackground(Color.YELLOW);
-        ten.setFont(new Font("Arial", Font.BOLD, 17));
-        ten.setMargin(i);
-        ten.setPreferredSize(d);
+//        ten.setBackground(Color.YELLOW);
+//        ten.setFont(new Font("Arial", Font.BOLD, 17));
+//        ten.setMargin(i);
+//        ten.setPreferredSize(d);
 
-        twentyFive = new JButton("$25");
+        twentyFive = new JButton(new ImageIcon(twentyFiveIcon));
+        twentyFive.setBorder(BorderFactory.createEmptyBorder());
+        twentyFive.setContentAreaFilled(false);
         twentyFive.addActionListener(this);
-        twentyFive.setBackground(Color.YELLOW);
-        twentyFive.setFont(new Font("Arial", Font.BOLD, 17));
-        twentyFive.setMargin(i);
-        twentyFive.setPreferredSize(d);
+//        twentyFive.setBackground(Color.YELLOW);
+//        twentyFive.setFont(new Font("Arial", Font.BOLD, 17));
+//        twentyFive.setMargin(i);
+//        twentyFive.setPreferredSize(d);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(1, 10, 10));
         buttonPanel.setBackground(BOX_GREEN);
