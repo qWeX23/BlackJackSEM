@@ -1,5 +1,6 @@
 package Games;
 
+import backend.Bank;
 import backend.Table;
 
 import java.util.concurrent.locks.Lock;
@@ -14,11 +15,11 @@ public class BJGame extends GameCoordinator {
     }
 
 
-
     @Override
     protected Object doInBackground() throws Exception {
-
+        table.hardReset();
         while (!endGame) {
+
             System.out.println("playing game");
             //gameState="playing game";
 
@@ -27,6 +28,8 @@ public class BJGame extends GameCoordinator {
             flagUpdate();
             while (canBet) Thread.sleep(10);//System.out.println("doing nothing waiting for the bet");
             flagUpdate();
+
+
             //Deal Cards to Dealer and Player
 
 
@@ -42,9 +45,8 @@ public class BJGame extends GameCoordinator {
             System.out.println("YOUR TURN \n" + table.toString());
             gameState = "Your Turn";
             while (!wantsStand && !table.playerisBust()) {
+                //player Hits or stands
                 Thread.sleep(10);
-                //System.out.println("Stuck Waiting for stand");
-
                 if (wantsHit) {
                     table.playerHit();
                     wantsHit = false;
@@ -52,67 +54,79 @@ public class BJGame extends GameCoordinator {
                     flagUpdate();
                 }
             }
-            //Dealer's Turn
-            if (!table.playerisBust()) {
+            //TODO If PLayer has BJ then he wins
+            if (table.playerBJ()) {
+
+
+                if (table.dealerBJ()) {
+                    push();
+                } else {
+
+                    gameState = "PLAYER RECEIVED A BJ!";
+                    setDealerReveal(true);
+                    Bank.winBet(Bank.getCurrentBet(),2);
+                    flagUpdate();
+                    keepGoing = false;
+                }
+            } else {
+                //Dealer's Turn
+                setDealerReveal(true);
                 table.dealersTurn();
                 System.out.println("DEALER TURN \n" + table.toString());
                 gameState = "Dealer Turn";
                 flagUpdate();
-
-            } else {
-                System.out.println("DEALER WINS by player bustl");
-                dealerWins = true;
-                winnerDetermined = true;
-                gameState = "Dealer Wins by Player Bust";
-                flagUpdate();
-            }
-            //Determine Winner
-            if (table.dealerisBust()) {
-                System.out.println("PLAYER WINS by dealer bust");
-                gameState = "Player Wins by Dealer Bust";
-
-                playerWins = true;
-                flagUpdate();
-
-            } else if (!table.playerisBust() && !table.dealerisBust()) {
-
-                if (table.playerBJ() || table.dealerBJ()) {
-
-                    if (table.playerBJ() && !table.dealerBJ()) {
-
-                        gameState ="BJ!!";
-                        flagUpdate();
-
-                    } else if (table.dealerBJ() && !table.playerBJ()) {
-                        gameState="Dealer BJ!";
-                        flagUpdate();
-
-                    }
-
-                }else
-
-                //TODO check for and give priority to blackjack
-                if (table.playerHandPower() == table.dealerHandPower()) {
-                    gameState = "PUSH";
+                //************** determine winner ********
+                if (table.playerisBust() && table.dealerisBust()) {
+                    push();
+                } else if (table.playerisBust() && !table.dealerisBust()) {
+                    gameState = "Dealer wins! ... player Bust";
+                    Bank.loseBet();
+                   //table.getPlayer().getBank().loseBet();
+                    keepGoing = false;
+                    flagUpdate();
+                } else if (!table.playerisBust() && table.dealerisBust()) {
+                    gameState = "Player wins! ... Dealer Bust";
+                    Bank.winBet(Bank.getCurrentBet(),1);
+                    //table.getPlayer().getBank().winBet(100,1);
+                    keepGoing = false;
                     flagUpdate();
                 } else if (table.playerHandPower() > table.dealerHandPower()) {
-                    playerWins = true;
-                    System.out.println("PLAYER WINS by larger hand");
-                    gameState = "Player Wins by Larger Hand";
-                    flagUpdate();
-                } else {
-                    System.out.println("DEALER WINS by larger hand");
-                    gameState = "Dealer Wins by Larger Hand";
-                    dealerWins = true;
+                    // player wins
+                    gameState = "Player wins! ... Bigger Hand";
+                    Bank.winBet(Bank.getCurrentBet(),1);
+                    //table.getPlayer().getBank().winBet(100,1);
+                    keepGoing = false;
                     flagUpdate();
                 }
+                else if (table.playerHandPower() < table.dealerHandPower()){
+
+                    //dealer wins
+                    gameState = "Dealer wins! ... Bigger Hand";
+                    Bank.loseBet();
+                    //table.getPlayer().getBank().loseBet();
+                    keepGoing = false;
+                    flagUpdate();
+                }else if (table.playerHandPower() == table.dealerHandPower()) push();
+
             }
 
+            //System.out.println("Bank Balance is: "+table.getPlayer().getBank().getBalance());
         }
-
-
         return null;
+
+    }
+
+    private void push() {
+        gameState = "PUSH";
+        Bank.winBet(Bank.getCurrentBet(),0);
+        //table.getPlayer().getBank().winBet(100,0);
+        setDealerReveal(true);
+        keepGoing = false;
+        flagUpdate();
     }
 
 
 }
+
+
+
