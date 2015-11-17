@@ -119,7 +119,7 @@ public class GCUpdate{
         return player.getProb21();
     }
 
-   // public String getBank() {return Integer.toString(player.getBank().getBalance());}
+   //public String getBank() {return Integer.toString(player.getBank().getBalance());}
 
     public int getWidth() {
         return width;
