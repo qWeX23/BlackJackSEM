@@ -1,6 +1,7 @@
 package gui;
 
 import Games.*;
+import backend.Bank;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -107,7 +108,7 @@ public class PlayGUI extends JComponent implements ActionListener {
                         temporaryGameStateLabel.setText(update.getGameState());
                         statsLabel.setText("Probability Player Bust:  " + Double.toString(update.getProbPlayerBust()));
                         dealerStatsLabel.setText("Probability Dealer Bust:  " + Double.toString(update.getProbDealerBust()));
-                        bankText = update.getBank();
+                        bankText = Integer.toString(Bank.getBalance());
                         bankLabel.setText(bankText);
                     }
                 }
@@ -160,7 +161,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         if (e.getSource() == twentyFive) {
             System.out.println("$25");
             if (gc.getCanBet()) {
-                if (!gc.placeBet(25)) {
+                System.out.println("Betting...");
+                if (!Bank.placeBet(25)) {
                     System.out.println("Bet Not Placed insufficient Funds");
                 }
             }
@@ -171,7 +173,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         if (e.getSource() == ten) {
             System.out.println("$10");
             if (gc.getCanBet()) {
-                if (!gc.placeBet(10)) {
+                System.out.println("Betting...");
+                if (!Bank.placeBet(10)) {
                     System.out.println("Bet Not Placed insufficient Funds");
                 }
             }
@@ -181,7 +184,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         if (e.getSource() == five) {
             System.out.println("$5");
             if (gc.getCanBet()) {
-                if (!gc.placeBet(5)) {
+              //  System.out.println("Betting..."+gc.getTable().getPlayer().getBank().getCurrentBet());
+                if (!Bank.placeBet(5)) {
                     System.out.println("Bet Not Placed insufficient Funds");
                 }
             }

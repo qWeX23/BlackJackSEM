@@ -22,7 +22,7 @@ public class GCUpdate{
     private boolean dealerReveal;
 
 
-    public GCUpdate(String gameState, Player p, Dealer d, int num){
+    public GCUpdate(String gameState, Player p, Dealer d, int num,boolean dealerReveal){
         width = 0; height = 0;
         this.gameState=gameState;
         this.player = p;
@@ -31,8 +31,8 @@ public class GCUpdate{
         this.player_x = 0;
         this.dealer_x = 0;
         this.numOfPlayers = num;
-        this.bankText = Integer.toString(p.getBank().getBalance());
-        dealerReveal = false;
+        //this.bankText = Integer.toString(p.getBank().getBalance());
+        this.dealerReveal = dealerReveal;
     }
 
     /*
@@ -119,7 +119,7 @@ public class GCUpdate{
         return player.getProb21();
     }
 
-    public String getBank() {return bankText;}
+   // public String getBank() {return Integer.toString(player.getBank().getBalance());}
 
     public int getWidth() {
         return width;

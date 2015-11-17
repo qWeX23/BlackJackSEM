@@ -7,27 +7,27 @@ public class Player {
 
     private static final int DEFAULT_BANK = 1000;
     private Hand hand;
-    private Bank bank;
+
 
     public Player(Card card, Card card1) {
         hand = new Hand();
         takeCard(card);
         takeCard(card1);
         //make a new bank or use old one
-        if (bank != null) {
-            bank = new Bank(bank.getBalance());
-        } else {
-            bank = new Bank(DEFAULT_BANK);
-        }
+//        if (bank != null) {
+//            bank = new Bank(bank.getBalance());
+//        } else {
+//            bank = new Bank(DEFAULT_BANK);
+//        }
     }
 
     public Player() {
         hand = new Hand();
-        if (bank != null) {
-            bank = new Bank(bank.getBalance());
-        } else {
-            bank = new Bank(DEFAULT_BANK);
-        }
+//        if (bank != null) {
+//            bank = new Bank(bank.getBalance());
+//        } else {
+//            bank = new Bank(DEFAULT_BANK);
+//        }
     }
 
     public void takeCard(Card c) {
@@ -55,9 +55,9 @@ public class Player {
         return 0;
     }
 
-    public Bank getBank() {
-        return bank;
-    }
+//    public Bank getBank() {
+//        return bank;
+//    }
 
     public Hand getHand() {
         return hand;

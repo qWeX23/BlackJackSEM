@@ -16,6 +16,12 @@ public abstract class GameCoordinator extends SwingWorker{
     Boolean wantsHit = null, wantsStand = null, dealerWins = false, playerWins = false, winnerDetermined = false, endGame = false, GUIUpdated = false, startGame = null;
     boolean canBet = true;
     boolean updateGUI= true;
+    boolean dealerReveal=false;
+    boolean keepGoing =true;
+
+    public synchronized void setDealerReveal(boolean b){
+        dealerReveal=b;
+    }
 
     public synchronized void flagUpdate(){
         updateGUI=true;
@@ -44,26 +50,28 @@ public abstract class GameCoordinator extends SwingWorker{
         GUIUpdated = false;
         wantsHit = false;
         wantsStand = false;
+        dealerReveal=false;
 
     }
 
     public synchronized GCUpdate update() {
         if(updateGUI){
             updateGUI=false;
-            return new GCUpdate(gameState,table.getPlayer(), table.getDealer(), table.getNumberOfPlayers());
+            return new GCUpdate(gameState,table.getPlayer(), table.getDealer(), table.getNumberOfPlayers(),dealerReveal);
         }
 
         return null;
     }
-
+    //for testing only pls
+    public Table getTable(){return table;}
 
     public boolean getCanBet() {
         return canBet;
     }
 
-    public boolean placeBet(int bet) {
-        return table.getPlayer().getBank().placeBet(bet);
-    }
+//    public boolean placeBet(int bet) {
+//        return table.getPlayer().getBank().placeBet(bet);
+//    }
 
 
 }
