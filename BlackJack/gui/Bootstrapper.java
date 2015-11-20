@@ -2,6 +2,8 @@ package gui;
 
 import Games.BJGame;
 import Games.Basics;
+import Games.StatsAndBJ;
+import Games.Strategies;
 import backend.Deck;
 import backend.Table;
 
@@ -12,6 +14,6 @@ public class Bootstrapper {
 		System.out.println("BJ TIMEE!\n Loading...");
 		Deck d = new Deck();
 		Table t = new Table(1,d);
-		new WindowController(t,new BJGame(t),new Basics(t));
+		new WindowController(t,new BJGame(t),new Basics(t),new Strategies(t),new StatsAndBJ(t));
 	}
 }

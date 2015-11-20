@@ -15,7 +15,7 @@ import javax.swing.*;
 /**
  * Created by bjc90_000 on 11/14/2015.
  */
-public class Basics extends GameCoordinator {
+public class StatsAndBJ extends GameCoordinator {
 
 	private ArrayList<String> Instructions;
 	private int listIndex;
@@ -23,13 +23,13 @@ public class Basics extends GameCoordinator {
 	private JFrame testWindow;
     private JTextArea textArea;
     private JPanel instructionPanel;
-    private JButton Button;
+    private JButton nextButton, closeButton;
     
 	private Scanner scan;
 	
 	boolean done = false;
 	
-    public Basics(Table table){
+    public StatsAndBJ(Table table){
 		
         this.reset();
         this.table=table;
@@ -40,7 +40,15 @@ public class Basics extends GameCoordinator {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			testWindow.dispose();
+			if(e.getSource().equals(closeButton))
+				testWindow.dispose();
+			
+			if(e.getSource().equals(nextButton))
+			{
+				readFile();
+				instructionPanel.remove(nextButton);
+				instructionPanel.add(closeButton, BorderLayout.SOUTH);
+			}
 		}	
 	}
 	
@@ -78,10 +86,10 @@ public class Basics extends GameCoordinator {
     	//create instructions panel
 		Instructions = new ArrayList<String>();
 		
-		Instructions.add("BasicsStep1.txt");
-		Instructions.add("BasicsStep2.txt");
-		Instructions.add("BasicsStep3.txt");
-		Instructions.add("BasicsStep4.txt");
+		Instructions.add("StatsStep1.txt");
+		Instructions.add("StatsStep2.txt");
+		Instructions.add("StatsStep3.txt");
+		Instructions.add("StatsStep4.txt");
 		
         testWindow = new JFrame();
         testWindow.setSize(550, 200);
@@ -94,9 +102,11 @@ public class Basics extends GameCoordinator {
         textArea = new JTextArea(20,60);
         textArea.setText("Place a bet in the top right to start the tutorial");
         textArea.setEditable(false);
-        Button = new JButton("Close");
+        closeButton = new JButton("Close");
+        nextButton = new JButton("Next");
 
-        Button.addActionListener(new buttonListener());
+        closeButton.addActionListener(new buttonListener());
+        nextButton.addActionListener(new buttonListener());
         
         instructionPanel.add(new JLabel("Basic Tutorial"), BorderLayout.NORTH);
         instructionPanel.add(textArea, BorderLayout.CENTER);
@@ -112,27 +122,10 @@ public class Basics extends GameCoordinator {
         flagUpdate();
 
         //set starting hands
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(15));//3 of diamonds to player
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(27));//2 of clubs to player
+        table.getPlayer().takeCard(table.getDeck().getSpecificCard(13));//Ace of diamonds to player
+        table.getPlayer().takeCard(table.getDeck().getSpecificCard(37));//Queen of clubs to player
         table.getDealer().takeCard(table.getDeck().getSpecificCard(25));//King of diamonds to dealer
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(20));//8 of diamonds to dealer
-        flagUpdate();
-        readFile();
-
-        //wait for player hit
-        while(!wantsHit)Thread.sleep(10);
-        wantsHit=false;
-
-
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(42));//4 of hearts to player
-        flagUpdate();
-        readFile();
-
-        //wait for player hit
-        while(!wantsHit)Thread.sleep(10);
-        wantsHit=false;
-
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(24));// queen of diamonds to player
+        table.getDealer().takeCard(table.getDeck().getSpecificCard(19));//7 of diamonds to dealer
         flagUpdate();
         readFile();
 
@@ -142,9 +135,8 @@ public class Basics extends GameCoordinator {
         readFile();
         
         setDealerReveal(true);
-        //somehow reveal the dealers play and then also let the user exit
 
-        instructionPanel.add(Button, BorderLayout.SOUTH);
+        instructionPanel.add(nextButton, BorderLayout.SOUTH);
 
         return null;
     }

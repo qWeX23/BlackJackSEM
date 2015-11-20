@@ -15,7 +15,7 @@ import javax.swing.*;
 /**
  * Created by bjc90_000 on 11/14/2015.
  */
-public class Basics extends GameCoordinator {
+public class Strategies extends GameCoordinator {
 
 	private ArrayList<String> Instructions;
 	private int listIndex;
@@ -29,7 +29,7 @@ public class Basics extends GameCoordinator {
 	
 	boolean done = false;
 	
-    public Basics(Table table){
+    public Strategies(Table table){
 		
         this.reset();
         this.table=table;
@@ -78,10 +78,10 @@ public class Basics extends GameCoordinator {
     	//create instructions panel
 		Instructions = new ArrayList<String>();
 		
-		Instructions.add("BasicsStep1.txt");
-		Instructions.add("BasicsStep2.txt");
-		Instructions.add("BasicsStep3.txt");
-		Instructions.add("BasicsStep4.txt");
+		Instructions.add("StratsStep1.txt");
+		Instructions.add("StratsStep2.txt");
+		Instructions.add("StratsStep3.txt");
+		Instructions.add("StratsStep4.txt");
 		
         testWindow = new JFrame();
         testWindow.setSize(550, 200);
@@ -112,10 +112,10 @@ public class Basics extends GameCoordinator {
         flagUpdate();
 
         //set starting hands
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(15));//3 of diamonds to player
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(27));//2 of clubs to player
+        table.getPlayer().takeCard(table.getDeck().getSpecificCard(13));//Ace of diamonds to player
+        table.getPlayer().takeCard(table.getDeck().getSpecificCard(30));//5 of clubs to player
         table.getDealer().takeCard(table.getDeck().getSpecificCard(25));//King of diamonds to dealer
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(20));//8 of diamonds to dealer
+        table.getDealer().takeCard(table.getDeck().getSpecificCard(19));//7 of diamonds to dealer
         flagUpdate();
         readFile();
 
@@ -124,7 +124,7 @@ public class Basics extends GameCoordinator {
         wantsHit=false;
 
 
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(42));//4 of hearts to player
+        table.getPlayer().takeCard(table.getDeck().getSpecificCard(46));//8 of hearts to player
         flagUpdate();
         readFile();
 
@@ -132,7 +132,7 @@ public class Basics extends GameCoordinator {
         while(!wantsHit)Thread.sleep(10);
         wantsHit=false;
 
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(24));// queen of diamonds to player
+        table.getPlayer().takeCard(table.getDeck().getSpecificCard(17));//5 of diamonds to player
         flagUpdate();
         readFile();
 
@@ -142,7 +142,7 @@ public class Basics extends GameCoordinator {
         readFile();
         
         setDealerReveal(true);
-        //somehow reveal the dealers play and then also let the user exit
+        table.getDealer().takeCard(table.getDeck().getSpecificCard(15));//3 of diamonds to dealer
 
         instructionPanel.add(Button, BorderLayout.SOUTH);
 

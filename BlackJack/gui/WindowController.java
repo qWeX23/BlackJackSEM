@@ -1,11 +1,13 @@
 package gui;
 
 import Games.*;
-import Games.GameCoordinator;
 import backend.Table;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by bjc90_000 on 11/6/2015.
@@ -18,12 +20,18 @@ public class WindowController {
 
     MainMenu mainMenu;
     JFrame mainFrame;
+    JFrame tutorialSelect;
+    JPanel selectionPanel;
+    JButton basic, strats, extras;
     Table table;
     PlayGUI playGui;
 
-
+    boolean exist = false;
+    
     BJGame playBJGame;
     Basics basics;
+    Strategies strat;
+    StatsAndBJ stats;
     // other GCs go here
     //
     //
@@ -34,12 +42,14 @@ public class WindowController {
     // height and width of playGUI
     private int height, width;
 
-    public WindowController(Table table, BJGame playBJGame, Basics basics) {
+    public WindowController(Table table, BJGame playBJGame, Basics basics, Strategies strat, StatsAndBJ stats) {
 
         this.table = table;
         getScreenSize();
         this.playBJGame = playBJGame;
         this.basics=basics;
+        this.strat = strat;
+        this.stats = stats;
         mainMenu = new MainMenu(table);
         playGui = new PlayGUI(playBJGame, width, height);
         hidePlayGUI();
@@ -103,16 +113,94 @@ public class WindowController {
                     playGame=false;
                 }
                 if(WindowController.playTutoial){
-                    switchGC(basics);
+                	
+                	if(!exist)
+	                {
+                		exist = true;
+                		
+	                    tutorialSelect = new JFrame();
+	                    tutorialSelect.setSize(200, 120);
+	                    tutorialSelect.setLocationRelativeTo(null);
+	                    tutorialSelect.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	                    tutorialSelect.setAlwaysOnTop(true);
+	                    
+	                    selectionPanel = new JPanel();
+	                    selectionPanel.setLayout(new BorderLayout());
+	                    
+	                    basic = new JButton("Basics");
+	                    basic.addActionListener(new buttonListener());
+	                    
+	                    strats = new JButton("Strategies");
+	                    strats.addActionListener(new buttonListener());
+	                    
+	                    extras = new JButton("BlackJack and Stats");
+	                    extras.addActionListener(new buttonListener());
+	                    
+	                    selectionPanel.add(basic, BorderLayout.NORTH);
+	                    selectionPanel.add(strats, BorderLayout.CENTER);
+	                    selectionPanel.add(extras, BorderLayout.SOUTH);
+	                    
+	                    tutorialSelect.add(selectionPanel);
+	                    
+	                    tutorialSelect.setVisible(true);
+                	}
+                    
+                    /*switchGC(basics);
                     showPlayGUI();
                     hideMainMenu();
                     showPlayGUI=false;
-                    playTutoial= false;
+                    playTutoial= false;*/
                 }
             }
         }
 
     }
+    
+
+
+	private class buttonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			if(e.getSource().equals(basic))
+			{
+				switchGC(basics);
+                showPlayGUI();
+                hideMainMenu();
+                showPlayGUI=false;
+                playTutoial= false;
+                
+                tutorialSelect.dispose();
+                exist = false;
+			}
+			
+			if(e.getSource().equals(strats))
+			{   
+				switchGC(strat);
+                showPlayGUI();
+                hideMainMenu();
+                showPlayGUI=false;
+                playTutoial= false;
+                
+                tutorialSelect.dispose();
+                exist = false;
+			}
+			
+
+			if(e.getSource().equals(extras))
+			{     
+				switchGC(stats);
+                showPlayGUI();
+                hideMainMenu();
+                showPlayGUI=false;
+                playTutoial= false;
+                
+                tutorialSelect.dispose();
+                exist = false;
+			}
+		}	
+	}
 
 
 }

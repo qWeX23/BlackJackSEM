@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -92,6 +93,7 @@ public class PlayGUI extends JComponent implements ActionListener {
         temporaryGameStateLabel= new JLabel("", SwingConstants.CENTER);
         temporaryGameStateLabel.setFont(new Font("Serif", Font.BOLD, 20));
         centerInner.add(temporaryGameStateLabel, BorderLayout.NORTH);
+
         f.setVisible(true);
     }
 
@@ -222,6 +224,8 @@ public class PlayGUI extends JComponent implements ActionListener {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                ImageIcon bg = new ImageIcon("poker-table-layout.jpg");
+                g.drawImage(bg.getImage(), 0, 0,null);
                 // Print the initial draw cards
                 if (!paintImages.isEmpty()) {
                     for (PaintImages temp : paintImages) {
