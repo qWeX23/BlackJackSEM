@@ -1,0 +1,5 @@
+You have been dealt an Ace and a Queen which means you currently 
+have 21. When your first two cards equal 21 the game immediatly
+ends and you win unless the dealer also has 21.
+
+Press Stand to continue...

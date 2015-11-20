@@ -1,0 +1,5 @@
+You now have a total hand value of 24 and busted but, have no fear this is where the Ace's 
+special property comes into play.Normally the value of an Ace is 11 but, if your current 
+total hand value is over 21 then the value of the Ace turns into 1.
+
+Press Hit to continue...

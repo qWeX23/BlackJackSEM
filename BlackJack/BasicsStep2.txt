@@ -1,0 +1,3 @@
+Alright, this hit puts us into an advantageous situation by putting our hand
+total at 9. Since there is no way for us to bust on our next hit, and because
+we assume that the next hit will result in a 10, the correct move would be to hit on this hand.

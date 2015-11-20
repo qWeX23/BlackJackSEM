@@ -1,0 +1,3 @@
+Your hand now has a total value of 19.
+
+Press Stand to continue...

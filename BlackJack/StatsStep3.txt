@@ -1,0 +1,5 @@
+Bring your attention to the panel on the bottom right of the game.
+
+This panel is here to display helpful statistics on the current game.
+
+press close to end the tutorial...

@@ -1,0 +1,4 @@
+This tutorial is going to teach you how the Ace works. The Ace has a value of 11 
+putting your total hand value at 16.
+
+Press Hit to continue...

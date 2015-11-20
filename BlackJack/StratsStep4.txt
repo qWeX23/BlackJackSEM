@@ -1,0 +1,4 @@
+The dealer revealed his hand as 17 and hit to recieve a 3 putting his total hand value at 20.
+Unfortunately you lose this game.
+
+Press Close to end the tutorial...
