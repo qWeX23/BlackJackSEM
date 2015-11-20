@@ -35,7 +35,7 @@ public class HandTest {
         Hand instance = new Hand();
         System.out.println("Testing toString");
         String expResult = "Hand{" +
-                    "cards=" + instance.getCards().toString() + " for a total of " + instance.calculateHandPower()+
+                    "cards=" + instance.getCards().toString() + " for a total of " + instance.calculateHandValue()+
                     '}';
         String result = instance.toString();
         assertEquals(expResult, result);    
@@ -86,26 +86,26 @@ public class HandTest {
     /**
      * Test of calculateHandPower method, of class Hand.
      * @throws java.lang.Exception
-     * Note this also tests private methods numAce and calculateMaxPower
+     * Note this also tests private methods numAce 
      */
     @Test
-    public void testCalculateHandPower() throws Exception {
+    public void testCalculateHandValue() throws Exception {
         Hand instance = new Hand();
         System.out.println("Testing calculateHandPower");
         instance.addCard(new Card("Spades", "10", 10, new ImageIcon(), new ImageIcon()));
         instance.addCard(new Card("Clubs", "Ace", 1, new ImageIcon(), new ImageIcon()));
-        int expResult = instance.calculateHandPower();
+        int expResult = instance.calculateHandValue();
         assertEquals(expResult, 21); 
         instance = new Hand();
         instance.addCard(new Card("Spades", "10", 10, new ImageIcon(), new ImageIcon()));
         instance.addCard(new Card("Clubs", "10", 10, new ImageIcon(), new ImageIcon()));
-        expResult = instance.calculateHandPower();
+        expResult = instance.calculateHandValue();
         assertEquals(expResult, 20); 
         instance = new Hand();
         instance.addCard(new Card("Spades", "Ace", 1, new ImageIcon(), new ImageIcon()));
         instance.addCard(new Card("Clubs", "Ace", 1, new ImageIcon(), new ImageIcon()));
         instance.addCard(new Card("Clubs", "Ace", 8, new ImageIcon(), new ImageIcon()));
-        expResult = instance.calculateHandPower();
+        expResult = instance.calculateHandValue();
         assertEquals(expResult, 20);   
     }
     

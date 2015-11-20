@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
@@ -84,16 +85,16 @@ public class PlayerTest {
     }
     
     
-    /**
-     * Test of getBank method, of class Player.
-     * Note this test assumes Bank object is Null and uses DEFAULT_BANK value of 1000
-     */
-    @Test
-    public void testGetBank() {
-        Player instance = new Player();
-        System.out.println("Testing getBank");
-        assertEquals(instance.getBank().getBalance(), 1000);    
-    }
+//    /**
+//     * Test of getBank method, of class Player.
+//     * Note this test assumes Bank object is Null and uses DEFAULT_BANK value of 1000
+//     */
+//    @Test
+//    public void testGetBank() {
+//        Player instance = new Player();
+//        System.out.println("Testing getBank");
+//        assertEquals(instance.getBank().getBalance(), 1000);    
+//    }
 
     /**
      * Test of getHand method, of class Player.
@@ -111,6 +112,23 @@ public class PlayerTest {
     }
     
     /**
+     * Test of hasBJ method, of class Player.
+     */
+    @Test
+    public void testHasBJ() {
+        Player instance = new Player();
+        System.out.println("Testing hasBJ");
+        Card c = new Card("Club", "Ace", 1, new ImageIcon(), new ImageIcon());
+        Card d = new Card("Spade", "10", 10, new ImageIcon(), new ImageIcon());
+        instance.takeCard(c); 
+        instance.takeCard(d); 
+        assertTrue(instance.hasBJ());
+        Card e = new Card("Spade", "8", 10, new ImageIcon(), new ImageIcon());
+        instance.takeCard(e);
+        assertFalse(instance.hasBJ());
+    }
+    
+    /**
      * Test of probPlayerBust method, of class Player.
      * @throws java.lang.Exception
      */
@@ -123,6 +141,5 @@ public class PlayerTest {
         instance.takeCard(c); 
         instance.takeCard(d);
         assertEquals(instance.probPlayerBust(), 58);
-    }
-    
+    }  
 }

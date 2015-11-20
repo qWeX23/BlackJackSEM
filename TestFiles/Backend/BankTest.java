@@ -18,7 +18,7 @@ public class BankTest {
      */
     @Test
     public void testBank() {
-        Bank instance = new Bank(100);
+        Bank instance = new Bank();
         System.out.println("Testing Constructor");
         assertNotNull(instance);    
     } 
@@ -28,11 +28,10 @@ public class BankTest {
      */
     @Test
     public void testWinBet() {
-        Bank instance = new Bank(100);
         System.out.println("Testing winBet");
-        instance.placeBet(10);
-        instance.winBet(1);
-        assertEquals(instance.getBalance(), 110);
+        Bank.setBalance(100);
+        Bank.winBet(10, 1);
+        assertEquals(Bank.getBalance(), 110);
     }
 
     /**
@@ -40,11 +39,11 @@ public class BankTest {
      */
     @Test
     public void testLoseBet() {
-        Bank instance = new Bank(100);
         System.out.println("Testing loseBet");
-        instance.placeBet(10);
-        instance.loseBet();
-        assertEquals(instance.getBalance(), 90);    
+        Bank.setBalance(100);
+        Bank.placeBet(10);
+        Bank.loseBet();
+        assertEquals(Bank.getBalance(), 90);    
     }
 
     /**
@@ -52,11 +51,11 @@ public class BankTest {
      */
     @Test
     public void testPlaceBet() {
-        Bank instance = new Bank(100);
         System.out.println("Testing placeBet");
-        assertFalse(instance.placeBet(105));
-        assertTrue(instance.placeBet(10));
-        assertEquals(instance.getCurrentBet(), 10);
+        Bank.setBalance(100);
+        assertFalse(Bank.placeBet(105));
+        assertTrue(Bank.placeBet(10));
+        assertEquals(Bank.getCurrentBet(), 10);
     }
 
     /**
@@ -64,11 +63,11 @@ public class BankTest {
      */
     @Test
     public void testIsemptyBank() {
-        System.out.println("Testing isemptyBank");
-        Bank instance = new Bank(100);
-        assertFalse(instance.isemptyBank());
-        instance = new Bank(0);
-        assertTrue(instance.isemptyBank());         
+        System.out.println("Testing isemptyBank"); 
+        Bank.setBalance(100);
+        assertFalse(Bank.isemptyBank());
+        Bank.setBalance(0);
+        assertTrue(Bank.isemptyBank());         
     }
    
     /**
@@ -77,8 +76,8 @@ public class BankTest {
     @Test
     public void testGetBalance() {
         System.out.println("Testing getBalance");
-        Bank instance = new Bank(100);
-        assertEquals(instance.getBalance(), 100);     
+        Bank.setBalance(100);
+        assertEquals(Bank.getBalance(), 100);     
     }
     
     /**
@@ -86,10 +85,9 @@ public class BankTest {
      */
     @Test
     public void testSetBalance() {
-        System.out.println("Testing setBalance");
-        Bank instance = new Bank(100);
-        instance.setBalance(200);
-        assertEquals(instance.getBalance(), 200);
+        System.out.println("Testing setBalance");   
+        Bank.setBalance(200);
+        assertEquals(Bank.getBalance(), 200);
     }
     
     /**
@@ -98,9 +96,9 @@ public class BankTest {
     @Test
     public void testGetCurrentBet() {
         System.out.println("Testing getCurrentBet");
-        Bank instance = new Bank(100);
-        instance.placeBet(10);
-        assertEquals(instance.getCurrentBet(), 10);
+        Bank.setBalance(100);
+        Bank.placeBet(10);
+        assertEquals(Bank.getCurrentBet(), 10);
     }
     
     /**
@@ -109,10 +107,10 @@ public class BankTest {
     @Test
     public void testSetCurrentBet() {
         System.out.println("Testing setCurrentBet");
-        Bank instance = new Bank(100);
-        instance.placeBet(10);
-        instance.setCurrentBet(5);
-        assertEquals(instance.getCurrentBet(), 5);
+        Bank.setBalance(100);
+        Bank.placeBet(10);
+        Bank.setCurrentBet(5);
+        assertEquals(Bank.getCurrentBet(), 5);
     }
 }
 

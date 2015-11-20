@@ -27,6 +27,17 @@ public class TableTest {
         System.out.println("Testing constructor");
         assertNotNull(instance);   
     }
+    
+    /**
+     * Test of toString method, of class Table.
+     */
+    @Test
+    public void testgetDeck() {
+        Table instance = new Table(1, new Deck());
+        System.out.println("Testing getDeck");
+        System.out.println('\t' + "Empty Deck toString: " + instance.getDeck().toString());
+        assertNotNull(instance.getDeck());     
+    }
 
     /**
      * Test of dealersTurn method, of class Table.
@@ -45,6 +56,29 @@ public class TableTest {
         instance.dealersTurn();
         String result = instance.getDealer().getHand().toString();
         System.out.println('\t' + "Dealer Hand = " + result);
+    }
+    
+    /**
+     * Test of hardReset method, of class Table.
+     */
+    @Test
+    public void testHardReset() {
+        Table instance = new Table(1, new Deck());
+        System.out.println("Testing hardReset");
+        Card c = new Card("Club", "5", 5, new ImageIcon(), new ImageIcon());
+        Card d = new Card("Spade", "10", 10, new ImageIcon(), new ImageIcon());
+        Card e = new Card("Club", "10", 10, new ImageIcon(), new ImageIcon());
+        instance.getDealer().takeCard(c); 
+        instance.getDealer().takeCard(d);
+        instance.getPlayer().takeCard(d); 
+        instance.getPlayer().takeCard(e);
+        System.out.println('\t' + "Dealer and Player hand before hard reset:");
+        System.out.println('\t' + "Dealer Hand =" + instance.getDealer().getHand().toString());
+        System.out.println('\t' + "PLayer Hand =" + instance.getPlayer().getHand().toString());
+        instance.hardReset();  
+        System.out.println('\t' + "Dealer and Player hand after hard reset:");
+        System.out.println('\t' + "Dealer Hand = " + instance.getDealer().getHand().toString());
+        System.out.println('\t' + "Player Hand = " + instance.getPlayer().getHand().toString());
     }
 
     /**
@@ -146,7 +180,7 @@ public class TableTest {
      * Note handpower() method references back to hand class and has been previously tested
      */
     @Test
-    public void testDeartHandPower() {
+    public void testDealertHandPower() {
         Table instance = new Table(1, new Deck());
         System.out.println("Testing deartHandPower");
         Card c = new Card("Club", "5", 5, new ImageIcon(), new ImageIcon());
@@ -242,5 +276,5 @@ public class TableTest {
         instance.getDealer().takeCard(d);
         assertTrue(instance.dealerBJ());
     }
-      
+    
 }
