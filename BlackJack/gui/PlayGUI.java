@@ -51,7 +51,8 @@ public class PlayGUI extends JComponent implements ActionListener {
     private JLabel dealerStatsLabel;
     private JLabel betAmt;
     Image fiveIcon, tenIcon, twentyFiveIcon;
-
+    private int w, h;
+    private Image i;
 
     Games.GameCoordinator gc;
     // for the current size of the window
@@ -63,6 +64,8 @@ public class PlayGUI extends JComponent implements ActionListener {
     Constructor sets up GUI and initial coordinate variables
      */
     public PlayGUI(GameCoordinator gc, int width, int height) {
+        // width and height for background painting
+        w = width; h = height;
         // array list for initial draw
         paintImages = new ArrayList<>();
         bankText = "";
@@ -73,6 +76,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         dealerStatsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         // create GUI
         f = new JFrame();
+        f.setResizable(false);
+        f.add(this);
         f.setSize(width, height);
         f.setExtendedState(JFrame.NORMAL);
         f.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -84,6 +89,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         });
         content = f.getContentPane();
         changeContent();
+        f.setVisible(true);
+        tableBottom.repaint();
         // create new Game Coordinator and pass this instance
         // of the GUI and the table (t)
         this.gc = gc;
@@ -94,7 +101,6 @@ public class PlayGUI extends JComponent implements ActionListener {
         temporaryGameStateLabel.setFont(new Font("Serif", Font.BOLD, 20));
         centerInner.add(temporaryGameStateLabel, BorderLayout.NORTH);
 
-        f.setVisible(true);
     }
 
     private class UpdateListener extends Thread {
@@ -217,23 +223,28 @@ public class PlayGUI extends JComponent implements ActionListener {
 
         // add tool bar to center stage
         centerInner.add(getMenuBar_(), BorderLayout.NORTH);
-
+        // srt background image
+        ImageIcon bg = new ImageIcon("poker-table-layout.jpg");
+        i = bg.getImage();
+        i = i.getScaledInstance(w, h, Image.SCALE_SMOOTH);
         // add another panel to centerInner
         // contains the paintComponent method
         tableBottom = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon bg = new ImageIcon("poker-table-layout.jpg");
-                g.drawImage(bg.getImage(), 0, 0,null);
+                // positions backgound in correct place.
+                g.drawImage(i, (0 - (w/8) - 10), (0 - (h/10)), this);
                 // Print the initial draw cards
                 if (!paintImages.isEmpty()) {
                     for (PaintImages temp : paintImages) {
                         g.drawImage(temp.getImage(), temp.getX(), temp.getY(), this);
                     }
                 }
+
             }
         };
+
         tableBottom.setLayout(null);
         centerInner.add(tableBottom, BorderLayout.CENTER);
 
@@ -257,6 +268,7 @@ public class PlayGUI extends JComponent implements ActionListener {
 
         content.add(rightStage, BorderLayout.EAST);
         content.add(centerStage, BorderLayout.CENTER);
+
     }
 
     /*

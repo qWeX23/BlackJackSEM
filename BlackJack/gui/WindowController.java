@@ -60,7 +60,7 @@ public class WindowController {
         // Get Dimension of Screen Size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         // Width is 2/3 of the screen size, height is full height of screen size
-        width = (screenSize.width/3)*2;
+        width = (screenSize.width/4*3);
         height = screenSize.height;
     }
 
