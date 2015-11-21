@@ -1,3 +1,5 @@
 Again as assumed, the dealer’s face-down card was of 10 value. You always want to assume that 
 the dealer’s face-down card is of 10 value because those cards have the greatest probability of
 being that face-down card.
+
+Press close to end the tutorial...

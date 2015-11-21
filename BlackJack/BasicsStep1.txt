@@ -2,3 +2,5 @@ You can see that your hand value total is only 5, so no matter what there
 is no chance of you busting if you decided to hit. The dealer’s visible card is
 also an 8, so we want to assume that his hand total at the moment is 18.
 Because we would lose if we decided not to hit, the correct move would be to hit on this hand.
+
+Press Hit to continue...

@@ -25,8 +25,6 @@ public class WindowController {
     JButton basic, strats, extras;
     Table table;
     PlayGUI playGui;
-
-    boolean exist = false;
     
     BJGame playBJGame;
     Basics basics;
@@ -60,7 +58,7 @@ public class WindowController {
         // Get Dimension of Screen Size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         // Width is 2/3 of the screen size, height is full height of screen size
-        width = (screenSize.width/4*3);
+        width = (screenSize.width/3)*2;
         height = screenSize.height;
     }
 
@@ -113,11 +111,7 @@ public class WindowController {
                     playGame=false;
                 }
                 if(WindowController.playTutoial){
-                	
-                	if(!exist)
-	                {
-                		exist = true;
-                		
+                	                		
 	                    tutorialSelect = new JFrame();
 	                    tutorialSelect.setSize(200, 120);
 	                    tutorialSelect.setLocationRelativeTo(null);
@@ -143,7 +137,8 @@ public class WindowController {
 	                    tutorialSelect.add(selectionPanel);
 	                    
 	                    tutorialSelect.setVisible(true);
-                	}
+
+	                    playTutoial= false;
                     
                     /*switchGC(basics);
                     showPlayGUI();
@@ -169,10 +164,8 @@ public class WindowController {
                 showPlayGUI();
                 hideMainMenu();
                 showPlayGUI=false;
-                playTutoial= false;
                 
                 tutorialSelect.dispose();
-                exist = false;
 			}
 			
 			if(e.getSource().equals(strats))
@@ -181,10 +174,8 @@ public class WindowController {
                 showPlayGUI();
                 hideMainMenu();
                 showPlayGUI=false;
-                playTutoial= false;
                 
                 tutorialSelect.dispose();
-                exist = false;
 			}
 			
 
@@ -194,10 +185,8 @@ public class WindowController {
                 showPlayGUI();
                 hideMainMenu();
                 showPlayGUI=false;
-                playTutoial= false;
                 
                 tutorialSelect.dispose();
-                exist = false;
 			}
 		}	
 	}

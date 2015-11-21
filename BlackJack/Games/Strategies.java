@@ -27,7 +27,7 @@ public class Strategies extends GameCoordinator {
     
 	private Scanner scan;
 	
-	boolean done = false;
+	boolean done = true;
 	
     public Strategies(Table table){
 		
@@ -40,7 +40,9 @@ public class Strategies extends GameCoordinator {
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+			flagUpdate();
 			testWindow.dispose();
+			done = true;
 		}	
 	}
 	
@@ -74,77 +76,86 @@ public class Strategies extends GameCoordinator {
 
     @Override
     protected Object doInBackground() throws Exception {
+    	
+    	while(done)
+    	{
+	    	//create instructions panel
+			Instructions = new ArrayList<String>();
+			
+			Instructions.add("StratsStep1.txt");
+			Instructions.add("StratsStep2.txt");
+			Instructions.add("StratsStep3.txt");
+			Instructions.add("StratsStep4.txt");
+			
+	        testWindow = new JFrame();
+	        testWindow.setSize(550, 200);
+	        testWindow.setLocationRelativeTo(null);
+	        testWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        testWindow.setAlwaysOnTop(true);
+	        
+	        instructionPanel = new JPanel();
+	        instructionPanel.setLayout(new BorderLayout());
+	        textArea = new JTextArea(20,60);
+	        textArea.setText("Place a bet in the top right to start the tutorial");
+	        textArea.setEditable(false);
+	        Button = new JButton("Close");
+	
+	        Button.addActionListener(new buttonListener());
+	        
+	        instructionPanel.add(new JLabel("Strategy Tutorial"), BorderLayout.NORTH);
+	        instructionPanel.add(textArea, BorderLayout.CENTER);
+	        
+	        testWindow.add(instructionPanel);
+	        testWindow.setVisible(true);
+	        
+	        done = false;
 
-    	//create instructions panel
-		Instructions = new ArrayList<String>();
-		
-		Instructions.add("StratsStep1.txt");
-		Instructions.add("StratsStep2.txt");
-		Instructions.add("StratsStep3.txt");
-		Instructions.add("StratsStep4.txt");
-		
-        testWindow = new JFrame();
-        testWindow.setSize(550, 200);
-        testWindow.setLocationRelativeTo(null);
-        testWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        testWindow.setAlwaysOnTop(true);
-        
-        instructionPanel = new JPanel();
-        instructionPanel.setLayout(new BorderLayout());
-        textArea = new JTextArea(20,60);
-        textArea.setText("Place a bet in the top right to start the tutorial");
-        textArea.setEditable(false);
-        Button = new JButton("Close");
-
-        Button.addActionListener(new buttonListener());
-        
-        instructionPanel.add(new JLabel("Basic Tutorial"), BorderLayout.NORTH);
-        instructionPanel.add(textArea, BorderLayout.CENTER);
-        
-        testWindow.add(instructionPanel);
-        testWindow.setVisible(true);
-        
-        table.hardReset();
-        // ""place bet"" to continue
-        canBet = true;
-        flagUpdate();
-        while (canBet) Thread.sleep(10);
-        flagUpdate();
-
-        //set starting hands
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(13));//Ace of diamonds to player
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(30));//5 of clubs to player
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(25));//King of diamonds to dealer
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(19));//7 of diamonds to dealer
-        flagUpdate();
-        readFile();
-
-        //wait for player hit
-        while(!wantsHit)Thread.sleep(10);
-        wantsHit=false;
-
-
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(46));//8 of hearts to player
-        flagUpdate();
-        readFile();
-
-        //wait for player hit
-        while(!wantsHit)Thread.sleep(10);
-        wantsHit=false;
-
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(17));//5 of diamonds to player
-        flagUpdate();
-        readFile();
-
-        while (!wantsStand)Thread.sleep(10);
-        wantsStand=false;
-        flagUpdate();
-        readFile();
-        
-        setDealerReveal(true);
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(15));//3 of diamonds to dealer
-
-        instructionPanel.add(Button, BorderLayout.SOUTH);
+	        //reset board
+	        table.hardReset();
+	        this.reset();
+	        
+	        // ""place bet"" to continue
+	        canBet = true;
+	        flagUpdate();
+	        while (canBet) Thread.sleep(10);
+	        flagUpdate();
+	
+	        //set starting hands
+	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(13));//Ace of diamonds to player
+	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(30));//5 of clubs to player
+	        table.getDealer().takeCard(table.getDeck().getSpecificCard(25));//King of diamonds to dealer
+	        table.getDealer().takeCard(table.getDeck().getSpecificCard(17));//5 of diamonds to dealer
+	        flagUpdate();
+	        readFile();
+	
+	        //wait for player hit
+	        while(!wantsHit)Thread.sleep(10);
+	        wantsHit=false;
+	
+	
+	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(46));//8 of hearts to player
+	        flagUpdate();
+	        readFile();
+	
+	        //wait for player hit
+	        while(!wantsHit)Thread.sleep(10);
+	        wantsHit=false;
+	
+	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(17));//5 of diamonds to player
+	        flagUpdate();
+	        readFile();
+	
+	        while (!wantsStand)Thread.sleep(10);
+	        wantsStand=false;
+	        flagUpdate();
+	        readFile();
+	        
+	        setDealerReveal(true);
+	        table.getDealer().takeCard(table.getDeck().getSpecificCard(30));//5 of clubs to dealer
+	
+	        instructionPanel.add(Button, BorderLayout.SOUTH);
+	        while(!done)Thread.sleep(10);;
+		}
 
         return null;
     }

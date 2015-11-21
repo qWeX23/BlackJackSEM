@@ -27,7 +27,7 @@ public class StatsAndBJ extends GameCoordinator {
     
 	private Scanner scan;
 	
-	boolean done = false;
+	boolean done = true;
 	
     public StatsAndBJ(Table table){
 		
@@ -41,7 +41,12 @@ public class StatsAndBJ extends GameCoordinator {
 		public void actionPerformed(ActionEvent e) 
 		{
 			if(e.getSource().equals(closeButton))
+			{
+				flagUpdate();
 				testWindow.dispose();
+				listIndex = 0;
+				done = true;
+			}
 			
 			if(e.getSource().equals(nextButton))
 			{
@@ -82,61 +87,69 @@ public class StatsAndBJ extends GameCoordinator {
 
     @Override
     protected Object doInBackground() throws Exception {
-
-    	//create instructions panel
-		Instructions = new ArrayList<String>();
-		
-		Instructions.add("StatsStep1.txt");
-		Instructions.add("StatsStep2.txt");
-		Instructions.add("StatsStep3.txt");
-		Instructions.add("StatsStep4.txt");
-		
-        testWindow = new JFrame();
-        testWindow.setSize(550, 200);
-        testWindow.setLocationRelativeTo(null);
-        testWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        testWindow.setAlwaysOnTop(true);
-        
-        instructionPanel = new JPanel();
-        instructionPanel.setLayout(new BorderLayout());
-        textArea = new JTextArea(20,60);
-        textArea.setText("Place a bet in the top right to start the tutorial");
-        textArea.setEditable(false);
-        closeButton = new JButton("Close");
-        nextButton = new JButton("Next");
-
-        closeButton.addActionListener(new buttonListener());
-        nextButton.addActionListener(new buttonListener());
-        
-        instructionPanel.add(new JLabel("Basic Tutorial"), BorderLayout.NORTH);
-        instructionPanel.add(textArea, BorderLayout.CENTER);
-        
-        testWindow.add(instructionPanel);
-        testWindow.setVisible(true);
-        
-        table.hardReset();
-        // ""place bet"" to continue
-        canBet = true;
-        flagUpdate();
-        while (canBet) Thread.sleep(10);
-        flagUpdate();
-
-        //set starting hands
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(13));//Ace of diamonds to player
-        table.getPlayer().takeCard(table.getDeck().getSpecificCard(37));//Queen of clubs to player
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(25));//King of diamonds to dealer
-        table.getDealer().takeCard(table.getDeck().getSpecificCard(19));//7 of diamonds to dealer
-        flagUpdate();
-        readFile();
-
-        while (!wantsStand)Thread.sleep(10);
-        wantsStand=false;
-        flagUpdate();
-        readFile();
-        
-        setDealerReveal(true);
-
-        instructionPanel.add(nextButton, BorderLayout.SOUTH);
+    	
+    	while(done)
+    	{	    	
+	    	//create instructions panel
+			Instructions = new ArrayList<String>();
+			
+			Instructions.add("StatsStep1.txt");
+			Instructions.add("StatsStep2.txt");
+			Instructions.add("StatsStep3.txt");
+			
+	        testWindow = new JFrame();
+	        testWindow.setSize(550, 200);
+	        testWindow.setLocationRelativeTo(null);
+	        testWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        testWindow.setAlwaysOnTop(true);
+	        
+	        instructionPanel = new JPanel();
+	        instructionPanel.setLayout(new BorderLayout());
+	        textArea = new JTextArea(20,60);
+	        textArea.setText("Place a bet in the top right to start the tutorial");
+	        textArea.setEditable(false);
+	        closeButton = new JButton("Close");
+	        nextButton = new JButton("Next");
+	
+	        closeButton.addActionListener(new buttonListener());
+	        nextButton.addActionListener(new buttonListener());
+	        
+	        instructionPanel.add(new JLabel("Stats and BlackJack Tutorial"), BorderLayout.NORTH);
+	        instructionPanel.add(textArea, BorderLayout.CENTER);
+	        
+	        testWindow.add(instructionPanel);
+	        testWindow.setVisible(true);
+	        
+	        done = false;
+	        
+	        //reset board
+	        table.hardReset();
+	        this.reset();
+	        
+	        // ""place bet"" to continue
+	        canBet = true;
+	        flagUpdate();
+	        while (canBet) Thread.sleep(10);
+	        flagUpdate();
+	
+	        //set starting hands
+	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(13));//Ace of diamonds to player
+	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(37));//Queen of clubs to player
+	        table.getDealer().takeCard(table.getDeck().getSpecificCard(25));//King of diamonds to dealer
+	        table.getDealer().takeCard(table.getDeck().getSpecificCard(19));//7 of diamonds to dealer
+	        flagUpdate();
+	        readFile();
+	
+	        while (!wantsStand)Thread.sleep(10);
+	        wantsStand=false;
+	        flagUpdate();
+	        readFile();
+	        
+	        setDealerReveal(true);
+	
+	        instructionPanel.add(nextButton, BorderLayout.SOUTH);
+	        while(!done)Thread.sleep(10);;
+		}
 
         return null;
     }
