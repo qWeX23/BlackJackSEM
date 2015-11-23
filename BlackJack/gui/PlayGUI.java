@@ -391,6 +391,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         // add buttons
         Dimension d = new Dimension(57, 57);
         Insets i = new Insets(10, 10, 10, 10);
+        Font f = new Font("Arial", Font.BOLD, 18);
+
         try {
             fiveIcon = ImageIO.read(new File("chipRed_5.png"));
             fiveIcon = fiveIcon.getScaledInstance((int)d.getWidth(), (int)d.getHeight(), Image.SCALE_SMOOTH);
@@ -402,18 +404,30 @@ public class PlayGUI extends JComponent implements ActionListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        five = new JButton(new ImageIcon(fiveIcon));
+        five = new JButton("5", new ImageIcon(fiveIcon));
         five.setBorder(BorderFactory.createEmptyBorder());
+        five.setForeground(Color.white);
+        five.setFont(f);
+        five.setHorizontalTextPosition(JButton.CENTER);
+        five.setVerticalTextPosition(JButton.CENTER);
         five.setContentAreaFilled(false);
         five.addActionListener(this);
 
-        ten = new JButton(new ImageIcon(tenIcon));
+        ten = new JButton("10", new ImageIcon(tenIcon));
         ten.setBorder(BorderFactory.createEmptyBorder());
+        ten.setForeground(Color.white);
+        ten.setFont(f);
+        ten.setHorizontalTextPosition(JButton.CENTER);
+        ten.setVerticalTextPosition(JButton.CENTER);
         ten.setContentAreaFilled(false);
         ten.addActionListener(this);
 
-        twentyFive = new JButton(new ImageIcon(twentyFiveIcon));
+        twentyFive = new JButton("25",new ImageIcon(twentyFiveIcon));
         twentyFive.setBorder(BorderFactory.createEmptyBorder());
+        twentyFive.setForeground(Color.white);
+        twentyFive.setFont(f);
+        twentyFive.setHorizontalTextPosition(JButton.CENTER);
+        twentyFive.setVerticalTextPosition(JButton.CENTER);
         twentyFive.setContentAreaFilled(false);
         twentyFive.addActionListener(this);
 
