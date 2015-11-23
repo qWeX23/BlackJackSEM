@@ -222,7 +222,7 @@ public class PlayGUI extends JComponent implements ActionListener {
         centerStage.add(centerInner, BorderLayout.CENTER);
 
         // add tool bar to center stage
-        centerInner.add(getMenuBar_(), BorderLayout.NORTH);
+        centerStage.add(getMenuBar_(), BorderLayout.NORTH);
         // srt background image
         ImageIcon bg = new ImageIcon("poker-table-layout.jpg");
         i = bg.getImage();
