@@ -32,12 +32,6 @@ public class PlayGUI extends JComponent implements ActionListener {
     // Global Yellow Border
     private static final Border YELLOW_BORDER = BorderFactory.createLineBorder(Color.YELLOW, 7);
 
-    // Format money
-    private DecimalFormat df = new DecimalFormat("#.00");
-
-    // bet currently on the table
-    private int userBet;
-
     // Pieces for GUI
     private JFrame f;
     private Container content;
@@ -50,15 +44,21 @@ public class PlayGUI extends JComponent implements ActionListener {
     private JLabel statsLabel;
     private JLabel dealerStatsLabel;
     private JLabel betAmt;
-    Image fiveIcon, tenIcon, twentyFiveIcon;
+    private Image fiveIcon, tenIcon, twentyFiveIcon;
     private int w, h;
     private Image i;
 
-    Games.GameCoordinator gc;
+    // Game Coordinator Object
+    private Games.GameCoordinator gc;
     // for the current size of the window
-    Dimension d;
+    private Dimension d;
     // PaintImages array list for initial drawn cards
-    ArrayList<PaintImages> paintImages;
+    private ArrayList<PaintImages> paintImages;
+
+    // Menu Bar variables
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem menuItem, quitItem;
 
     /*
     Constructor sets up GUI and initial coordinate variables
@@ -68,12 +68,8 @@ public class PlayGUI extends JComponent implements ActionListener {
         w = width; h = height;
         // array list for initial draw
         paintImages = new ArrayList<>();
+        // bank list
         bankText = "";
-        // stats jlabel
-        statsLabel = new JLabel("", SwingConstants.LEFT);
-        statsLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        dealerStatsLabel = new JLabel("", SwingConstants.LEFT);
-        dealerStatsLabel.setFont(new Font("Serif", Font.BOLD, 20));
         // create GUI
         f = new JFrame();
         f.setResizable(false);
@@ -96,11 +92,6 @@ public class PlayGUI extends JComponent implements ActionListener {
         this.gc = gc;
         gc.execute();
         new UpdateListener().start();
-        // temporary game state label
-        temporaryGameStateLabel= new JLabel("", SwingConstants.CENTER);
-        temporaryGameStateLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        centerInner.add(temporaryGameStateLabel, BorderLayout.NORTH);
-
     }
 
     private class UpdateListener extends Thread {
@@ -161,6 +152,15 @@ public class PlayGUI extends JComponent implements ActionListener {
         Handles button presses
      */
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == menuItem) {
+            WindowController.showPlayGUI=false;
+            WindowController.showMenu=true;
+        }
+
+        if (e.getSource() == quitItem) {
+            System.exit(0);
+        }
+
         if (e.getSource() == hit) {
             System.out.println("HIT");
             gc.requestHit();
@@ -223,6 +223,7 @@ public class PlayGUI extends JComponent implements ActionListener {
 
         // add tool bar to center stage
         centerStage.add(getMenuBar_(), BorderLayout.NORTH);
+
         // srt background image
         ImageIcon bg = new ImageIcon("poker-table-layout.jpg");
         i = bg.getImage();
@@ -245,8 +246,21 @@ public class PlayGUI extends JComponent implements ActionListener {
             }
         };
 
+        // add tableBottom to centerInner
         tableBottom.setLayout(null);
         centerInner.add(tableBottom, BorderLayout.CENTER);
+
+        // temporary game state label
+        temporaryGameStateLabel= new JLabel("", SwingConstants.CENTER);
+        temporaryGameStateLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        centerInner.add(temporaryGameStateLabel, BorderLayout.NORTH);
+        temporaryGameStateLabel.setText("Begin By Placing Bet");
+
+        // stats jlabel
+        statsLabel = new JLabel("", SwingConstants.LEFT);
+        statsLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        dealerStatsLabel = new JLabel("", SwingConstants.LEFT);
+        dealerStatsLabel.setFont(new Font("Serif", Font.BOLD, 20));
 
         // add right bar to east of content border layout
         JPanel rightStage = new JPanel(new BorderLayout());
@@ -299,16 +313,15 @@ public class PlayGUI extends JComponent implements ActionListener {
         creates the menu bar for GUI
      */
     private JMenuBar getMenuBar_() {
-        JMenuBar menuBar;
-        JMenu menu;
-        JMenuItem menuItem;
         menuBar = new JMenuBar();
-        menu = new JMenu("Menu Bar");
+        menu = new JMenu("Options");
         menuBar.add(menu);
         menuItem = new JMenuItem("Menu");
+        menuItem.addActionListener(this);
         menu.add(menuItem);
-        menuItem = new JMenuItem("Quit");
-        menu.add(menuItem);
+        quitItem = new JMenuItem("Quit");
+        quitItem.addActionListener(this);
+        menu.add(quitItem);
         return menuBar;
     }
 

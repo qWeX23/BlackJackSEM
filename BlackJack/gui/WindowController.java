@@ -25,7 +25,6 @@ public class WindowController {
     JButton basic, strats, extras;
     Table table;
     PlayGUI playGui;
-    
     BJGame playBJGame;
     Basics basics;
     Strategies strat;
