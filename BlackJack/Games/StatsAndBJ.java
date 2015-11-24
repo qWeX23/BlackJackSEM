@@ -100,7 +100,7 @@ public class StatsAndBJ extends GameCoordinator {
 	        testWindow = new JFrame();
 	        testWindow.setSize(550, 200);
 	        testWindow.setLocationRelativeTo(null);
-	        testWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        testWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	        testWindow.setAlwaysOnTop(true);
 	        
 	        instructionPanel = new JPanel();
@@ -130,6 +130,7 @@ public class StatsAndBJ extends GameCoordinator {
 	        canBet = true;
 	        flagUpdate();
 	        while (canBet) Thread.sleep(10);
+	        testWindow.setVisible(true);
 	        flagUpdate();
 	
 	        //set starting hands
@@ -141,6 +142,7 @@ public class StatsAndBJ extends GameCoordinator {
 	        readFile();
 	
 	        while (!wantsStand)Thread.sleep(10);
+	        testWindow.setVisible(true);
 	        wantsStand=false;
 	        flagUpdate();
 	        readFile();
@@ -148,7 +150,11 @@ public class StatsAndBJ extends GameCoordinator {
 	        setDealerReveal(true);
 	
 	        instructionPanel.add(nextButton, BorderLayout.SOUTH);
-	        while(!done)Thread.sleep(10);;
+	        while(!done)
+	        {
+	        	Thread.sleep(10);
+		        testWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	        }
 		}
 
         return null;
