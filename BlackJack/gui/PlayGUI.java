@@ -226,7 +226,7 @@ public class PlayGUI extends JComponent implements ActionListener {
         centerStage.add(getMenuBar_(), BorderLayout.NORTH);
 
         // srt background image
-        ImageIcon bg = new ImageIcon("poker-table-layout.jpg");
+        ImageIcon bg = new ImageIcon("blackjack_bg.jpg");
         i = bg.getImage();
         i = i.getScaledInstance(w, h, Image.SCALE_SMOOTH);
         // add another panel to centerInner
