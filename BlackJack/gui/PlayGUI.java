@@ -153,6 +153,7 @@ public class PlayGUI extends JComponent implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuItem) {
+            // Switch to main menu
             WindowController.showPlayGUI=false;
             WindowController.showMenu=true;
         }

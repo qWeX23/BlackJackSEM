@@ -31,9 +31,7 @@ public class WindowController {
     StatsAndBJ stats;
     // other GCs go here
     //
-    //
-    //
-    //
+
     public static boolean showMenu = false, showPlayGUI = false ,playTutoial = false, playGame = false;
 
     // height and width of playGUI
