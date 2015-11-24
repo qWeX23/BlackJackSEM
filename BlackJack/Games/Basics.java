@@ -42,6 +42,7 @@ public class Basics extends GameCoordinator {
 		{
 			flagUpdate();
 			testWindow.dispose();
+			listIndex = 0;
 			done = true;
 		}	
 	}
@@ -90,7 +91,8 @@ public class Basics extends GameCoordinator {
 	        testWindow = new JFrame();
 	        testWindow.setSize(550, 200);
 	        testWindow.setLocationRelativeTo(null);
-	        testWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	        testWindow.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+	        
 	        testWindow.setAlwaysOnTop(true);
 	        
 	        instructionPanel = new JPanel();
@@ -118,6 +120,7 @@ public class Basics extends GameCoordinator {
 	        canBet = true;
 	        flagUpdate();
 	        while (canBet) Thread.sleep(10);
+	        testWindow.setVisible(true);
 	        flagUpdate();
 	
 	        //set starting hands
@@ -130,6 +133,7 @@ public class Basics extends GameCoordinator {
 	
 	        //wait for player hit
 	        while(!wantsHit)Thread.sleep(10);
+	        testWindow.setVisible(true);
 	        wantsHit=false;
 	
 	
@@ -139,6 +143,7 @@ public class Basics extends GameCoordinator {
 	
 	        //wait for player hit
 	        while(!wantsHit)Thread.sleep(10);
+	        testWindow.setVisible(true);
 	        wantsHit=false;
 	
 	        table.getPlayer().takeCard(table.getDeck().getSpecificCard(24));// queen of diamonds to player
@@ -146,6 +151,7 @@ public class Basics extends GameCoordinator {
 	        readFile();
 	
 	        while (!wantsStand)Thread.sleep(10);
+	        testWindow.setVisible(true);
 	        wantsStand=false;
 	        flagUpdate();
 	        readFile();
@@ -154,7 +160,11 @@ public class Basics extends GameCoordinator {
 	        //somehow reveal the dealers play and then also let the user exit
 
 	        instructionPanel.add(Button, BorderLayout.SOUTH);
-	        while(!done)Thread.sleep(10);;
+	        while(!done)
+	        {
+	        	Thread.sleep(10);
+		        testWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	        }
     	}
 
         return null;
