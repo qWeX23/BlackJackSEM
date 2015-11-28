@@ -6,7 +6,6 @@
 package gui;
 
 import backend.Table;
-import sun.awt.WindowIDProvider;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -249,38 +248,20 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameButtonActionPerformed
-        //Temp action performed test
-//            JFrame testWindow = new JFrame();
-//            testWindow.setSize(200, 100);
-//            testWindow.setLocationRelativeTo(null);
-//            testWindow.add(new JLabel("Game will start!!!"));
-//            testWindow.setVisible(false);
-            ///this.setVisible(false);
+
         WindowController.playGame=true;
         WindowController.showPlayGUI=true;
-//
-//        PlayGUI pg = new PlayGUI(tableT);
     }//GEN-LAST:event_gameButtonActionPerformed
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed
-        //Temp action performed test
-//            JFrame testWindow = new JFrame();
-//            testWindow.setSize(200, 100);
-//            testWindow.setLocationRelativeTo(null);
-//            testWindow.add(new JLabel("Tutorial will start!!!"));
-//            testWindow.setVisible(true);
 
         WindowController.playTutoial=true;
 
     }//GEN-LAST:event_learnButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
-        //Temp action performed test
-            JFrame testWindow = new JFrame();
-            testWindow.setSize(200, 100);
-            testWindow.setLocationRelativeTo(null);
-            testWindow.add(new JLabel("Credit!!!"));
-            testWindow.setVisible(true);
+
+         new Credits();
     }//GEN-LAST:event_creditButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
