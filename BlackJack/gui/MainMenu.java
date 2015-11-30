@@ -7,8 +7,6 @@ package gui;
 
 import backend.Table;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 /**
  *
@@ -248,29 +246,23 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void gameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameButtonActionPerformed
-
+        
         WindowController.playGame=true;
         WindowController.showPlayGUI=true;
     }//GEN-LAST:event_gameButtonActionPerformed
 
     private void learnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_learnButtonActionPerformed
-
+        
         WindowController.playTutoial=true;
 
     }//GEN-LAST:event_learnButtonActionPerformed
 
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
-
-         new Credits();
+        new Credits();
     }//GEN-LAST:event_creditButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        //Temp action performed test
-            JFrame testWindow = new JFrame();
-            testWindow.setSize(200, 100);
-            testWindow.setLocationRelativeTo(null);
-            testWindow.add(new JLabel("HELP!!!"));
-            testWindow.setVisible(true);
+        new Help();
     }//GEN-LAST:event_helpButtonActionPerformed
 
 //    /**
