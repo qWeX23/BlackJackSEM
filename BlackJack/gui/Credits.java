@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import static java.awt.Font.BOLD;
 import static java.awt.Font.ITALIC;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,8 +21,9 @@ public class Credits extends JFrame {
     public Credits() {
         super();
         setLayout(new BorderLayout());
-        setExtendedState(MAXIMIZED_BOTH);
+        setSize(1000, 800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         setVisible(true);
         
         JPanel bottomPanel = new JPanel();
@@ -38,7 +38,7 @@ public class Credits extends JFrame {
         JLabel bottomLabel = new JLabel(new ImageIcon("happy.png"));
         bottomPanel.add(bottomLabel);
         
-        Font a = new Font("Serif", BOLD|ITALIC, 100);
+        Font a = new Font("Serif", BOLD|ITALIC, 50);
         JLabel nextLabel = new JLabel("            THE TEAM:            ");
         nextLabel.setFont(a);
         nextLabel.setForeground(new Color(0, 204 ,102));

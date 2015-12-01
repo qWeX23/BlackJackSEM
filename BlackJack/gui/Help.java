@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,9 +18,9 @@ public class Help extends JFrame {
     public Help() {
         super();
         setLayout(new BorderLayout());
-        setSize(1000, 1000);
-        setExtendedState(MAXIMIZED_BOTH);
+        setSize(1000, 800);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         setVisible(true);
         
         JPanel bottomPanel = new JPanel();
